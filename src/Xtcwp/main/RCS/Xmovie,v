@@ -1,0 +1,43 @@
+head     1.1;
+branch   ;
+access   cartley jkc;
+symbols  ;
+locks    ; strict;
+comment  @# @;
+
+
+1.1
+date     92.10.29.14.16.32;  author jstockwe;  state Exp;
+branches ;
+next     ;
+
+
+desc
+@Xmovie
+@
+
+
+
+1.1
+log
+@Initial revision
+@
+text
+@Xmovie.width: 502
+Xmovie.height: 502
+Xmovie*grid1: none
+Xmovie*grid2: none
+Xmovie*nTic1: 1
+Xmovie*nTic2: 1
+Xmovie*label1:
+Xmovie*label2:
+Xmovie*XtcwpAxes.title:
+Xmovie*title: CWP's xmovie
+Xmovie*style: seismic
+Xmovie*labelFont: Rom14
+Xmovie*titleFont: Rom22
+Xmovie*gridColor: #a0a0a0
+Xmovie*axesColor: #000000
+Xmovie*titleColor: #000000
+Xmovie*background: #e7e7e7
+@
