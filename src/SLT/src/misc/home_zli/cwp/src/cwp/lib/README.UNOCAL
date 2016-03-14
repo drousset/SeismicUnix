@@ -1,0 +1,2 @@
+Redefine CLOCK_UNIT to 1000000 in cputime.c, because SUN uses microseconds
+in clock().
