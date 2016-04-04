@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Core Seismic Unix Programs</TITLE>
+<META NAME="description" CONTENT="Core Seismic Unix Programs">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node59.html">
+<LINK REL="previous" HREF="node10.html">
+<LINK REL="up" HREF="sututor.html">
+<LINK REL="next" HREF="node22.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html558"
+  HREF="node22.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html554"
+  HREF="sututor.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html548"
+  HREF="node20.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html556"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html559"
+  HREF="node22.html">Reading and Writing Data</A>
+<B> Up:</B> <A NAME="tex2html555"
+  HREF="sututor.html">sututor</A>
+<B> Previous:</B> <A NAME="tex2html549"
+  HREF="node20.html">Other Help Mechanisms</A>
+ &nbsp <B>  <A NAME="tex2html557"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00700000000000000000">
+Core Seismic Unix Programs</A>
+</H1> 
+
+<P>
+The core of the Seismic Unix program set performs a broad
+collection of tasks, which may be viewed as being common
+to a large collection of research and processing disciplines.
+Many, however, are purely seismic in nature, and are indicated
+as such in the text.
+
+<P>
+Some of these tasks include
+
+<UL>
+<LI>input/output issues
+</LI>
+<LI>data format conversion,
+</LI>
+<LI>setting, viewing, and editing trace header fields
+</LI>
+<LI>viewing SU data,
+</LI>
+<LI>windowing, sorting, and editing the data.
+</LI>
+<LI>general operations,
+</LI>
+<LI>transform and filtering operations,
+</LI>
+<LI>seismic operations on SU data.
+</LI>
+</UL>
+
+<P>
+It is the intent of the chapters that follow is to deal with
+many of these issues.
+Please note that more detailed information about any
+of the programs discussed can be obtained by typing the name
+of the program on the commandline with no arguments,
+<PRE>
+% programname
+</PRE> 
+or by typing:
+<PRE>
+% sudoc programname
+</PRE> 
+to see the selfdoc information.
+
+<P>
+This chapter does not cover all SU programs, but just a sufficient
+number such that a person with some Unix experience can get started
+with the package. Once you get the idea of how SU is used, then 
+you may draw on the help facilities to discover additional programs
+in the package.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html560"
+  HREF="node22.html">Reading and Writing Data to and from Tapes</A>
+<UL>
+<LI><A NAME="tex2html561"
+  HREF="node23.html">The SEGY format and the SU data format</A>
+<LI><A NAME="tex2html562"
+  HREF="node24.html">SEGYREAD - Getting SEG-Y data into SU</A>
+<LI><A NAME="tex2html563"
+  HREF="node25.html">SEG-Y abuses</A>
+<UL>
+<LI><A NAME="tex2html564"
+  HREF="node26.html">DOS SEGY</A>
+<LI><A NAME="tex2html565"
+  HREF="node27.html">Landmark BCM2D format in SEISWORKS</A>
+</UL>
+<LI><A NAME="tex2html566"
+  HREF="node28.html">SEGYWRITE - Writing an SEGY Tape or Diskfile</A>
+<LI><A NAME="tex2html567"
+  HREF="node29.html">SEGYHDRS - make SEG-Y ascii and binary headers for segywrite</A>
+<LI><A NAME="tex2html568"
+  HREF="node30.html">BHEDTOPAR, SETBHED - Editing the binary header file</A>
+<LI><A NAME="tex2html569"
+  HREF="node31.html">SEGDREAD - Other SEG formats</A>
+<LI><A NAME="tex2html570"
+  HREF="node32.html">DT1TOSU - Non-SEG tape formats</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html571"
+  HREF="node33.html">Data Format conversion</A>
+<UL>
+<LI><A NAME="tex2html572"
+  HREF="node34.html">A2B and B2A - ASCII to Binary, Binary to ASCII</A>
+<LI><A NAME="tex2html573"
+  HREF="node35.html">FTNSTRIP - Importing Fortran Data to C</A>
+<LI><A NAME="tex2html574"
+  HREF="node36.html">Going from C to Fortran</A>
+<UL>
+<LI><A NAME="tex2html575"
+  HREF="node37.html">FTNUNSTRIP - convert C binary floats to Fortran style floats </A>
+</UL>
+<LI><A NAME="tex2html576"
+  HREF="node38.html">H2B - Importing 8 Bit Hexidecimal</A>
+<LI><A NAME="tex2html577"
+  HREF="node39.html">RECAST - Changing Binary Data Types</A>
+<LI><A NAME="tex2html578"
+  HREF="node40.html">TRANSP - Transposing Binary Data</A>
+<LI><A NAME="tex2html579"
+  HREF="node41.html">FARITH - Performs simple arithmetic on binary data.</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html580"
+  HREF="node42.html">Trace Header Manipulation</A>
+<UL>
+<LI><A NAME="tex2html581"
+  HREF="node43.html">SUADDHEAD - Adding SU Headers to Binary Data</A>
+<LI><A NAME="tex2html582"
+  HREF="node44.html">SUSTRIP - Strip SU headers SU data</A>
+<LI><A NAME="tex2html583"
+  HREF="node45.html">SUPASTE - Paste SU Headers on to Binary Data</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html584"
+  HREF="node46.html">Byte Swapping</A>
+<UL>
+<LI><A NAME="tex2html585"
+  HREF="node47.html">SWAPBYTES - Swap the Bytes of Binary (non-SU) Data</A>
+<LI><A NAME="tex2html586"
+  HREF="node48.html">SUSWAPBYTES - Swap the Bytes of SU Data</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html587"
+  HREF="node49.html">Setting, Editing, and Viewing Trace Header Fields</A>
+<UL>
+<LI><A NAME="tex2html588"
+  HREF="node50.html">SUADDHEAD - add SU (SEGY-style) Trace Headers</A>
+<LI><A NAME="tex2html589"
+  HREF="node51.html">SUSTRIP and SUPASTE - Strip and Paste SU Headers</A>
+<LI><A NAME="tex2html590"
+  HREF="node52.html">SUKEYWORD - See SU Keywords </A>
+<LI><A NAME="tex2html591"
+  HREF="node53.html">SURANGE - Get the Range of Header Values</A>
+<LI><A NAME="tex2html592"
+  HREF="node54.html">SUGETHW - Get the Values of Header Words in SU Data</A>
+<LI><A NAME="tex2html593"
+  HREF="node55.html">SUSHW - Set the Header Words in SU Data</A>
+<LI><A NAME="tex2html594"
+  HREF="node56.html">Setting Geometry - Converting Observers' Logs to Trace Headers</A>
+<LI><A NAME="tex2html595"
+  HREF="node57.html">SUCHW - Change (or Compute) Header Words in SU Data</A>
+<LI><A NAME="tex2html596"
+  HREF="node58.html">SUEDIT and SUXEDIT - Edit the Header Words in SU Data</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html558"
+  HREF="node22.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html554"
+  HREF="sututor.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html548"
+  HREF="node20.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html556"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html559"
+  HREF="node22.html">Reading and Writing Data</A>
+<B> Up:</B> <A NAME="tex2html555"
+  HREF="sututor.html">sututor</A>
+<B> Previous:</B> <A NAME="tex2html549"
+  HREF="node20.html">Other Help Mechanisms</A>
+ &nbsp <B>  <A NAME="tex2html557"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

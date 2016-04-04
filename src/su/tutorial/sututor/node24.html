@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>SEGYREAD - Getting SEG-Y data into SU</TITLE>
+<META NAME="description" CONTENT="SEGYREAD - Getting SEG-Y data into SU">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node25.html">
+<LINK REL="previous" HREF="node23.html">
+<LINK REL="up" HREF="node22.html">
+<LINK REL="next" HREF="node25.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html641"
+  HREF="node25.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html637"
+  HREF="node22.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html631"
+  HREF="node23.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html639"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html642"
+  HREF="node25.html">SEG-Y abuses</A>
+<B> Up:</B> <A NAME="tex2html638"
+  HREF="node22.html">Reading and Writing Data</A>
+<B> Previous:</B> <A NAME="tex2html632"
+  HREF="node23.html">The SEGY format and</A>
+ &nbsp <B>  <A NAME="tex2html640"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00712000000000000000">
+SEGYREAD - Getting SEG-Y data into SU</A>
+</H2>
+The program <B>segyread</B> is used to convert data from the SEGY format
+to the SU format.
+If you type:
+<PRE>
+% segyread
+</PRE>  
+You will see the selfdoc for this program.
+
+<P>
+When reading a SEGY tape, or datafile, you will need to be aware of
+the byte-order (endian) of the machine you are running on.
+The so-called ``big-endian'' or high-byte IEEE format is found on SGI,
+SUN, IBM RS6000, and all Motorola chip-based systems. 
+The ``little-endian'' or low-byte systems are systems that are based
+on Intel and Dec chips.
+You will also need to know what Unix device your tape drive is.
+
+<P>
+A typical execution of <B>segyread</B> on a big-endian machine, 
+looks like this:
+<PRE>
+% segyread tape=/dev/rmt0 verbose=1 endian=1 &gt; data.su
+</PRE>
+
+<P>
+More often you will have to use the following
+<PRE>
+% segyread tape=/dev/rmt0 verbose=1 endian=1 | segyclean &gt; data.su
+</PRE>
+for reading a tape on a big-endian platform.
+
+<P>
+There are optional header fields (bytes 181-240) in the SEGY trace
+headers. There is no standard for what may go in these fields, so
+many people have items that they place in these fields for their
+own purposes. SU is no exception. There are several parameters 
+used by SU graphics programs that may be stored in these fields.
+The program <B>segyclean</B> zeros out the values of the optional header 
+fields so that SU graphics programs don't become confused by this information.
+
+<P>
+There are additional issues, such as whether or not your device
+is buffered or unbufferd (i.e. 9 track 1/2 reel tape, or 8mm Exabyte)
+tape which may have to be experimented with when you actually
+try to read a tape.
+Also, if you are trying to read a tape on a different system than
+the one it was made on, you may simply not be able to read the tape.
+
+<P>
+The most common problem with reading tapes is matching the density
+that the tape was written in, with the tapedrive that the tape is
+being read on.
+Some systems, for example Silicon Graphics (SGI) systems, have
+many tape devices, which support different hardware configurations
+and tape densities.
+Other systems, most
+notably recent versions of Linux have an improved version of the Unix
+command ``mt'' which has a ``setdensities'' option.
+In either case, it is common for tapes to be made using the default
+settings of a tape drive, or its default densities. 
+
+<P>
+As a last resort in all tape reading situations, it is often possible to
+use the Unix device-to-device copying program <B>dd</B> to make an image
+of the entire tape on disk
+<PRE>
+% dd if=/dev/rmtx of=filename bs=32767 conv=noerror
+</PRE>
+where ``/dev/rmtx'' is replaced with your tapedrive device and ``filename''
+is some file name you choose.
+If this works, then the next step is to try using <B>segyread</B> as above,
+with ``tape=filename.''
+If <B>dd</B> fails, then it is likely that the hardware format
+of your tapedrive is not compatible with your tape.
+
+<P>
+Of course, the best way to prevent tape reading problems is to
+make sure that you talk to the person who is writing the tape
+before they write it. On SGI systems, in particular, there are
+so many possible choices for the type of tape format, that the
+person who is making the tape must have information about the platform
+that the tape is intended to be read on, before they can make a
+tape that is guaranteed to be readable.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html641"
+  HREF="node25.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html637"
+  HREF="node22.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html631"
+  HREF="node23.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html639"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html642"
+  HREF="node25.html">SEG-Y abuses</A>
+<B> Up:</B> <A NAME="tex2html638"
+  HREF="node22.html">Reading and Writing Data</A>
+<B> Previous:</B> <A NAME="tex2html632"
+  HREF="node23.html">The SEGY format and</A>
+ &nbsp <B>  <A NAME="tex2html640"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

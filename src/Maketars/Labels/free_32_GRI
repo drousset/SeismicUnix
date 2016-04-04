@@ -1,0 +1,59 @@
+label for "free" codes diskettes.
+
+
+label for  "free A":
+
+CWP Free Codes Release 32
+24 Jul 1998
+UNIX TAR DISKETTE  1 of 4
+extract via: 
+tar  -xvf  /dev/floppy_device
+Contents: 
+cwp.su.all.32a-d.tar.Z
+
+label for "free B":
+
+CWP Free Codes Release 32
+24 Jul 1998
+UNIX TAR DISKETTE  2 of 4
+extract via: 
+tar  -xvf  /dev/floppy_device
+Contents: 
+cwp.su.all.32e-f.tar.Z
+
+
+label for "free C":
+
+CWP Free Codes Release 32
+24 Jul 1998
+UNIX TAR DISKETTE  3 of 4
+extract via: 
+tar  -xvf  /dev/floppy_device
+Contents: 
+cwp.su.all.32g-i.tar.Z
+
+
+label for "free D":
+
+CWP Free Codes Release 32
+24 Jul 1998
+UNIX TAR DISKETTE  4 of 4
+extract via: 
+tar  -xvf  /dev/floppy_device
+Contents: 
+LEGAL_STATEMENT README*
+untar_me_first sumanual
+
+
+
+
+
+
+Barbara,
+	I forgot the diskettes!  These are the diskettes are to
+go with the GRI Final Report.  Please use fancy labels with GRI logos. 
+Sorry for the inconvenience.
+
+	Thanks in advance,
+			John
+

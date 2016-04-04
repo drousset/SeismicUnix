@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>PostScript Plotting of SU Data</TITLE>
+<META NAME="description" CONTENT="PostScript Plotting of SU Data">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="previous" HREF="node67.html">
+<LINK REL="up" HREF="node60.html">
+<LINK REL="next" HREF="node69.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1210"
+  HREF="node69.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1206"
+  HREF="node60.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1202"
+  HREF="node67.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1208"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1211"
+  HREF="node69.html">Additional PostScript Support</A>
+<B> Up:</B> <A NAME="tex2html1207"
+  HREF="node60.html">X-Windows Plotting Programs</A>
+<B> Previous:</B> <A NAME="tex2html1203"
+  HREF="node67.html">PostScript Plotting of General</A>
+ &nbsp <B>  <A NAME="tex2html1209"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00816000000000000000">
+PostScript Plotting of SU Data</A>
+</H2><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">Just as there are X-Windows codes for plotting SU data, there
+are also codes for making PostScript plots of these data.
+The programs for PostScript graphics are
+</FONT></FONT></FONT></FONT>
+<UL>
+<LI>SUPSCONTOUR - PostScript CONTOUR plot of an SU  data set 
+</LI>
+<LI>SUPSIMAGE - PostScript IMAGE plot of an SU data set
+</LI>
+<LI>SUPSCUBE - PostScript CUBE plot of an SU data set
+</LI>
+<LI>SUPSGRAPH - PostScript GRAPH plot of an SU data set
+</LI>
+<LI>SUPSWIGB - PostScript Bit-mapped WIGgle plot of an SU data set
+</LI>
+<LI>SUPSWIGP - PostScript Polygon-filled WIGgle plot of an SU data set
+</LI>
+<LI>SUPSMAX - PostScript of the MAX, min, or absolute max value on
+each trace of a SU data  set
+</LI>
+</UL><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">We can use <B>suplane</B> data to test each of these programs
+as we did with the X-Windows codes
+</FONT></FONT></FONT></FONT><PRE>
+% suplane &gt; junk.su
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+</FONT></FONT></FONT></FONT><PRE>
+% supscontour &lt; junk.su title="contour" &gt; data1.eps
+% supsimage &lt; junk.su title="image" label1="sec" label2="trace number"  &gt; data2.eps
+% supscube &lt; junk.su  title="cube plot"  &gt; data4.eps
+% supswigb &lt; junk.su title="bitmap wiggle trace"  &gt; data3.eps
+% supswigp &lt; junk.su title="wiggle trace"  &gt; data4.eps
+% supsmovie  &lt; junk.su title="movie"  &gt; data5.eps
+% supsmax &lt; junk.su title="max"  &gt; data5.eps
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+The output files contain Adobe Level 2 Encapsulated PostScript,
+and is compatible with TeX, LaTeX, and many draw tools.
+You will need to use a PostScript previewer, such as GhostScript
+or Ghostview to view these files on the screen.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">Please note again, that programs for which there is a non-SU version,
+have selfdoc information which applies to these codes, as well.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1210"
+  HREF="node69.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1206"
+  HREF="node60.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1202"
+  HREF="node67.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1208"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1211"
+  HREF="node69.html">Additional PostScript Support</A>
+<B> Up:</B> <A NAME="tex2html1207"
+  HREF="node60.html">X-Windows Plotting Programs</A>
+<B> Previous:</B> <A NAME="tex2html1203"
+  HREF="node67.html">PostScript Plotting of General</A>
+ &nbsp <B>  <A NAME="tex2html1209"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

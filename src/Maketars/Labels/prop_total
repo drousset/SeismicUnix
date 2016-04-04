@@ -1,0 +1,24 @@
+label for proprietary codes diskettes.
+
+
+
+
+CWP PROPRIETARY CODE
+10 Dec 1997
+UNIX TAR DISKETTE #1
+extract via: 
+tar  -xvf   /dev/yr_flppy_dev
+Contents:(as compressed tarfiles)
+part 1 of total CWP proprietary
+releases
+
+CWP PROPRIETARY CODE
+10 Dec 1997
+UNIX TAR DISKETTE #2
+extract via: 
+tar  -xvf  /dev/yr_flppy_dev
+Contents:(as compressed tarfiles)
+part 2 of total CWP proprietary
+releases
+
+

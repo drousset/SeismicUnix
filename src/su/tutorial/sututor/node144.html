@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>A quick test</TITLE>
+<META NAME="description" CONTENT="A quick test">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="previous" HREF="node143.html">
+<LINK REL="up" HREF="node141.html">
+<LINK REL="next" HREF="node145.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html2177"
+  HREF="node145.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html2173"
+  HREF="node141.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html2169"
+  HREF="node143.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html2175"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2178"
+  HREF="node145.html">Help Facililties</A>
+<B> Up:</B> <A NAME="tex2html2174"
+  HREF="node141.html">Obtaining and Installing SU</A>
+<B> Previous:</B> <A NAME="tex2html2170"
+  HREF="node143.html">Requirements for installing the</A>
+ &nbsp <B>  <A NAME="tex2html2176"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001530000000000000000">
+A quick test</A>
+</H1><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:suplane"></A><A NAME="1554"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
+Output of the <code>suplane</code> pipeline.</CAPTION>
+<TR><TD><IMG
+ WIDTH="320" HEIGHT="405" BORDER="0"
+ SRC="img13.png"
+ ALT="\begin{figure}\epsfxsize 250pt
+\centerline{\epsffile{suplane.eps}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">Once you have completed the installation, here is a quick test you can make
+to see if you have a functioning seismic system.
+For an X-windows machine, the ``pipeline''
+</FONT></FONT></FONT></FONT><PRE>
+suplane | suxwigb &amp;
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+should produce the graphic shown in Figure&nbsp;<A HREF="node144.html#fig:suplane">A.1</A>. 
+If you have a PostScript printer, then you should get a hard copy version
+with the pipeline
+</FONT></FONT></FONT></FONT><PRE>
+suplane | supswigb | lpr
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+If you have Display PostScript, or a PostScript previewer, then to get
+a screen display, replace the <code>lpr</code> command in the pipeline by
+the command that opens a PostScript file, for example:
+</FONT></FONT></FONT></FONT><PRE>
+suplane | supswigb | ghostview -
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">Another set of test pipelines are
+</FONT></FONT></FONT></FONT><PRE>
+susynlv | supsimage | lpr
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><PRE>
+susynlv | supswigb | ghostview -
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="fig:susynlv"></A><A NAME="1570"></A>
+<TABLE>
+<CAPTION ALIGN="BOTTOM"><STRONG>Figure:</STRONG>
+Output of the <code>susynlv</code> pipeline.</CAPTION>
+<TR><TD><IMG
+ WIDTH="366" HEIGHT="486" BORDER="0"
+ SRC="img14.png"
+ ALT="\begin{figure}\epsfxsize 300pt
+\centerline{\epsffile{susynlv.eps}}\end{figure}"></TD></TR>
+</TABLE>
+</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2177"
+  HREF="node145.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html2173"
+  HREF="node141.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html2169"
+  HREF="node143.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html2175"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2178"
+  HREF="node145.html">Help Facililties</A>
+<B> Up:</B> <A NAME="tex2html2174"
+  HREF="node141.html">Obtaining and Installing SU</A>
+<B> Previous:</B> <A NAME="tex2html2170"
+  HREF="node143.html">Requirements for installing the</A>
+ &nbsp <B>  <A NAME="tex2html2176"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

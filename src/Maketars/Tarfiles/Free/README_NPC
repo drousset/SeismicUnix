@@ -1,0 +1,38 @@
+Tong Chen's Network Parallel Computing application
+--- to be used with the public domain package 'pvm' from Oak Ridge.
+
+
+To get free software from Oak Ridge, just email to 
+
+	netlib@ornl.gov.
+
+In your message simply say
+
+	send pvm_tar from pvm
+
+to get the source code for pvm. You may have to put several pieces
+together.  You can also get the index of the whole network library
+by saying
+
+	send index
+
+The most important difference between the distribution PVM and that
+used by CWP is that the PVM daemon (pvmd) is assumed to be in the
+directory /usr/local/cwp/bin/ on every host, instead of in /tmp/pvm/.
+The location of the daemon is specified in the file ./dist/pvmd.h.
+
+The CWP interface to PVM (written by Dave Hale) is defined in the files 
+pvm.h and pvmcwp.c.
+
+The file pvm.h and an example Makefile are 
+located in the directory  ./cwpinclude
+
+The file pvmcwp.c and an example Makefile are 
+located in the directory  ./cwplib
+
+
+Included on this diskette are:
+
+1) npc.tar.Z  ---- Tong Chen's Network Parallel Computing software
+2) pvm.cwp.tar.Z ----  pvm2.4 from ORNL, modified for use with NPC
+3) pvm2.4.tar.Z ---- A recently acqurired unmodified version of pvm2.4

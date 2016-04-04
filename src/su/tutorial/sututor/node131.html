@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Installation questions</TITLE>
+<META NAME="description" CONTENT="Installation questions">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node132.html">
+<LINK REL="previous" HREF="node130.html">
+<LINK REL="up" HREF="node130.html">
+<LINK REL="next" HREF="node132.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html2021"
+  HREF="node132.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html2017"
+  HREF="node130.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html2011"
+  HREF="node130.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html2019"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2022"
+  HREF="node132.html">Data format questions</A>
+<B> Up:</B> <A NAME="tex2html2018"
+  HREF="node130.html">Answers to Frequently Asked</A>
+<B> Previous:</B> <A NAME="tex2html2012"
+  HREF="node130.html">Answers to Frequently Asked</A>
+ &nbsp <B>  <A NAME="tex2html2020"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001310000000000000000">
+Installation questions</A>
+</H1><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+Complete information about the installation
+process is found in the <I>README</I>
+files supplied with the distribution.
+Here we discuss only some commonly found installation problems.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Question  1</B> &nbsp; 
+I get error messages about missing <TT>fgetpos</TT> and <TT>fsetpos</TT> routines, 
+even though I am using the <I>GCC</I> compiler.
+How do I get around this problem?</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Answer  1</B> &nbsp; 
+<EM>We've seen this problem most often with older 
+<I>SUN OS</I> 4.xx (pre-<I>SOLARIS</I>). 
+These <I>SUN</I> systems may not have the <TT>fgetpos</TT> and <TT>fsetpos</TT> subroutines defined.
+Because these two routines are not currently used in the <FONT SIZE="-1"><I>SU</I></FONT> package,
+we have modified the installation process to permit the
+user to define a compile-time flag to circumvent this problem.
+Please uncomment the <I>OPTC</I> line in the paragraph in Makefile.config
+that looks like this:
+</EM><PRE>
+# For SUN installing with GCC compiler but without GLIBC libraries
+#OPTC = -O -DSUN_A -DSUN
+</PRE><EM>
+and do a "make remake".</DIV><P></P>
+</EM><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Question  2</B> &nbsp; 
+I get error messages regarding missing
+<TT>strtoul</TT>, and/or <TT>strerror</TT> routines, even though I am using
+the <I>GCC</I> compiler. How do I get around this problem?</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Answer  2</B> &nbsp; 
+<EM>Again, this is  most often seen with the older <I>SUN OS</I>. 
+The fix is the same as for the previous question.</DIV><P></P>
+</EM><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><A NAME="SU:q:gcc"><B>Question  3</B></A> &nbsp; 
+Why do I get missing subroutine messages about <I>ANSI C</I> routines?
+Isn't the <I>GCC</I> compiler supposed to be an <I>ANSI</I> compiler?</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Answer  3</B> &nbsp; 
+<EM>The <I>GCC</I> compiler is just that, a compiler. It
+draws on the libraries that are present on the machine.
+If the <I>GNU</I> libraries (this is the "glibc" package)
+have not been installed, then the
+<I>GCC</I> compiler will use the libraries that are native to the machine
+you are running on. Because the four routines listed above are
+not available in the <I>SUN 4. OS</I>, <I>GCC</I> does not recognize them.
+However, installing the <I>GNU</I> libraries will make the <I>GCC</I> compiler
+behave as a full <I>ANSI C</I> compiler.</DIV><P></P>
+</EM><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><A NAME="SU:q:bugs"><B>Question  4</B></A> &nbsp; 
+Why do I get missing subroutine messages about <I>ANSI C</I> routines?
+I can't get the code to compile because my compiler can't find
+"bzero" or "bcopy", how can  I fix this?</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Answer  4</B> &nbsp; 
+<EM>You really shouldn't be having this problem, because
+we try to keep to the ANSI standard, but sometimes old
+style function calls creep in. The problem of rooting these things out
+is exacerbated because many systems still support the old style calls.
+</EM>
+<P>
+<EM>If you have trouble installing
+because your compiler can't find "bcopy" or "bzero"
+make the following replacements.
+</EM>
+<P>
+<EM>Replace all statements of the form
+</EM>
+<P>
+<EM></EM><PRE>
+bzero( a, b);
+</PRE><EM> 
+</EM>
+<P>
+<EM>with statements of the form:
+</EM>
+<P>
+<EM></EM><PRE>
+memset( (void *) a , (int) '\0', b );
+</PRE><EM> 
+</EM>
+<P>
+<EM>Please replace all instances
+of statements of the form of:
+</EM><PRE>
+bcopy ( a , b, c);
+</PRE><EM> 
+with a statements of the form:
+</EM><PRE>
+memcpy( (void *) b, (const void *) a, c );
+</PRE><EM> </DIV><P></P>
+</EM><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2021"
+  HREF="node132.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html2017"
+  HREF="node130.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html2011"
+  HREF="node130.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html2019"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2022"
+  HREF="node132.html">Data format questions</A>
+<B> Up:</B> <A NAME="tex2html2018"
+  HREF="node130.html">Answers to Frequently Asked</A>
+<B> Previous:</B> <A NAME="tex2html2012"
+  HREF="node130.html">Answers to Frequently Asked</A>
+ &nbsp <B>  <A NAME="tex2html2020"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

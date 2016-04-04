@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Reading and Writing Data to and from Tapes</TITLE>
+<META NAME="description" CONTENT="Reading and Writing Data to and from Tapes">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node33.html">
+<LINK REL="previous" HREF="node21.html">
+<LINK REL="up" HREF="node21.html">
+<LINK REL="next" HREF="node23.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html607"
+  HREF="node23.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html603"
+  HREF="node21.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html597"
+  HREF="node21.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html605"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html608"
+  HREF="node23.html">The SEGY format and</A>
+<B> Up:</B> <A NAME="tex2html604"
+  HREF="node21.html">Core Seismic Unix Programs</A>
+<B> Previous:</B> <A NAME="tex2html598"
+  HREF="node21.html">Core Seismic Unix Programs</A>
+ &nbsp <B>  <A NAME="tex2html606"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00710000000000000000">
+Reading and Writing Data to and from Tapes</A>
+</H1>
+
+<P>
+<EM>Reading tapes is more of an art than a science.</EM> This is
+true in general, and is especially true for SU.
+The variability of hardware formats, as well as the variability
+of data format types, makes the creation of a ``general tape
+reading utility'' a challenging, if not impossible, proposition.
+
+<P>
+The following programs are useful for the specialized data input and output
+tasks related to geophysical applications, as well as to the internal
+SU data format
+
+<UL>
+<LI>BHEDTOPAR - convert a Binary tape HEaDer file to PAR file format
+</LI>
+<LI>DT1TOSU - Convert ground-penetrating radar data in the 
+Sensors &amp; Software X.dt1 GPR format to SU format
+</LI>
+<LI>SEGDREAD - read an SEG-D tape 
+</LI>
+<LI>SEGYCLEAN - zero out unassigned portion of header
+</LI>
+<LI>SEGYREAD - read an SEG-Y tape 
+</LI>
+<LI>SEGYHDRS - make SEG-Y ascii and binary headers for segywrite
+</LI>
+<LI>SEGYWRITE - write an SEG-Y tape 
+</LI>
+<LI>SETBHED - SET the fields in a SEGY Binary tape HEaDer file
+</LI>
+<LI>SUADDHEAD - put headers on bare traces and set the tracl and ns fields 
+</LI>
+<LI>SUSTRIP - remove the SEGY headers from the traces 
+</LI>
+<LI>SUPASTE - paste existing SEGY headers on existing data
+</LI>
+</UL>
+
+<P>
+The following programs are useful for general data input, output,
+and data type conversion, which may also find use in tape reading,
+
+<P>
+
+<UL>
+<LI>A2B - convert ascii floats to binary
+</LI>
+<LI>B2A - convert binary floats to ascii
+</LI>
+<LI>FTNSTRIP - convert Fortran floats to C-style floats 
+</LI>
+<LI>H2B - convert 8 bit hexidecimal floats to binary
+</LI>
+<LI>RECAST - RECAST data type (convert from one data type to another)
+</LI>
+<LI>TRANSP - TRANSPose an n1 by n2 element matrix 
+</LI>
+</UL>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html609"
+  HREF="node23.html">The SEGY format and the SU data format</A>
+<LI><A NAME="tex2html610"
+  HREF="node24.html">SEGYREAD - Getting SEG-Y data into SU</A>
+<LI><A NAME="tex2html611"
+  HREF="node25.html">SEG-Y abuses</A>
+<UL>
+<LI><A NAME="tex2html612"
+  HREF="node26.html">DOS SEGY</A>
+<LI><A NAME="tex2html613"
+  HREF="node27.html">Landmark BCM2D format in SEISWORKS</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html614"
+  HREF="node28.html">SEGYWRITE - Writing an SEGY Tape or Diskfile</A>
+<LI><A NAME="tex2html615"
+  HREF="node29.html">SEGYHDRS - make SEG-Y ascii and binary headers for segywrite</A>
+<LI><A NAME="tex2html616"
+  HREF="node30.html">BHEDTOPAR, SETBHED - Editing the binary header file</A>
+<LI><A NAME="tex2html617"
+  HREF="node31.html">SEGDREAD - Other SEG formats</A>
+<LI><A NAME="tex2html618"
+  HREF="node32.html">DT1TOSU - Non-SEG tape formats</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html607"
+  HREF="node23.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html603"
+  HREF="node21.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html597"
+  HREF="node21.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html605"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html608"
+  HREF="node23.html">The SEGY format and</A>
+<B> Up:</B> <A NAME="tex2html604"
+  HREF="node21.html">Core Seismic Unix Programs</A>
+<B> Previous:</B> <A NAME="tex2html598"
+  HREF="node21.html">Core Seismic Unix Programs</A>
+ &nbsp <B>  <A NAME="tex2html606"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

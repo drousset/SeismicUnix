@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Byte Swapping</TITLE>
+<META NAME="description" CONTENT="Byte Swapping">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node49.html">
+<LINK REL="previous" HREF="node42.html">
+<LINK REL="up" HREF="node21.html">
+<LINK REL="next" HREF="node47.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html909"
+  HREF="node47.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html905"
+  HREF="node21.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html899"
+  HREF="node45.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html907"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html910"
+  HREF="node47.html">SWAPBYTES - Swap the</A>
+<B> Up:</B> <A NAME="tex2html906"
+  HREF="node21.html">Core Seismic Unix Programs</A>
+<B> Previous:</B> <A NAME="tex2html900"
+  HREF="node45.html">SUPASTE - Paste SU</A>
+ &nbsp <B>  <A NAME="tex2html908"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00740000000000000000">
+Byte Swapping</A>
+</H1>
+Even the best of human intentions can be circumvented. This is
+the case with the IEEE floating point data format.
+The implementation of the IEEE standard by chip manufacturers
+has resulted in two types of commonly encountered data types.
+These are called ``big-endian'' (high-byte) or ``little-endian''
+(low-byte) types. Little-endian machines are Intel or Dec-based,
+whereas big-endian is every other chip manufacturer.
+
+<P>
+Transporting data (either regular floating point, or SU data)
+requires that the bytes be swapped, in order for the data to
+be read. Two issues are necessary to address. These are
+the issues of swapping the bytes in
+
+<UL>
+<LI>normal floating point data,
+</LI>
+<LI>SU data.
+</LI>
+</UL>
+
+<P>
+Two programs are provided to perform these tasks. These are
+
+<UL>
+<LI>SWAPBYTES - SWAP the BYTES of various  data types
+</LI>
+<LI>SUSWAPBYTES - SWAP the BYTES in SU data to convert data from big endian
+</LI>
+</UL>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html911"
+  HREF="node47.html">SWAPBYTES - Swap the Bytes of Binary (non-SU) Data</A>
+<LI><A NAME="tex2html912"
+  HREF="node48.html">SUSWAPBYTES - Swap the Bytes of SU Data</A>
+</UL>
+<!--End of Table of Child-Links-->
+<BR><HR>
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

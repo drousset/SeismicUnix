@@ -1,0 +1,260 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Windowing by trace header field</TITLE>
+<META NAME="description" CONTENT="Windowing by trace header field">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node76.html">
+<LINK REL="previous" HREF="node74.html">
+<LINK REL="up" HREF="node74.html">
+<LINK REL="next" HREF="node76.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1306"
+  HREF="node76.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1302"
+  HREF="node74.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1296"
+  HREF="node74.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1304"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1307"
+  HREF="node76.html">Time gating</A>
+<B> Up:</B> <A NAME="tex2html1303"
+  HREF="node74.html">SUWIND - window traces</A>
+<B> Previous:</B> <A NAME="tex2html1297"
+  HREF="node74.html">SUWIND - window traces</A>
+ &nbsp <B>  <A NAME="tex2html1305"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00841100000000000000">
+Windowing by trace header field</A>
+</H3><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+In its simplist usage, ``suwind'' permits the user to set
+min and max values of a specific header field 
+</FONT></FONT></FONT></FONT><PRE>
+       key=tracl       Key header word to window on (see segy.h)       
+       min=LONG_MIN    min value of key header word to pass            
+       max=LONG_MAX    max value of key header word to pass
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">For example, windowing suplane data by trace number yields
+</FONT></FONT></FONT></FONT><PRE>
+% suplane  | suwind key=tracl  min=5 max=10 | sugethw key=tracl | more
+
+ tracl=5
+
+ tracl=6
+
+ tracl=7
+
+ tracl=8
+
+ tracl=9
+
+ tracl=10
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+On a large dataset, the ``count'' parameter should be used,
+instead of setting the max value. If you set an explicit
+``max'' value, suwind will have to go through the entire
+dataset to capture all possible traces with values between
+the min and max value, because the program assumes that multiple
+occurrences of trace labeling are possible.
+For example, compare
+</FONT></FONT></FONT></FONT><PRE>
+% suplane ntr=100000 | suwind key=tracl min=5 max=10 | sugethw tracl | more
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+(it's ok to type ``control-c'' after a few minutes) with
+</FONT></FONT></FONT></FONT><PRE>
+%suplane ntr=100000 | suwind key=tracl min=5 count=5 | sugethw tracl | more                                                               
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+where suplane has been set to create 100000 traces in each case.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">More sophisticated windowing, (decimating data, for example)
+</FONT></FONT></FONT></FONT><PRE>
+       j=1             Pass every j-th trace ...                       
+       s=0             ... based at s  (if ((key - s)%j) == 0)         
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"> 
+can be illustrated with suplane data by showing every 2nd trace
+</FONT></FONT></FONT></FONT><PRE>
+% suplane  | suwind key=tracl j=2 | sugethw key=tracl | more
+
+ tracl=2
+
+ tracl=4
+
+ tracl=6
+
+ tracl=8
+
+ tracl=10
+...
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"> 
+or by every 2nd trace, based at 1
+</FONT></FONT></FONT></FONT><PRE>
+% suplane  | suwind key=tracl j=2 s=1 | sugethw key=tracl | more
+
+ tracl=1
+
+ tracl=3
+
+ tracl=5
+
+ tracl=7
+
+ tracl=9         
+
+...
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"> 
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">Accepting and rejecting traces is also possible with ``suwind.''
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT></FONT><PRE>
+...
+       reject=none     Skip traces with specified key values           
+...    accept=none     Pass traces with specified key values(see notes)
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"> 
+The reject parameter is a straightforward rejecting of numbered
+traces.
+For example
+</FONT></FONT></FONT></FONT><PRE>
+suplane | suwind key=tracl reject=3,8,9 | sugethw key=tracl | more
+ tracl=1
+
+ tracl=2
+
+ tracl=4
+
+ tracl=5
+
+ tracl=6
+
+ tracl=7
+
+ tracl=10
+
+ tracl=11
+
+ tracl=12
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"> 
+traces 3, 8, and 9 are rejected.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">The accept option is a bit strange-it does <EM>not</EM> mean
+accept <EM>only</EM>
+the traces on the accept list!  It means accept these traces,   
+even if they would otherwise be rejected.
+For example:
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT></FONT><PRE>
+suplane | suwind key=tracl reject=3,8,9 accept=8 | sugethw key=tracl
+| more
+ tracl=1
+
+ tracl=2
+
+ tracl=4
+
+ tracl=5
+
+ tracl=6
+
+ tracl=7
+
+ tracl=8
+
+ tracl=10
+
+ tracl=11   
+....
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"> 
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">If you want to <EM>accept only </EM> the traces listed, then you
+need to set ``max=0''
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT></FONT><PRE>
+% suplane | suwind key=tracl accept=8 max=0 | sugethw key=tracl | more
+ tracl=8
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"> 
+Only trace 8 is passed in this example.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">The count parameter overrides the accept    
+parameter, so you can't specify count if you want true          
+unconditional acceptance.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">See the demos in $CWPROOT/src/demos/Selecting_Traces for specific
+examples.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1306"
+  HREF="node76.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1302"
+  HREF="node74.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1296"
+  HREF="node74.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1304"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1307"
+  HREF="node76.html">Time gating</A>
+<B> Up:</B> <A NAME="tex2html1303"
+  HREF="node74.html">SUWIND - window traces</A>
+<B> Previous:</B> <A NAME="tex2html1297"
+  HREF="node74.html">SUWIND - window traces</A>
+ &nbsp <B>  <A NAME="tex2html1305"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

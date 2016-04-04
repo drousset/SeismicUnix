@@ -1,0 +1,28 @@
+ SUCCEPSTRUM - Compute the complex CEPSTRUM of a seismic trace 	"
+
+  sucepstrum < stdin > stdout					   	
+
+ Required parameters:						  	
+	none								
+ Optional parameters:						  	
+ sign1=1		sign of real to complex transform		
+ sign2=1		sign of complex to real transform		
+ unwrap=1.0	dphase>= PI/unwrap constitutes a wrap in phase		
+
+ Notes:								
+ The cepstrum is defined as the fourier transform of the the decibel   
+ spectrum, as though it were a time domain signal.			
+
+ CC(t) = FT[ln[T(omega)] ] = FT[ ln|T(omega)| + i phi(omega) ]		
+	T(omega) = |T(omega)| exp(i phi(omega))				
+       phi(omega) = unwrapped phase of T(omega)			
+
+
+
+ Author: John Stockwell, Dec 2010
+   based on sucepstrum.c by:
+ Credits:
+ Balazs Nemeth of Potash Corporation of Saskatchewan Inc. 
+  given to CWP in 2008
+
+

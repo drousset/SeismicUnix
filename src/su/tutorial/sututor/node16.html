@@ -1,0 +1,150 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Getting information about SU programs</TITLE>
+<META NAME="description" CONTENT="Getting information about SU programs">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="previous" HREF="node15.html">
+<LINK REL="up" HREF="node15.html">
+<LINK REL="next" HREF="node17.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html500"
+  HREF="node17.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html496"
+  HREF="node15.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html492"
+  HREF="node15.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html498"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html501"
+  HREF="node17.html">GENDOCS - An Instant</A>
+<B> Up:</B> <A NAME="tex2html497"
+  HREF="node15.html">SUFIND - Find SU</A>
+<B> Previous:</B> <A NAME="tex2html493"
+  HREF="node15.html">SUFIND - Find SU</A>
+ &nbsp <B>  <A NAME="tex2html499"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00651000000000000000">
+Getting information about SU programs</A>
+</H2>
+
+<P>
+A more specific example would be to use
+<B>sufind</B> to look for dip moveout (DMO) programs:
+<PRE>
+% sufind dmo
+
+ SUDMOFK - DMO via F-K domain (log-stretch) method for common-offset gathers
+
+ sudmofk &lt;stdin &gt;stdout cdpmin= cdpmax= dxcdp= noffmix= [...]           
+
+
+ SUDMOTX - DMO via T-X domain (Kirchhoff) method for common-offset gathers
+
+ sudmotx &lt;stdin &gt;stdout cdpmin= cdpmax= dxcdp= noffmix= [optional parms]
+
+ SUDMOVZ - DMO for V(Z) media for common-offset gathers
+
+ sudmovz &lt;stdin &gt;stdout cdpmin= cdpmax= dxcdp= noffmix= [...]     
+
+ SUFDMOD2 - Finite-Difference MODeling (2nd order) for acoustic wave equation
+
+ sufdmod2 &lt;vfile &gt;wfile nx= nz= tmax= xs= zs= [optional parameters]     
+
+
+ SUSTOLT - Stolt migration for stacked data or common-offset gathers    
+
+ sustolt &lt;stdin &gt;stdout cdpmin= cdpmax= dxcdp= noffmix= [...]
+</PRE>
+The last two ``hits'' are spurious,
+but we see that three DMO programs have been found.
+
+<P>
+Now use the self-doc facility to get more information about <B>sudmofk</B>:
+<PRE>
+% sudmofk
+                                                                        
+ SUDMOFK - DMO via F-K domain (log-stretch) method for common-offset gathers
+                                                                        
+ sudmofk &lt;stdin &gt;stdout cdpmin= cdpmax= dxcdp= noffmix= [...]           
+                                                                        
+ Required Parameters:                                                   
+ cdpmin                  minimum cdp (integer number) for which to apply DMO
+ cdpmax                  maximum cdp (integer number) for which to apply DMO
+ dxcdp                   distance between adjacent cdp bins (m) 
+ noffmix                 number of offsets to mix (see notes)           
+                                                                        
+ Optional Parameters:                                                   
+ tdmo=0.0                times corresponding to rms velocities in vdmo (s)
+ vdmo=1500.0             rms velocities corresponding to times in tdmo (m/s)
+ sdmo=1.0                DMO stretch factor; try 0.6 for typical v(z)   
+ fmax=0.5/dt             maximum frequency in input traces (Hz) 
+ verbose=0               =1 for diagnostic print                        
+                                                                        
+ Notes:                                                         
+ Input traces should be sorted into common-offset gathers.  One common- 
+ offset gather ends and another begins when the offset field of the trace
+ headers changes.                                                       
+                                                                        
+ The cdp field of the input trace headers must be the cdp bin NUMBER, NOT
+ the cdp location expressed in units of meters or feet.         
+                                                                        
+ The number of offsets to mix (noffmix) should typically equal the ratio of
+ the shotpoint spacing to the cdp spacing.  This choice ensures that every
+ cdp will be represented in each offset mix.  Traces in each mix will   
+ contribute through DMO to other traces in adjacent cdps within that mix.
+                                                                        
+ The tdmo and vdmo arrays specify a velocity function of time that is   
+ used to implement a first-order correction for depth-variable velocity.
+ The times in tdmo must be monotonically increasing.                    
+                                                                        
+ For each offset, the minimum time at which a non-zero sample exists is 
+ used to determine a mute time.  Output samples for times earlier than this
+ mute time will be zeroed.  Computation time may be significantly reduced
+ if the input traces are zeroed (muted) for early times at large offsets.
+                                                                        
+ Trace header fields accessed:  ns, dt, delrt, offset, cdp.
+</PRE>
+By using <B>sufind</B> in conjunction with the selfdoc feature (or <B>sudoc</B>),
+and choosing smart strings to search on, it is possible to find
+a great deal of detailed information about SU's facilities.
+
+<P>
+<BR><HR>
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

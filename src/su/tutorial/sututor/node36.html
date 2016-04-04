@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Going from C to Fortran</TITLE>
+<META NAME="description" CONTENT="Going from C to Fortran">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node38.html">
+<LINK REL="previous" HREF="node35.html">
+<LINK REL="up" HREF="node33.html">
+<LINK REL="next" HREF="node37.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html791"
+  HREF="node37.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html787"
+  HREF="node33.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html781"
+  HREF="node35.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html789"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html792"
+  HREF="node37.html">FTNUNSTRIP - convert C</A>
+<B> Up:</B> <A NAME="tex2html788"
+  HREF="node33.html">Data Format conversion</A>
+<B> Previous:</B> <A NAME="tex2html782"
+  HREF="node35.html">FTNSTRIP - Importing Fortran</A>
+ &nbsp <B>  <A NAME="tex2html790"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00723000000000000000">
+Going from C to Fortran</A>
+</H2>
+
+<P>
+It is fairly easy to transport data made with Fortran code to C, however,
+it may not be so easy to go the other way. On
+the SGI Power Challenge, it is possible to read a file of C-floats
+called ``infile'' via, open and read statements that look like:
+
+<P>
+<PRE>
+OPEN(99,file='infile',form='system') 
+
+DO i=1,number
+READ(99) tempnumber
+Array(i)=tempnumber
+END DO
+
+CLOSE(99)
+</PRE>
+
+<P>
+The statement "form='system'" does not work on all machines, however,
+as it is likely that this is not standard Fortran.  The general format
+command to read in binary is "form='unformatted'".  This may not work
+on other systems, (for example, SUN). Indeed, it may not be generally
+guaranteed that you can
+read binary files in Fortran that have been created with a C-programs
+(as in SU).
+
+<P>
+If you have problems with binary and the input files are not too
+big you could convert to ASCII (using 'b2a') and use formatted I/0
+
+<P>
+<PRE>
+OPEN(99,file='infile')
+
+DO i=1,number
+READ(99,*) tempnumber
+Array(i)=tempnumber
+END DO
+
+CLOSE(99)
+</PRE>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html793"
+  HREF="node37.html">FTNUNSTRIP - convert C binary floats to Fortran style floats </A>
+</UL>
+<!--End of Table of Child-Links-->
+<BR><HR>
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

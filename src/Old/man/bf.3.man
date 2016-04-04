@@ -1,0 +1,114 @@
+.TH BF 3CWP CWP
+.UC 4
+.SH NAME
+bfdesign, bfhighpass, bflowpass \- 
+design and apply high pass and low pass Butterworth filters
+.SH SYNOPSIS
+.nf
+.B #include """cwp.h"""
+.PP
+.B "void bfdesign (float fpass, float apass, float fstop, float astop, int *npoles, float *f3db)"
+.PP
+.B "bfhighpass (int npoles, float f3db, int n, float p[], float q[])"
+.PP
+.B "bflowpass (int npoles, float f3db, int n, float p[], float q[])"
+.PP
+.fi
+
+.SH DESCRIPTION
+.I Bfdesign
+permits the user to design a bandpass Butterworth filter.
+.PP
+.I Bfhighpass
+applies a high pass Butterworth filter to an array of floats.
+.PP
+.I Bflowpass
+applies a low pass Butterworth filter to an array of floats.
+.PP
+.PP
+These routines are contained in the package .../cwp/lib/bf.c.
+.P
+.I Bfdesign
+computes number of poles and -3 db frequency
+for a low-pass or high-pass Butterworth filter, given a frequency response
+constrained at two frequencies.
+
+.na
+.nf
+(1) Nyquist frequency equals 0.5
+
+(2) The following conditions must be true:
+        (0.0<fpass && fpass<0.5) &&
+        (0.0<fstop && fstop<0.5) &&
+        (fpass!=fstop) &&
+        (0.0<astop && astop<apass && apass<1.0)
+
+(3) if (fpass<fstop)
+                a low-pass filter is assumed
+        else
+                a high-pass filter is assumed
+.na
+.nf
+
+.PP
+.I Bfhighpass
+applies a high pass Butterworth filter, given the output of 
+.I bfdesign
+.PP
+.I Bflowpass
+applies a low pass Butterworth filter, given the output of 
+.I bfdesign
+
+.SH PARAMETERS
+.TP 8
+.I fpass
+is the frequency in the pass band at which amplitude is >= apass
+.TP 8
+.I apass
+is the amplitude in the pass band corresponding to frequency fpass
+.TP 8
+.I fstop
+is the frequency in the stop band at which amplitude is <= astop
+.TP 8
+.I astop
+is the amplitude in the stop band corresponding to frequency fstop.
+.TP 8
+.I npoles
+the number of poles (and zeros); npoles>=0 is required
+.TP 8
+.I f3db
+the 3 db frequency; nyquist = 0.5; 0.0<=f3db<=0.5 is required
+.TP 8
+.I n
+the number of samples in data to be filtered
+.TP 8
+.I p
+the array of floats to be filtered
+.TP 8
+.I q
+the array of filtered floats
+.TP 8
+
+.SH RETURN VALUE
+.I Bfdesign
+returns 
+.I npoles
+the number of poles in the filter and
+.I f3db
+the frequency at which amplitude is sqrt(0.5) (-3 db)
+.PP
+.I Bfhighpass
+returns the array
+.I q[]
+of high pass filtered values.
+.I Bflowpass
+returns the array
+.I q[]
+of low pass filtered values.
+
+.SH SEE ALSO
+antialias(3CWP)
+.SH AUTHOR
+Dave Hale.
+.SH REVISION LEVEL
+1.1 (92/06/11)

@@ -1,0 +1,277 @@
+#! /bin/sh
+# techdemo - A tour of the SU innards
+# Usage : techdemo
+#
+# $Author: jkc $
+# $Source: /data/Cwpdemo/RCS/techdemo,v $
+# $Revision: 1.15 $ ; $Date: 88/11/21 13:51:06 $
+
+cd Techdemo
+
+case $TERM in
+falco)
+	fill=0
+;;
+*)
+	fill=1
+;;
+esac
+
+trap "echo Gc; trap '' 0; exit 1" 0 1 2 3 15
+
+echo "Gac"
+
+clg
+echo ; echo ; echo
+echo "  "
+echo "              *******************************************************"
+echo "              *                                                     *"
+echo "              *        THIS SCRIPT GIVES A TOUR OF THE SU CODE      *"
+echo "              *                                                     *"
+echo "              *                                                     *"
+echo "              *                    Jack K. Cohen                    *"
+echo "              *                                                     *"
+echo "              *                                                     *"
+echo "              *            THE CENTER FOR WAVE PHENOMENA            *"
+echo "              *                 DEPT OF MATHEMATICS                 *"
+echo "              *               COLORADO SCHOOL OF MINES              *"
+echo "              *               GOLDEN, COLORADO 80401                *"
+echo "              *                                                     *"
+echo "              *                                                     *"
+echo "              *******************************************************"
+echo ; echo ; echo
+pause
+clear
+echo ; echo ; echo
+echo "		      The SU processing line had its origins at"
+echo
+echo "		      The Stanford Exploration Project (SEP)"
+echo
+echo "		      under the direction of Jon Claerbout."
+echo ; echo ; echo
+echo "		Professor Claerbout graciously allowed CWP to build on the"
+echo
+echo "		portion of the SEP library known as SY developed by"
+echo
+echo "		Shuki Ronen, Einar Kjartessen and other students at SEP."
+echo ; echo ; echo
+echo "		The CWP branch of the development started during the year"
+echo
+echo "		visit of Shuki Ronen and since then has been carried on by"
+echo
+echo "		Jack Cohen and the students at CWP."
+echo ; echo ; echo
+echo "		The goal at CWP is to build a body of coherent, readable,"
+echo
+echo "		portable code which eventually will provide a test bed"
+echo
+echo "		for academic and other small research groups."
+echo ; echo ; echo
+echo "===>  NOTE: This script involves letting you examine the SU source code in the vi editor."
+echo
+echo "****************************************************************************"
+echo "* IF YOU DO NOT KNOW HOW TO USE vi, ENTER control-C AND ASK FOR HUMAN HELP *"
+echo "*"
+echo "* SIMILARLY, ENTER control-C INSTEAD OF return ANY TIME YOU WANT TO QUIT.  *"
+echo "****************************************************************************"
+echo
+pause
+clear
+echo ; echo ; echo
+echo "===>  The heart of any software package written in C is the include files."
+echo
+echo "===>  The first thing to do is isolate the non-portable portions of the package."
+echo
+echo "===>  Since SU is not the only project at CWP, the most basic include files are not SU-specific."
+echo
+echo "===>  First we look at limits.h:"
+echo
+pause
+vi limits.h
+clear
+echo ; echo ; echo
+echo "===>  Next we examine portdefs.h:"
+echo
+pause
+vi portdefs.h
+clear
+echo ; echo ; echo
+echo "===>  Both limits.h and portdefs.h are included in the basic CWP include file, cwpdefs.h:"
+echo
+pause
+vi cwpdefs.h
+clear
+echo ; echo ; echo
+echo "===>  A makefile takes care of copying these general include files"
+echo
+echo "===>  to the project directories that use them."
+echo ; echo ; echo
+echo "===>  The file, suportdefs.h, handles portability items specific to SU."
+echo
+echo "===>  At present, it only contains an entry for the location of the SU binary,"
+echo
+echo "===>  so we skip over this file."
+echo
+echo "===>  The SU-specific defines are in cwp.h:"
+pause
+vi cwp.h
+clear
+echo ; echo ; echo
+echo "===>  The fundamental SU structure is the SEG-Y header."
+echo
+echo "===>  The acronyms used for the key header fields are contained in the file segy.h:"
+echo
+pause
+vi segy.h
+clear
+echo ; echo ; echo
+echo "===>  SU must access the header fields in the time critical portion of the codes."
+echo
+echo "===>  This rules out linear search--the header field offsets must be known globally."
+echo
+echo "===>  However, these offsets:"
+echo
+echo "===>       1. Vary among different machines"
+echo
+echo "===>       2. Vary in time as local header words are added"
+echo
+echo "===>  The reasons for these variations are"
+echo
+echo "===>  (1) differing numbers of bytes allocated for longs and shorts on different machines and"
+echo
+echo "===>  (2) gaps in the segy structure caused by machine alignment rules."
+echo
+echo "===>  It would be neither user friendly nor robust to leave the offset calculations to the user."
+echo
+echo "===>  Thus in SU, the computation of offset calculations, number of key words and"
+echo
+echo "===>  number of bytes in the header (NOT always 240!) is carried out AUTOMATICALLY under"
+echo
+echo "===>  control of a makefile to be run at SU installation and when local header fields are added."
+echo
+echo
+echo "===>  Thus, we need to automatically construct an include file, hdr.h,"
+echo
+echo "===>  containing the offsets and other \"magic\" numbers describing the header."
+pause
+clear
+echo
+echo "===>  The first step is a Bourne shell script, mkprehdr.sh, that operates on segy.h"
+echo
+echo "===>  with sed and awk to make a template include file, prehdr.h, that starts like this:"
+echo ; echo ; echo
+head -15 prehdr.h
+pause
+clear
+echo
+echo "===>  The Bourne shell script, mkoffs.sh similarly creates a second include file, offsets.h,"
+echo
+echo "===>  that writes lines calling on the macro, OFFSETS(struct, field),"
+echo
+echo "===>  to compute the offsets required in the hdr.h include file."
+echo
+echo "===>  The OFFSETS macro was defined in cwpdefs.h, shown earlier."
+echo
+echo "===>  The offsets.h include file starts like this:"
+echo ; echo ; echo
+head -16 offsets.h
+pause
+clear
+echo
+echo "===>  Finally, the C code, mkhdr.c, writes the hdr.h include file."
+echo
+echo "===>  Here's the code:"
+echo
+pause
+vi mkhdr.c
+clear
+echo ; echo ; echo
+echo "===>  And here is the hdr.h include file:"
+echo
+pause
+vi hdr.h
+clear
+echo ; echo ; echo
+echo "===>  And this is the makefile that controls the hdr.h creation:"
+echo
+pause
+vi makefile
+clear
+echo
+echo
+echo
+echo "===>  Let's look at a few su mains, first suaddhead.c:"
+echo
+pause
+vi suaddhead.c
+clear
+echo ; echo ; echo
+echo "===>  And now suagc.c:"
+echo
+pause
+vi suagc.c
+clear
+echo ; echo ; echo
+echo "===>  Finally, a complex code, sugain.c:"
+echo
+pause
+vi sugain.c
+clear
+echo ; echo ; echo
+echo "===>  Now lets look at a few SU library routines, first the simple selfdoc.c:"
+echo
+pause
+vi selfdoc.c
+clear
+echo ; echo ; echo
+echo "===>  Next the error reporting package, errpkge.c:"
+echo
+pause
+vi errpkge.c
+clear
+echo ; echo ; echo
+echo "===>  And the fundamental trace getting routine, fgettr.c:"
+echo
+pause
+vi fgettr.c
+clear
+echo ; echo ; echo
+echo "===>  Finally, the nitty gritty routine to convert floats from a SEG-Y tape, conv_float.c:"
+echo
+pause
+vi conv_float.c
+clear
+echo ; echo ; echo
+echo "===>  There are several other important subroutine libraries,"
+echo
+echo "===>  we conclude this tour of the SU code with two examples from the vector subroutine library."
+echo
+echo "===>  The purpose of this FORTRAN library is to provide a standard set of routines for use"
+echo
+echo "===>  by conventional compilers.  Although an attempt has been made to write"
+echo
+echo "===>  efficient code (leaning heavily on Jack Dongarra's Linpack/BLAS codes),"
+echo
+echo "===>  these routines are not intended to compete with libraries written for"
+echo
+echo "===>  specific array processors or vectorizing/parallelizing computers."
+echo
+echo "===>  At the time of its construction, no industry standard existed,"
+echo
+echo "===>  so we selected the Floating Point System nomenclature."
+echo
+echo "===>  The vmma.f routine:"
+echo
+pause
+vi vmma.f
+clear
+echo ; echo ; echo
+echo "===>  These routines are all similar, let's do one more, vssq.f:"
+echo
+pause
+vi vssq.f
+
+clear
+echo "Gc"
+
+exit 0

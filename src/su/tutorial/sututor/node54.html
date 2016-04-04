@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>SUGETHW - Get the Values of Header Words in SU Data</TITLE>
+<META NAME="description" CONTENT="SUGETHW - Get the Values of Header Words in SU Data">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node55.html">
+<LINK REL="previous" HREF="node53.html">
+<LINK REL="up" HREF="node49.html">
+<LINK REL="next" HREF="node55.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1012"
+  HREF="node55.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1008"
+  HREF="node49.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1002"
+  HREF="node53.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1010"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1013"
+  HREF="node55.html">SUSHW - Set the</A>
+<B> Up:</B> <A NAME="tex2html1009"
+  HREF="node49.html">Setting, Editing, and Viewing</A>
+<B> Previous:</B> <A NAME="tex2html1003"
+  HREF="node53.html">SURANGE - Get the</A>
+ &nbsp <B>  <A NAME="tex2html1011"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00755000000000000000">
+SUGETHW - Get the Values of Header Words in SU Data</A>
+</H2>
+
+<P>
+Having header fields on data means that there are many additional
+pieces of information to be kept track of, besides just the seismic
+data, themselves. 
+If you read data from a SEGY format tape, <B>segyread</B> will
+preserve the trace header information in the main part of the
+SEGY header.
+We saw above that <B>surange</B> would permit us to see the min
+and max header values over an entire dataset.
+However, we often need to see the values of trace header
+fields, trace by trace, and in an order that we choose.
+
+<P>
+The program <B>sugethw</B> (pronounced, SU get header word)
+is just such a utility. For example, the command sequence:
+<PRE>
+% sugethw &lt; data.su key=keyword1,keyword2,... | more
+</PRE> 
+Will dump the values of each of the header fields specified by
+the keywords listed.
+
+<P>
+A more tangible example, using <B>suplane</B> data input via a pipe <IMG
+ WIDTH="11" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\vert$">
+is
+<PRE>
+% suplane | sugethw key=tracl,tracr,offset,dt,ns | more
+ tracl=1         tracr=1        offset=400          dt=4000         ns=64       
+
+ tracl=2         tracr=2        offset=400          dt=4000         ns=64       
+
+ tracl=3         tracr=3        offset=400          dt=4000         ns=64       
+
+ tracl=4         tracr=4        offset=400          dt=4000         ns=64       
+
+ tracl=5         tracr=5        offset=400          dt=4000         ns=64       
+
+ tracl=6         tracr=6        offset=400          dt=4000         ns=64       
+
+ tracl=7         tracr=7        offset=400          dt=4000         ns=64       
+...
+</PRE> 
+There is no requirement regarding the order of the key words specified,
+or the number of keywords, as long as at least one is specified.
+
+<P>
+If, for some reason, you need to dump the values in binary format,
+an example, again using <B>suplane</B> data
+<PRE>
+% suplane | sugethw key=tracl,tracr,offset,dt,ns output=binary &gt;  file.bin
+</PRE> 
+outputs the values sequentially in order of keyword given, trace
+by trace.
+
+<P>
+For ``geometry setting,'' you may want to use a command sequence
+(again illustrated by piping suplane data into sugethw)
+
+<P>
+<PRE>
+% suplane | sugethw key=tracl,tracr,offset,dt,ns output=geom &gt;  hdrfile
+</PRE> 
+
+<P>
+The contents of  hdrfile may be viewed via
+<PRE>
+% more hdrfile
+
+1 1 400 4000 64
+2 2 400 4000 64 
+3 3 400 4000 64 
+4 4 400 4000 64 
+5 5 400 4000 64 
+...
+</PRE> 
+where only the first 5 rows of data have been shown.
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1012"
+  HREF="node55.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1008"
+  HREF="node49.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1002"
+  HREF="node53.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1010"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1013"
+  HREF="node55.html">SUSHW - Set the</A>
+<B> Up:</B> <A NAME="tex2html1009"
+  HREF="node49.html">Setting, Editing, and Viewing</A>
+<B> Previous:</B> <A NAME="tex2html1003"
+  HREF="node53.html">SURANGE - Get the</A>
+ &nbsp <B>  <A NAME="tex2html1011"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

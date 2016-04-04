@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Help facilities</TITLE>
+<META NAME="description" CONTENT="Help facilities">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node21.html">
+<LINK REL="previous" HREF="node6.html">
+<LINK REL="up" HREF="sututor.html">
+<LINK REL="next" HREF="node11.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html419"
+  HREF="node11.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html415"
+  HREF="sututor.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html409"
+  HREF="node9.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html417"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html420"
+  HREF="node11.html">SUHELP - List the</A>
+<B> Up:</B> <A NAME="tex2html416"
+  HREF="sututor.html">sututor</A>
+<B> Previous:</B> <A NAME="tex2html410"
+  HREF="node9.html">Obtaining and Installing SU</A>
+ &nbsp <B>  <A NAME="tex2html418"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00600000000000000000">
+Help facilities</A>
+</H1>
+
+<P>
+Like the Unix operating system, Seismic Unix may be thought of
+as a language (or meta-language). As with any language, a certain 
+amount of vocabulary must be mastered before useful operations may be
+performed.
+Because the SU contains many programs,
+there must be a ``dictionary'' to permit the inevitable
+questions about vocabulary can be answered.
+It is intended that this manual be the beginning of such a dictionary.
+
+<P>
+SU does not have ``man pages,'' in the same way that
+Unix does, but it does have equivalent internal documentation
+mechanisms.
+There is a general level help utilities which give an
+overview of what is available.
+For information about specific aspects of a particular code,
+the majority of the programs contain a <B>selfdoc</B>--a
+self-documentation paragraph, which will appear when the name
+of the program is typed on the commandline, with no options.
+
+<P>
+(In all of the examples that follow, the percent sign ``%''
+indicates a Unix commandline prompt, and is not typed
+as part of the command.)
+
+<P>
+The following tools provide internal documentation at various
+levels of detail for the main programs, shell scripts, and
+library functions in the package:
+
+<P>
+
+<UL>
+<LI>SUHELP - list the CWP/SU programs and shells
+</LI>
+<LI>SUNAME - get name line from self-docs and location of the source code
+</LI>
+<LI>The selfdoc - is an internal documentation utility which exists
+in the majority of executable mains and shell scripts. The selfdoc
+is seen by typing the name of the program or shell script on the commandline
+with no arguments, and without redirection of input or output via
+pipes <IMG
+ WIDTH="11" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\vert$"> or Unix redirects <IMG
+ WIDTH="20" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$&gt;$"> <IMG
+ WIDTH="20" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4.png"
+ ALT="$&lt;$">,
+For non-executables (library routines) and for programs without the
+selfdoc feature, there is a dummy selfdoc included which provides a
+database of information about those items, as well,
+</LI>
+<LI>SUDOC - get DOC listing for code 
+</LI>
+<LI>SUFIND - get info from self-docs 
+</LI>
+<LI>GENDOCS - generate complete list of selfdocs in latex form 
+</LI>
+<LI>suhelp.html - is an HTML global overview of SU programs by subject
+matter,
+</LI>
+<LI>SUKEYWORD - guide to SU keywords in segy.h 
+</LI>
+</UL>
+
+<P>
+This chapter discusses each of these utilities, with the intent
+of showing the reader how to get from the most general to the
+most specific information about SU programs.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html421"
+  HREF="node11.html">SUHELP - List the Executable Programs and Shell Scripts</A>
+<LI><A NAME="tex2html422"
+  HREF="node12.html">SUNAME - Lists the Name and Short Description of Every Item in SU</A>
+<LI><A NAME="tex2html423"
+  HREF="node13.html">The Selfdoc - Program Self-Documentation</A>
+<LI><A NAME="tex2html424"
+  HREF="node14.html">SUDOC - List the Full Online Documentation of any Item in SU</A>
+<LI><A NAME="tex2html425"
+  HREF="node15.html">SUFIND - Find SU Items with a Given String</A>
+<UL>
+<LI><A NAME="tex2html426"
+  HREF="node16.html">Getting information about SU programs</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html427"
+  HREF="node17.html">GENDOCS - An Instant LaTeX Document Containing All Selfdocs</A>
+<LI><A NAME="tex2html428"
+  HREF="node18.html">Suhelp.html</A>
+<LI><A NAME="tex2html429"
+  HREF="node19.html">Demos</A>
+<LI><A NAME="tex2html430"
+  HREF="node20.html">Other Help Mechanisms</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html419"
+  HREF="node11.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html415"
+  HREF="sututor.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html409"
+  HREF="node9.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html417"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html420"
+  HREF="node11.html">SUHELP - List the</A>
+<B> Up:</B> <A NAME="tex2html416"
+  HREF="sututor.html">sututor</A>
+<B> Previous:</B> <A NAME="tex2html410"
+  HREF="node9.html">Obtaining and Installing SU</A>
+ &nbsp <B>  <A NAME="tex2html418"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

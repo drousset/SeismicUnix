@@ -1,0 +1,100 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>PSBBOX - Changing the BoundingBox</TITLE>
+<META NAME="description" CONTENT="PSBBOX - Changing the BoundingBox">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node71.html">
+<LINK REL="previous" HREF="node69.html">
+<LINK REL="up" HREF="node69.html">
+<LINK REL="next" HREF="node71.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1236"
+  HREF="node71.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1232"
+  HREF="node69.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1226"
+  HREF="node69.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1234"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1237"
+  HREF="node71.html">PSMERGE, MERGE2, MERGE4 -</A>
+<B> Up:</B> <A NAME="tex2html1233"
+  HREF="node69.html">Additional PostScript Support</A>
+<B> Previous:</B> <A NAME="tex2html1227"
+  HREF="node69.html">Additional PostScript Support</A>
+ &nbsp <B>  <A NAME="tex2html1235"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00821000000000000000">
+PSBBOX - Changing the BoundingBox</A>
+</H2><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+For example, create test PostScript data with <B>suplane</B> and
+<B>supswigb</B> via
+</FONT></FONT></FONT></FONT><PRE>
+% suplane | supswigb &gt; junk1.eps
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+where the ``.eps'' extension is chosen as a reminder that this is
+encapsulated PostScript.
+Let's say that there is too much white-space surrounding this figure.
+To fix this problem, we want to change the size of the BoundingBox
+at the top of the file. For example
+</FONT></FONT></FONT></FONT><PRE>
+% more junk1.eps
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+shows the dimensions of the BoundingBox
+</FONT></FONT></FONT></FONT><PRE>
+%!PS-Adobe-2.0 EPSF-1.2
+%%DocumentFonts:
+%%BoundingBox: 13 31 603 746  
+...
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+We could manually edit this, but with <B>psbbox</B> we can
+type:
+</FONT></FONT></FONT></FONT><PRE>
+% psbbox &lt; junk1.eps llx=40 lly=80 urx=590 ury=730 &gt; junk2.eps
+Original:  %%BoundingBox: 13 31 603 746
+Updated:   %%BoundingBox: 40 80 590 730 
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+to yield a smaller BoundingBox, with correspondingly less white
+space.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<BR><HR>
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

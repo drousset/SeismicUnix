@@ -1,0 +1,13 @@
+label for proprietary codes diskette.
+
+
+
+
+CWP PROPRIETARY CODE
+22 March 1994
+UNIX TAR DISKETTE
+extract via: 
+tar -xvf /dev/yr_flppy_dev
+Contents:(as compressed tarfiles)
+sudgast (U30 preliminary release)
+

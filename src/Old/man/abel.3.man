@@ -1,0 +1,109 @@
+.TH ABEL 3CWP CWP
+.UC 4
+.SH NAME
+abel, abelalloc, abelfree \- compute the discrete Abel transform 
+of a function
+.SH SYNOPSIS
+.nf
+.B #include """cwp.h"""
+.PP
+.B "void abel (void *at, float f[], float g[])"
+.PP
+.B "void *abelalloc (int n)"
+.PP
+.B "void abelfree (void *at)"
+.PP
+.fi
+
+.SH DESCRIPTION
+.I Abel
+computes the Abel transform
+.PP
+.I Abelalloc
+allocates and returns a (void) pointer to an Abel transformer
+.PP
+.I Abelfree
+frees an Abel transformer.
+.PP
+.PP
+These routines are contained in the package .../cwp/lib/abel.c.
+.P
+The
+.I Abel
+transform is defined by:
+.na
+.nf
+
+                 Infinity
+        g(y) = 2 Integral dx f(x)/sqrt(1-(y/x)^2)
+                   |y|
+
+.fi
+.ad
+Linear interpolation is used to define the continuous function f(x)
+corresponding to the samples in f[].  The first sample f[0] corresponds
+to f(x=0) and the sampling interval is assumed to be 1.  Therefore, the
+input samples correspond to 0 <= x <= n-1.  Samples of f(x) for x > n-1
+are assumed to be zero.  These conventions imply that 
+.na
+.nf
+
+        g[0] = f[0] + 2*f[1] + 2*f[2] + ... + 2*f[n-1].
+
+.fi
+.ad
+
+.SH PARAMETERS
+.TP 8
+.I n
+is the number of samples to transform
+.TP 8
+.I at
+is a void pointer returned by abelalloc(int n)
+.TP 8
+.I f[]
+is the input function being transformed
+.TP 8
+.I g[]
+is the output of the Abel transform
+
+.SH RETURN VALUE
+.I Abelalloc
+returns a (void) pointer 
+.I *at
+to an Abel transformer
+.PP
+.I Abel
+returns the array 
+.I g[]
+of Abel transformed values.
+
+.SH USAGE EXAMPLE
+.na
+.nf
+        int i,n=N;
+        float f[N],g[N],e[N],k,dk;
+        void *at;
+
+        at = abelalloc(n);
+        abel(at,f,g);
+        for (i=0,k=0.0; i<n; ++i,k+=dk) {
+                g[i] = ...
+			...
+        }
+        abelfree(at);
+.fi
+.ad
+.SH REFERENCES
+References:
+Hansen, E. W., 1985, Fast Hankel transform algorithm:  IEEE Trans. on
+Acoustics, Speech and Signal Processing, v. ASSP-33, n. 3, p. 666-671.
+(Beware of several errors in the equations in this paper!)
+
+.SH SEE ALSO
+hankel(3CWP)
+.SH AUTHORS
+Lydia Deng and Dave Hale.
+.SH REVISION LEVEL
+1.2 (92/06/11)
+

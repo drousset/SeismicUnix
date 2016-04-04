@@ -1,0 +1,282 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>SUDOC - List the Full Online Documentation of any Item in SU</TITLE>
+<META NAME="description" CONTENT="SUDOC - List the Full Online Documentation of any Item in SU">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node15.html">
+<LINK REL="previous" HREF="node13.html">
+<LINK REL="up" HREF="node10.html">
+<LINK REL="next" HREF="node15.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html477"
+  HREF="node15.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html473"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html467"
+  HREF="node13.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html475"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html478"
+  HREF="node15.html">SUFIND - Find SU</A>
+<B> Up:</B> <A NAME="tex2html474"
+  HREF="node10.html">Help facilities</A>
+<B> Previous:</B> <A NAME="tex2html468"
+  HREF="node13.html">The Selfdoc - Program</A>
+ &nbsp <B>  <A NAME="tex2html476"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00640000000000000000">
+SUDOC - List the Full Online Documentation of any Item in SU</A>
+</H1>
+As has been alluded to in previous sections of this manual, there
+is a database of selfdocumentation items that is available for each
+main program, shell script, and library function.
+This database exists in the directory $CWPROOT/src/doc  and is
+composed of all of the selfdocumentation paragraphs of all of the
+items in SU.
+
+<P>
+Because not all all items with selfdocs are executable, an additional
+mechanism is necessary to see the selfdoc for these items.
+For example, information about the Abel transform routines, located in
+$CWPROOT/src/cwp/lib/abel.c (on the system at CWP,
+ CWPROOT=/usr/local/cwp) is obtained via
+
+<P>
+<PRE>
+% sudoc abel
+
+In /usr/local/cwp/src/cwp/lib: 
+ABEL - Functions to compute the discrete ABEL transform:
+
+abelalloc	allocate and return a pointer to an Abel transformer
+abelfree 	free an Abel transformer
+abel		compute the Abel transform
+
+Function prototypes:
+void *abelalloc (int n);
+void abelfree (void *at);
+void abel (void *at, float f[], float g[]);
+
+Input:
+ns		number of samples in the data to be transformed
+f[]		array of floats, the function being transformed
+
+Output:
+at		pointer to Abel transformer returned by abelalloc(int n)
+g[]		array of floats, the transformed data returned by 
+		abel(*at,f[],g[])
+
+Notes:
+The Abel transform is defined by:
+
+	         Infinity
+	g(y) = 2 Integral dx f(x)/sqrt(1-(y/x)^2)
+		   |y|
+
+Linear interpolation is used to define the continuous function f(x)
+corresponding to the samples in f[].  The first sample f[0] corresponds
+to f(x=0) and the sampling interval is assumed to be 1.  Therefore, the
+input samples correspond to 0 &lt;= x &lt;= n-1.  Samples of f(x) for x &gt; n-1
+are assumed to be zero.  These conventions imply that 
+
+	g[0] = f[0] + 2*f[1] + 2*f[2] + ... + 2*f[n-1]
+
+References:
+Hansen, E. W., 1985, Fast Hankel transform algorithm:  IEEE Trans. on
+Acoustics, Speech and Signal Processing, v. ASSP-33, n. 3, p. 666-671.
+(Beware of several errors in the equations in this paper!)
+
+Authors:  Dave Hale and Lydia Deng, Colorado School of Mines, 06/01/90
+</PRE>
+
+<P>
+Here we see that sudoc 
+shows information about the routines, including their names, usage
+information (via the function prototype), some theory of how the
+items are used, published references, and finally the author's names.
+
+<P>
+As an another example, type:
+<PRE>
+% sugabor
+                                                                        
+ SUGABOR -  Outputs a time-frequency representation of seismic data via
+                the Gabor transform-like multifilter analysis technique 
+                presented by Dziewonski, Bloch and  Landisman, 1969.    
+                                                                        
+    sugabor &lt;stdin &gt;stdout [optional parameters]                        
+                                                                        
+ Required parameters:                                                   
+        if dt is not set in header, then dt is mandatory                
+                                                                        
+ Optional parameters:                                                   
+        dt=(from header)        time sampling interval (sec)            
+        fmin=0                  minimum frequency of filter array (hz)  
+        fmax=NYQUIST            maximum frequency of filter array (hz)  
+        beta=3.0                ln[filter peak amp/filter endpoint amp] 
+        band=.05*NYQUIST        filter bandwidth (hz)                   
+        alpha=beta/band^2       filter width parameter                  
+        verbose=0               =1 supply additional info               
+                                                                        
+ Notes: This program produces a muiltifilter (as opposed to moving window)
+ representation of the instantaneous amplitude of seismic data in the   
+ time-frequency domain. (With Gaussian filters, moving window and multi-
+ filter analysis can be shown to be equivalent.)                        
+                                                                        
+ An input trace is passed through a collection of Gaussian filters      
+ to produce a collection of traces, each representing a discrete frequency
+ range in the input data. For each of these narrow bandwidth traces, a 
+ quadrature trace is computed via the Hilbert transform. Treating the narrow
+ bandwidth trace and its quadrature trace as the real and imaginary parts
+ of a "complex" trace permits the "instantaneous" amplitude of each
+ narrow bandwidth trace to be compute. The output is thus a representation
+ of instantaneous amplitude as a function of time and frequency.        
+                                                                        
+ Some experimentation with the "band" parameter may necessary to produce
+ the desired time-frequency resolution. A good rule of thumb is to run 
+ sugabor with the default value for band and view the image. If band is
+ too big, then the t-f plot will consist of stripes parallel to the frequency
+ axis. Conversely, if band is too small, then the stripes will be parallel
+ to the time axis.                                                      
+                                                                        
+ Examples:                                                              
+    suvibro | sugabor | suximage                                        
+    suvibro | sugabor | suxmovie n1= n2= n3=                            
+     (because suxmovie scales it's amplitudes off of the first panel,  
+     may have to experiment with the wclip and bclip parameters        
+    suvibro | sugabor | supsimage | ... ( your local PostScript utility)
+</PRE> 
+
+<P>
+If you compare this output to the output from typing:
+
+<P>
+<PRE>
+% sudoc sugabor 
+</PRE>
+
+<P>
+You will see the same output as above, preceeded by
+a line showing the location of the source code,
+and followed by the additional paragraphs: 
+<PRE>
+ Credits:
+
+	CWP: John Stockwell, Oct 1994
+
+ Algorithm:
+
+ This programs takes an input seismic trace and passes it
+ through a collection of truncated Gaussian filters in the frequency
+ domain.
+
+ The bandwidth of each filter is given by the parameter "band". The
+ decay of these filters is given by "alpha", and the number of filters
+ is given by nfilt = (fmax - fmin)/band. The result, upon inverse
+ Fourier transforming, is that nfilt traces are created, with each
+ trace representing a different frequency band in the original data.
+
+ For each of the resulting bandlimited traces, a quadrature (i.e. pi/2
+ phase shifted) trace is computed via the Hilbert transform. The 
+ bandlimited trace constitutes a "complex trace", with the bandlimited
+ trace being the "real part" and the quadrature trace being the 
+ "imaginary part".  The instantaneous amplitude of each bandlimited
+ trace is then computed by computing the modulus of each complex trace.
+ (See Taner, Koehler, and Sheriff, 1979, for a discussion of complex
+ trace analysis.
+
+ The final output for a given input trace is a map of instantaneous
+ amplitude as a function of time and frequency.
+
+ This is not a wavelet transform, but rather a redundant frame
+ representation.
+
+ References: 	Dziewonski, Bloch, and Landisman, 1969, A technique
+		for the analysis of transient seismic signals,
+		Bull. Seism. Soc. Am., 1969, vol. 59, no.1, pp.427-444.
+
+		Taner, M., T., Koehler, F., and Sheriff, R., E., 1979,
+		Complex seismic trace analysis, Geophysics, vol. 44,
+		pp.1041-1063.
+
+ 		Chui, C., K.,1992, Introduction to Wavelets, Academic
+		Press, New York.
+
+ Trace header fields accessed: ns, dt, trid, ntr
+ Trace header fields modified: tracl, tracr, d1, f2, d2, trid, ntr
+</PRE>
+
+<P>
+There is more information in the <B>sudoc</B> listing,
+than in the selfdoc listing. The selfdoc is intended as a quick reference,
+whereas the sudoc listing can provide additional information
+that we do not necessarily want to see everytime we are, say, simply wanting
+to know what a particular parameter means, for example.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html477"
+  HREF="node15.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html473"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html467"
+  HREF="node13.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html475"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html478"
+  HREF="node15.html">SUFIND - Find SU</A>
+<B> Up:</B> <A NAME="tex2html474"
+  HREF="node10.html">Help facilities</A>
+<B> Previous:</B> <A NAME="tex2html468"
+  HREF="node13.html">The Selfdoc - Program</A>
+ &nbsp <B>  <A NAME="tex2html476"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

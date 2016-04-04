@@ -1,0 +1,188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Editing SU Data</TITLE>
+<META NAME="description" CONTENT="Editing SU Data">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="previous" HREF="node72.html">
+<LINK REL="up" HREF="node59.html">
+<LINK REL="next" HREF="node74.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1268"
+  HREF="node74.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1264"
+  HREF="node59.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1260"
+  HREF="node72.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1266"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1269"
+  HREF="node74.html">SUWIND - window traces</A>
+<B> Up:</B> <A NAME="tex2html1265"
+  HREF="node59.html">Viewing SU Data in</A>
+<B> Previous:</B> <A NAME="tex2html1261"
+  HREF="node72.html">Trace Picking Utilities</A>
+ &nbsp <B>  <A NAME="tex2html1267"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00840000000000000000">
+Editing SU Data</A>
+</H1><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">Once the data are read in, and the headers are set properly,
+then there will often be manipulation and data editing issues
+to be dealt with.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">It is often necessary to perform tasks of varying so
+that data may be
+</FONT></FONT></FONT></FONT>
+<UL>
+<LI>windowed,
+</LI>
+<LI>sorted,
+</LI>
+<LI>truncated,
+</LI>
+<LI>tapered,
+</LI>
+<LI>zeroed,
+</LI>
+<LI>made uniform in number of samples,
+</LI>
+<LI>concatenated,
+</LI>
+</UL><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+which are dataset editing issues.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">This section, therefore will deal with the following programs
+</FONT></FONT></FONT></FONT>
+<UL>
+<LI>SUWIND - window traces by key word 
+</LI>
+<LI>SUSORT - sort on any segy header keywords 
+</LI>
+<LI>SURAMP - Linearly taper the start and/or end of traces to zero. 
+</LI>
+<LI>SUTAPER - Taper the edge traces of a data panel to zero. 
+</LI>
+<LI>SUNULL - create null (all zeroes) traces 
+</LI>
+<LI>SUZERO - zero-out data within a time window
+</LI>
+<LI>SUKILL - zero out traces 
+</LI>
+<LI>SUMUTE - mute above (or below) a user-defined polygonal curve with
+the distance along the curve specified by key header word
+</LI>
+<LI>SUVLENGTH - Adjust variable length traces to common length 
+</LI>
+<LI>SUVCAT - append one data set to another (trace by trace)
+</LI>
+</UL><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+which provide a variety of trace editing utilities.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html1270"
+  HREF="node74.html">SUWIND - window traces by key word</A>
+<UL>
+<LI><A NAME="tex2html1271"
+  HREF="node75.html">Windowing by trace header field</A>
+<LI><A NAME="tex2html1272"
+  HREF="node76.html">Time gating</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1273"
+  HREF="node77.html">SUSORT - sort on any SEGY header keywords</A>
+<LI><A NAME="tex2html1274"
+  HREF="node78.html">SURAMP and SUTAPER - tapering data values</A>
+<LI><A NAME="tex2html1275"
+  HREF="node79.html">SUKILL, SUZERO, SUNULL, SUMUTE - zeroing out data</A>
+<UL>
+<LI><A NAME="tex2html1276"
+  HREF="node80.html">SUKILL - zero out traces</A>
+<LI><A NAME="tex2html1277"
+  HREF="node81.html">SUNULL - Create a Panel of Empty traces</A>
+<LI><A NAME="tex2html1278"
+  HREF="node82.html">SUZERO - zero-out data within a time window</A>
+<LI><A NAME="tex2html1279"
+  HREF="node83.html">SUMUTE - Surgically Muting Data</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1280"
+  HREF="node84.html">SUVCAT and CAT - Concatenating Data</A>
+<LI><A NAME="tex2html1281"
+  HREF="node85.html">SUVLENGTH - Adjust Variable Length Traces to a Common Number of Samples</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1268"
+  HREF="node74.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1264"
+  HREF="node59.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1260"
+  HREF="node72.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1266"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1269"
+  HREF="node74.html">SUWIND - window traces</A>
+<B> Up:</B> <A NAME="tex2html1265"
+  HREF="node59.html">Viewing SU Data in</A>
+<B> Previous:</B> <A NAME="tex2html1261"
+  HREF="node72.html">Trace Picking Utilities</A>
+ &nbsp <B>  <A NAME="tex2html1267"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

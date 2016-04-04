@@ -1,0 +1,47 @@
+label for proprietary codes diskettes.
+
+
+
+
+CWP PROPRIETARY CODE
+9 Nov 1994
+UNIX TAR DISKETTE #1
+extract via: 
+tar -xvf /dev/yr_flppy_dev
+Contents:(as compressed tarfiles)
+part 1 of total CWP proprietary
+releases
+
+CWP PROPRIETARY CODE
+9 Nov 1994
+UNIX TAR DISKETTE #2
+extract via: 
+tar -xvf /dev/yr_flppy_dev
+Contents:(as compressed tarfiles)
+part 2 of total CWP proprietary
+releases
+
+
+
+label for free codes diskette.
+
+
+CWP Free Codes
+9 Nov 1994
+UNIX TAR DISKETTE #1
+extract via: 
+tar -xvf /dev/raw_flppy_dev
+Contents:
+CWP/SU free package
+
+
+
+CWP Free Codes
+9 Nov 1994
+UNIX TAR DISKETTE #2
+extract via: 
+tar -xvf /dev/raw_flppy_dev
+Contents:(as compressed tarfiles)
+3Rd Party, Su Manual, Selfdocs
+
+

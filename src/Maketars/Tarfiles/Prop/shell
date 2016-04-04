@@ -1,0 +1,21 @@
+#! /bin/sh
+
+TARLIST1="README* U-NUMBERS \
+trielas.tar.Z \
+suvel2df.tar.Z \
+suwfrayt3d.tar.Z \
+refaniso.tar.Z"
+
+
+while [ 1 -eq 1 ]
+do
+	echo "Disk set $j:"
+	echo
+	pause after putting the disk in drive
+
+	echo "Making Disk #1:"
+	echo
+
+	tar -cvf /dev/fd0 $TARLIST1
+	pause after replacing the disk that is in the drive with a new one
+done

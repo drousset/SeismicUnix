@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Setting, Editing, and Viewing Trace Header Fields</TITLE>
+<META NAME="description" CONTENT="Setting, Editing, and Viewing Trace Header Fields">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="previous" HREF="node46.html">
+<LINK REL="up" HREF="node21.html">
+<LINK REL="next" HREF="node50.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html943"
+  HREF="node50.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html939"
+  HREF="node21.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html935"
+  HREF="node48.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html941"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html944"
+  HREF="node50.html">SUADDHEAD - add SU</A>
+<B> Up:</B> <A NAME="tex2html940"
+  HREF="node21.html">Core Seismic Unix Programs</A>
+<B> Previous:</B> <A NAME="tex2html936"
+  HREF="node48.html">SUSWAPBYTES - Swap the</A>
+ &nbsp <B>  <A NAME="tex2html942"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00750000000000000000">
+Setting, Editing, and Viewing Trace Header Fields</A>
+</H1>
+
+<P>
+Seismic data can have a large number of parameters associated with
+it. In SU data (following the example of the SEG-Y format) the
+values of these parameters are stored in the header fields
+of the traces.
+There are a number of programs which access the header fields
+allowing you to set, view, and modify those fields for a variety
+of purposes.
+
+<P>
+The tasks of interest are
+
+<UL>
+<LI>adding SU headers,
+</LI>
+<LI>stripping SU headers off of data and then pasting them back on, 
+</LI>
+<LI>identifying SU keywords,
+</LI>
+<LI>viewing the range of SU header values,
+</LI>
+<LI>setting specified SU header fields,
+</LI>
+<LI>computing a third header field from the values of two given fields,
+</LI>
+<LI>getting the values of header fields,
+</LI>
+<LI>editing specific header fields,
+</LI>
+</UL>
+all of which are necessary, and may come under the heading of 
+``geometry setting.''
+
+<P>
+The following list of programs will be discussed in this chapter
+
+<UL>
+<LI>SUADDHEAD - put headers on bare traces and set the tracl and ns fields 
+</LI>
+<LI>SUSTRIP - remove the SEGY headers from the traces 
+</LI>
+<LI>SUPASTE - paste existing SEGY headers on existing data
+</LI>
+<LI>SUKEYWORD - guide to SU keywords in segy.h 
+</LI>
+<LI>SURANGE - get max and min values for non-zero header entries
+</LI>
+<LI>SUSHW - Set one or more Header Words using trace number, mod and
+integer divide to compute the header word values or input the header word
+values from a file 
+</LI>
+<LI>SUCHW - Change Header Word using one or two header word fields 
+</LI>
+<LI>SUGETHW - Get the Header Word(s) in SU Data
+</LI>
+<LI>SUEDIT - examine segy diskfiles and edit headers 
+</LI>
+<LI>SUXEDIT - examine segy diskfiles and edit headers 
+</LI>
+</UL>
+
+<P>
+Some of these items were discussed in the previous section, but 
+for completeness, let's recap what these programs do,
+with a bit more information.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html945"
+  HREF="node50.html">SUADDHEAD - add SU (SEGY-style) Trace Headers</A>
+<LI><A NAME="tex2html946"
+  HREF="node51.html">SUSTRIP and SUPASTE - Strip and Paste SU Headers</A>
+<LI><A NAME="tex2html947"
+  HREF="node52.html">SUKEYWORD - See SU Keywords </A>
+<LI><A NAME="tex2html948"
+  HREF="node53.html">SURANGE - Get the Range of Header Values</A>
+<LI><A NAME="tex2html949"
+  HREF="node54.html">SUGETHW - Get the Values of Header Words in SU Data</A>
+<LI><A NAME="tex2html950"
+  HREF="node55.html">SUSHW - Set the Header Words in SU Data</A>
+<LI><A NAME="tex2html951"
+  HREF="node56.html">Setting Geometry - Converting Observers' Logs to Trace Headers</A>
+<LI><A NAME="tex2html952"
+  HREF="node57.html">SUCHW - Change (or Compute) Header Words in SU Data</A>
+<LI><A NAME="tex2html953"
+  HREF="node58.html">SUEDIT and SUXEDIT - Edit the Header Words in SU Data</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html943"
+  HREF="node50.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html939"
+  HREF="node21.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html935"
+  HREF="node48.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html941"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html944"
+  HREF="node50.html">SUADDHEAD - add SU</A>
+<B> Up:</B> <A NAME="tex2html940"
+  HREF="node21.html">Core Seismic Unix Programs</A>
+<B> Previous:</B> <A NAME="tex2html936"
+  HREF="node48.html">SUSWAPBYTES - Swap the</A>
+ &nbsp <B>  <A NAME="tex2html942"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

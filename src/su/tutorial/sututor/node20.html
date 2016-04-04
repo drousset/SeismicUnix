@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Other Help Mechanisms</TITLE>
+<META NAME="description" CONTENT="Other Help Mechanisms">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="previous" HREF="node19.html">
+<LINK REL="up" HREF="node10.html">
+<LINK REL="next" HREF="node21.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html546"
+  HREF="node21.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html542"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html538"
+  HREF="node19.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html544"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html547"
+  HREF="node21.html">Core Seismic Unix Programs</A>
+<B> Up:</B> <A NAME="tex2html543"
+  HREF="node10.html">Help facilities</A>
+<B> Previous:</B> <A NAME="tex2html539"
+  HREF="node19.html">Demos</A>
+ &nbsp <B>  <A NAME="tex2html545"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00690000000000000000">
+Other Help Mechanisms</A>
+</H1>
+
+<P>
+
+<UL>
+<LI>SUKEYWORD - List SU Header Field Key Words
+Many of the SU programs that draw on header field information
+have the parameter ``key='' listed in their selfdocs, with
+the reference to ``keywords.''
+The SU keywords are based on the SEGY trace header fields.
+(This will be explained later, in the sections on tape reading
+and data format conversion.)
+To find out what these header fields are, and what they stand
+for in the SU data type, type:
+ <PRE> 
+% sukeyword -o
+</PRE> 
+Please see Appendix&nbsp;<A HREF="node145.html#app:B">B</A> for the full text of the output. 
+See Section&nbsp;<A HREF="node52.html#sukeyword">3.5.3</A> for details on the usage of this
+command.  A number of programs sort data, window data, and display data
+by making use of the values in the SU header fields, making
+<B>sukeyword</B> an oft-used utility.
+
+<P>
+</LI>
+<LI>The essence of <FONT SIZE="-1"><I>SU</I></FONT> usage is the construction of shell programs
+  to carry out coordinated data processing.  The <B>su/examples</B>
+  directory contains a number of such programs.  By the way, the terms
+  ``shell scripts,'' ``shell programs,'' ``shell files,'' and
+  ``shells,'' are used interchangeably in the UNIX literature.
+
+<P>
+</LI>
+<LI>The <B>faq</B> directory contains a growing collection of answers
+  to frequently asked questions about <FONT SIZE="-1"><I>SU</I></FONT>, including detailed information
+  about tape reading, data format questions, and seismic processing tips.
+
+<P>
+</LI>
+<LI>The text book, <EM>Theory of Seismic Imaging</EM>, by John A.
+  Scales, Samizdat Press, 1994, is available in our anonymous ftp site
+  in both 300 and 400 dots per inch PostScript format:
+  <code>pub/samizdat/texts/imaging/imaging_300dpi.ps.Z</code> or
+  <code>imaging_400dpi.ps.Z</code>.  The exercises in this text make
+  extensive use of <FONT SIZE="-1"><I>SU</I></FONT>.
+</LI>
+</UL>
+
+<P>
+You should not hesitate to look at the source code itself.
+Section&nbsp;<A HREF="node139.html#SU:sec:template">10.2</A> explains the key <FONT SIZE="-1"><I>SU</I></FONT> coding idioms.
+Please let us know if you discover any inconsistencies between the
+source and our documentation of it.  We also welcome suggestions for
+improving the comments and style of our codes.  The main
+strength of the SU package is that it is a source-code product.
+No commercial package can give you the source code, for obvious
+reasons.
+
+<P>
+You may direct email to:  john@dix.mines.edu 
+if you have comments, questions, suggestions regarding <FONT SIZE="-1"><I>SU</I></FONT>,
+or if you have your own <FONT SIZE="-1"><I>SU</I></FONT>-style programs to contribute
+to the package.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html546"
+  HREF="node21.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html542"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html538"
+  HREF="node19.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html544"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html547"
+  HREF="node21.html">Core Seismic Unix Programs</A>
+<B> Up:</B> <A NAME="tex2html543"
+  HREF="node10.html">Help facilities</A>
+<B> Previous:</B> <A NAME="tex2html539"
+  HREF="node19.html">Demos</A>
+ &nbsp <B>  <A NAME="tex2html545"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

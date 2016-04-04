@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Data Format conversion</TITLE>
+<META NAME="description" CONTENT="Data Format conversion">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node42.html">
+<LINK REL="previous" HREF="node22.html">
+<LINK REL="up" HREF="node21.html">
+<LINK REL="next" HREF="node34.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html747"
+  HREF="node34.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html743"
+  HREF="node21.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html737"
+  HREF="node32.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html745"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html748"
+  HREF="node34.html">A2B and B2A -</A>
+<B> Up:</B> <A NAME="tex2html744"
+  HREF="node21.html">Core Seismic Unix Programs</A>
+<B> Previous:</B> <A NAME="tex2html738"
+  HREF="node32.html">DT1TOSU - Non-SEG tape</A>
+ &nbsp <B>  <A NAME="tex2html746"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00720000000000000000">
+Data Format conversion</A>
+</H1>
+
+<P>
+Often, it is necessary to transfer data from other systems, or
+to input data which may be in a variety of formats. A number
+of tools and tricks are available in SU for dealing with these
+issues.
+
+<P>
+The following programs may be useful for such conversion problems
+
+<UL>
+<LI>A2B - convert ascii floats to binary
+</LI>
+<LI>B2A - convert binary floats to ascii
+</LI>
+<LI>FTNSTRIP - convert Fortran floats to C-style floats 
+</LI>
+<LI>FTNUNSTRIP - convert C-style floats to Fortran-style floats
+</LI>
+<LI>H2B - convert 8 bit hexidecimal floats to binary
+</LI>
+<LI>RECAST - RECAST data type (convert from one data type to another)
+</LI>
+<LI>TRANSP - TRANSPose an n1 by n2 element matrix 
+</LI>
+<LI>FARITH - File ARITHmetic - perform simple arithmetic with binary files 
+</LI>
+<LI>SUADDHEAD - put headers on bare traces and set the tracl and ns fields 
+</LI>
+<LI>SUSTRIP - remove the SEGY headers from the traces 
+</LI>
+<LI>SUPASTE - paste existing SEGY headers on existing data
+</LI>
+<LI>SWAPBYTES - SWAP the BYTES of various  data types
+</LI>
+<LI>SUSWAPBYTES - SWAP the BYTES in SU data to convert data from big endian
+to little endian byte order, and vice versa
+</LI>
+</UL>
+
+<P>
+The purpose of this section is to discuss situations where these
+programs may be used.
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html749"
+  HREF="node34.html">A2B and B2A - ASCII to Binary, Binary to ASCII</A>
+<LI><A NAME="tex2html750"
+  HREF="node35.html">FTNSTRIP - Importing Fortran Data to C</A>
+<LI><A NAME="tex2html751"
+  HREF="node36.html">Going from C to Fortran</A>
+<UL>
+<LI><A NAME="tex2html752"
+  HREF="node37.html">FTNUNSTRIP - convert C binary floats to Fortran style floats </A>
+</UL>
+<BR>
+<LI><A NAME="tex2html753"
+  HREF="node38.html">H2B - Importing 8 Bit Hexidecimal</A>
+<LI><A NAME="tex2html754"
+  HREF="node39.html">RECAST - Changing Binary Data Types</A>
+<LI><A NAME="tex2html755"
+  HREF="node40.html">TRANSP - Transposing Binary Data</A>
+<LI><A NAME="tex2html756"
+  HREF="node41.html">FARITH - Performs simple arithmetic on binary data.</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html747"
+  HREF="node34.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html743"
+  HREF="node21.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html737"
+  HREF="node32.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html745"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html748"
+  HREF="node34.html">A2B and B2A -</A>
+<B> Up:</B> <A NAME="tex2html744"
+  HREF="node21.html">Core Seismic Unix Programs</A>
+<B> Previous:</B> <A NAME="tex2html738"
+  HREF="node32.html">DT1TOSU - Non-SEG tape</A>
+ &nbsp <B>  <A NAME="tex2html746"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

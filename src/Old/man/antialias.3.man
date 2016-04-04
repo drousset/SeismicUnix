@@ -1,0 +1,61 @@
+.TH ANTIALIAS 3CWP CWP
+.UC 4
+.SH NAME
+antialias \-  an anti-aliasing filter for use before subsampling data
+.SH SYNOPSIS
+.nf
+.B #include """cwp.h"""
+.PP
+.B "void antialias (float frac, int phase, int n, float p[], float q[])"
+.PP
+.fi
+
+.SH DESCRIPTION
+The 
+.I antialias
+filter is a recursive (Butterworth) filter. For zero-phase anti-alias
+filtering, the filter is applied forwards and backwards.
+
+.PP
+This routine is contained in the package .../cwp/lib/antialias.c.
+
+.SH PARAMETERS
+.TP 8
+.I frac
+is the current sampling interval/future interval (should be <= 1)
+.TP 8
+.I phase
+is the phase flag (=0 for zero-phase filter; =1 for minimum-phase filter)
+.TP 8
+.I n
+is the number of samples
+.TP 8
+.I p
+is the array[n] of input samples
+
+.SH RETURN VALUE
+The program returns
+.I q
+the array[n] of output (anti-alias filtered) samples
+
+.SH USAGE EXAMPLE
+.na
+.nf
+        int n=N;
+        float p[N],q[N];
+        frac=DT1/DT2;  /* frac < 1   i.e.  DT1 < DT2 */
+        phase=PH;      /* PH = 0 => zero phase ; PH = 1 => minimum phase */
+	
+              ...
+
+        antialias(frac, phase, n, *p, *q);
+.fi
+.ad
+.SH
+
+.SH SEE ALSO
+bf(3CWP), bfdesign(3CWP), bfhighpass(3CWP), bflowpass(3CWP)
+.SH AUTHOR
+Dave Hale.
+.SH REVISION LEVEL
+1.1 (92/06/11)

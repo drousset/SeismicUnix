@@ -1,0 +1,62 @@
+#! /bin/sh
+
+TARLIST1="README* bdmo.tar.Z \
+ccco.tar.Z \
+cshot.tar.Z \
+cwell.tar.Z \
+cxz.tar.Z \
+cxzco.tar.Z \
+cxzcs.tar.Z \
+cz.tar.Z \
+dmoir3d.tar.Z \
+dmolevan.tar.Z \
+dmovz.tar.Z \
+elas.tar.Z \
+extminti.tar.Z \
+extrap.tar.Z \
+extrapvti.tar.Z \
+fct.tar.Z \
+fctanis.tar.Z"
+
+
+TARLIST2="gbmod.tar.Z \
+invvxz.tar.Z \
+miggbzo3d.tar.Z \
+miggbzoan.tar.Z \
+rays.tar.Z \
+sudgast.tar.Z \
+sudipdivcor.tar.Z \
+sudmofkcw.tar.Z \
+sudmotivz.tar.Z \
+suinvvxz_m.tar.Z \
+suinvvxzco.tar.Z \
+suinvvxzcs.tar.Z \
+sumiggbzo.tar.Z \
+sumigpsti.tar.Z \
+susynlvfti.tar.Z \
+tifowler.tar.Z \
+tihaledmo.tar.Z \
+tricxzco.tar.Z \
+triso.tar.Z"
+
+echo "Disk set $j:"
+echo
+pause after putting the disk in drive
+
+echo "Making Disk #1:"
+echo
+/usr/bin/setfdprm /dev/fd0 1440/1440
+/usr/bin/fdformat /dev/fd0
+
+tar -cvf /dev/fd0 $TARLIST1
+
+pause after replacing the disk that is in the drive with a new one
+
+echo "Making Disk #2:"
+echo
+
+/usr/bin/setfdprm /dev/fd0 1440/1440
+/usr/bin/fdformat /dev/fd0
+
+tar -cvf /dev/fd0 $TARLIST2
+

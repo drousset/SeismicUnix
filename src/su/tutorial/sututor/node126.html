@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>A simple SU processing flow example</TITLE>
+<META NAME="description" CONTENT="A simple SU processing flow example">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node127.html">
+<LINK REL="previous" HREF="node125.html">
+<LINK REL="up" HREF="node125.html">
+<LINK REL="next" HREF="node127.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1959"
+  HREF="node127.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1955"
+  HREF="node125.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1949"
+  HREF="node125.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1957"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1960"
+  HREF="node127.html">Executing shell programs</A>
+<B> Up:</B> <A NAME="tex2html1956"
+  HREF="node125.html">Understanding and using SU</A>
+<B> Previous:</B> <A NAME="tex2html1950"
+  HREF="node125.html">Understanding and using SU</A>
+ &nbsp <B>  <A NAME="tex2html1958"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION001221000000000000000"></A><A NAME="SU:sec:Plotshell"></A>
+<BR>
+A simple SU processing flow example
+</H2><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+Most <FONT SIZE="-1"><I>SU</I></FONT> programs read from standard input and write to standard output.
+Therefore, one can build complex processing flows by simply
+connecting <FONT SIZE="-1"><I>SU</I></FONT> programs with UNIX pipes.
+Most flows will end with one of the <FONT SIZE="-1"><I>SU</I></FONT> plotting programs.
+Because typical processing flows are lengthy and involve many
+parameter settings, it is convenient to put the <FONT SIZE="-1"><I>SU</I></FONT> commands in a
+shell file.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><B>Remark</B>: All the UNIX shells, Bourne (sh), Cshell (csh),
+Korn (ksh), ..., include a programming language.  In this document,
+we exclusively use the Bourne shell programming language.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">Our first example is a simple shell program called <B>Plot</B>.
+The numbers in square brackets at the
+end of the lines in the following listing are not part of the
+shell program--we added them as keys to the discussion
+that follows the listing.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT></FONT><PRE>
+#! /bin/sh                                              [1]
+# Plot:   Plot a range of cmp gathers
+# Author: Jane Doe
+# Usage:  Plot cdpmin cdpmax
+
+data=$HOME/data/cmgs                                    [2]
+
+# Plot the cmp gather.
+suwind &lt;$data key=cdp min=$1 max=$2 |                   [3]
+sugain tpow=2 gpow=.5 |
+suximage f2=0 d2=1 \                                    [4]
+        label1="Time (sec)" label2="Trace number" \
+        title="CMP Gathers $1 to $2" \
+        perc=99 grid1=solid &amp;                           [5]
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+<B>Discussion of numbered lines:</B>
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<OL>
+<LI>The symbol <code>#</code> is the comment symbol--anything on the remainder
+of the line is not executed by the UNIX shell.  The combination
+<code>#!</code> is an exception to this rule: the shell uses the
+file name following
+this symbol as a path to the program that is to execute the remainder
+of the shell program.
+
+<P>
+</LI>
+<LI>The author apparently intends that the shell be edited
+if it is necessary to change the data set--she made this easier to
+do by introducing the shell variable <code>data</code> and assigning
+to it the full pathname of the data file.  The assigned value
+of this parameter is accessed as <code>$data</code> within the shell program.
+The parameter <code>$HOME</code> appearing as the first component of the file
+path name is a UNIX maintained environment variable
+containing the path of the user's home directory.  In general,
+there is no need for the data to be located in the user's home
+directory, but the user would need ``read permission'' on the
+data file for the shell program to succeed.
+
+<P>
+<B>WARNING!</B>  Spaces are significant to the UNIX shell--it  uses
+them to parse command lines.  So despite all we've learned about
+making code easy to read, do <EM>not</EM> put spaces next to the <code>=</code> symbol.
+(Somewhere around 1977, one author's (Jack) first attempt to learn UNIX was
+derailed for several weeks by making this mistake.)
+
+<P>
+</LI>
+<LI>The main pipeline of this shell code selects a certain set of cmp gathers with <B>suwind</B>, gains this subset with <B>sugain</B> and pipes the result into
+the plotting program <B>suximage</B>.  As indicated in the Usage comment,
+the cmp range is specified by command line arguments.
+Within the shell program, these arguments are
+referenced as <code>$1</code>, <code>$2</code> (i.e., first argument, second argument).
+
+<P>
+</LI>
+<LI>The lines within the <B>suximage</B> command are continued by the
+backslash escape character.
+
+<P>
+<B>WARNING!</B>  The line continuation backslash must be the <EM>final</EM>
+character on the line--an invisible space or tab following the
+backslash is one of the most common and frustrating bugs in UNIX
+shell programming.
+
+<P>
+</LI>
+<LI>The final <code>&amp;</code> in the shell program
+puts the plot window into ``background'' so we can continue
+working in our main window.  This is the X-Windows
+usage--the <code>&amp;</code> should <EM>not</EM> be used with the analogous PostScript
+plotting programs (e.g., supsimage).  For example, with <B>supsimage</B> in
+place of <B>suximage</B>, the <code>&amp;</code> might be replaced by <code>| lpr</code>.
+
+<P>
+The <FONT SIZE="-1"><I>SU</I></FONT> plotting programs are special--their self-doc doesn't
+show all the parameters accepted.  For example, most of the parameters
+accepted by <B>suximage</B>
+are actually specified in the self-documentation for the
+generic <FONT SIZE="-1"><I>CWP</I></FONT> plotting program <B>ximage</B>.  This apparent flaw
+in the self-documentation is actually a side
+effect of a key <FONT SIZE="-1"><I>SU</I></FONT> design decision.  The <FONT SIZE="-1"><I>SU</I></FONT> graphics
+programs call on the generic plotting programs to do the actual plotting.
+The alternative design was to have tuned graphics programs
+for various seismic applications.
+Our design choice keeps things simple,
+but it implies a basic limitation in <FONT SIZE="-1"><I>SU</I></FONT>'s graphical capabilities.
+
+<P>
+The plotting programs are the vehicle for presenting your results.
+Therefore you should take the time to carefully look
+through the self-documentation for <EM>both</EM> the ``<FONT SIZE="-1"><I>SU</I></FONT> jacket'' programs
+(<B>suximage</B>, <B>suxwigb</B>, ...) and the generic plotting
+programs (<B>ximage</B>, <B>xwigb</B>, ...).
+
+<P>
+</LI>
+</OL><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1959"
+  HREF="node127.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1955"
+  HREF="node125.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1949"
+  HREF="node125.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1957"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1960"
+  HREF="node127.html">Executing shell programs</A>
+<B> Up:</B> <A NAME="tex2html1956"
+  HREF="node125.html">Understanding and using SU</A>
+<B> Previous:</B> <A NAME="tex2html1950"
+  HREF="node125.html">Understanding and using SU</A>
+ &nbsp <B>  <A NAME="tex2html1958"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>SUCHW - Change (or Compute) Header Words in SU Data</TITLE>
+<META NAME="description" CONTENT="SUCHW - Change (or Compute) Header Words in SU Data">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node58.html">
+<LINK REL="previous" HREF="node56.html">
+<LINK REL="up" HREF="node49.html">
+<LINK REL="next" HREF="node58.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1048"
+  HREF="node58.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1044"
+  HREF="node49.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1038"
+  HREF="node56.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1046"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1049"
+  HREF="node58.html">SUEDIT and SUXEDIT -</A>
+<B> Up:</B> <A NAME="tex2html1045"
+  HREF="node49.html">Setting, Editing, and Viewing</A>
+<B> Previous:</B> <A NAME="tex2html1039"
+  HREF="node56.html">Setting Geometry - Converting</A>
+ &nbsp <B>  <A NAME="tex2html1047"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00758000000000000000">
+SUCHW - Change (or Compute) Header Words in SU Data</A>
+</H2>
+
+<P>
+Some header fields such as ``cdp'' may be computed from existing
+header fields. The program <B>suchw</B> provides this functionality.
+
+<P>
+From the selfdoc of <B>suchw</B>,
+<PRE>
+...
+ key1=cdp,...	output key(s) 						
+ key2=cdp,...	input key(s) 						
+ key3=cdp,...	input key(s)  						
+
+...
+ a=0,...		overall shift(s)				
+ b=1,...		scale(s) on first input key(s) 			
+ c=0,...		scale on second input key(s) 			
+ d=1,...		overall scale(s)
+</PRE>
+we can see that this program uses the values of 2 header fields,
+key2 and key3, to compute a third, key3, via the equation 
+<PRE>
+...
+	val(key1) = (a + b * val(key2) + c * val(key3)) / d		
+..
+</PRE>
+
+<P>
+For example, to shift the values of the  cdp header field by a constant
+amount, say <IMG
+ WIDTH="29" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$-1$">
+<PRE>
+% suchw &lt;data &gt;outdata a=-1					
+</PRE>
+or to add a constant amount, say 1000, to a header field, say ``tracr,''
+<PRE>
+% suchw key1=tracr key2=tracr a=1000 &lt;infile &gt;outfile		
+</PRE>
+
+<P>
+Another possible example is that of setting the ``gx'' 
+field by summing the offset and ``sx'' (shot point) values
+using <B>sushw</B> and then computing the  ``cdp'' field
+by averaging the ``sx'' and ``gx.''
+Here, we are using the
+actual cpp locations as the cdp numbers, instead of
+the conventional 1, 2, 3, ... enumeration
+<PRE>
+% suchw &lt;indata key1=gx key2=offset key3=sx b=1 c=1 |			
+% suchw key1=cdp key2=gx key3=sx b=1 c=1 d=2 &gt;outdata			
+</PRE>
+
+<P>
+It is possible to perform both operations in one call via:
+<PRE>
+%  suchw&lt;indata key1=gx,cdp key2=offset,gx key3=sx,sx b=1,1 c=1,1 d=1,2 &gt;outdata
+</PRE>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1048"
+  HREF="node58.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1044"
+  HREF="node49.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1038"
+  HREF="node56.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1046"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1049"
+  HREF="node58.html">SUEDIT and SUXEDIT -</A>
+<B> Up:</B> <A NAME="tex2html1045"
+  HREF="node49.html">Setting, Editing, and Viewing</A>
+<B> Previous:</B> <A NAME="tex2html1039"
+  HREF="node56.html">Setting Geometry - Converting</A>
+ &nbsp <B>  <A NAME="tex2html1047"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

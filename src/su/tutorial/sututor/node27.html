@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Landmark BCM2D format in SEISWORKS</TITLE>
+<META NAME="description" CONTENT="Landmark BCM2D format in SEISWORKS">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="previous" HREF="node26.html">
+<LINK REL="up" HREF="node25.html">
+<LINK REL="next" HREF="node28.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html677"
+  HREF="node28.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html673"
+  HREF="node25.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html669"
+  HREF="node26.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html675"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html678"
+  HREF="node28.html">SEGYWRITE - Writing an</A>
+<B> Up:</B> <A NAME="tex2html674"
+  HREF="node25.html">SEG-Y abuses</A>
+<B> Previous:</B> <A NAME="tex2html670"
+  HREF="node26.html">DOS SEGY</A>
+ &nbsp <B>  <A NAME="tex2html676"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00713200000000000000">
+Landmark BCM2D format in SEISWORKS</A>
+</H3>
+
+<P>
+Commercial seismic software can be sources of non-standard SEGY formats.
+In addition to non-standard usage of the official header fields, 
+commercial variations on SEGY may employ definitions of parts of the 
+optional SEGY header fields.
+
+<P>
+A remedy for this problem, supplied by Matthias Imhoff of Virginia Tech,
+is a remapping feature in segyread, which allows nonstandard fields
+to be remapped into compatible locations in the SU header.  The
+options remap=  allows the destination SU header fields to be specified,
+while byte= specifies the byte location in the SEGY trace header, and
+its data type.
+
+<P>
+For the example of Landmark BCM2D format, header fields 73 and 77 are
+floats, but these are int's in the standard SEGY format and are hence
+also int's in the SU format. BCM2D also has to header fields set as longs
+at bytes 181 and 185. The following usage of segyread 
+
+<P>
+<PRE>
+% segyread tape=... remap=d1,d2,gelev,selev byte=73f,77f,181l,185l &gt; ...
+</PRE>
+
+<P>
+The floats at 73 and 77 are mapped to d1 and d2, while the long integers at 
+181 and 185 are mapped to gelev and selev, which are integers in the
+SU format. By selecting compatible destination fields, no precision
+is lost.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html677"
+  HREF="node28.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html673"
+  HREF="node25.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html669"
+  HREF="node26.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html675"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html678"
+  HREF="node28.html">SEGYWRITE - Writing an</A>
+<B> Up:</B> <A NAME="tex2html674"
+  HREF="node25.html">SEG-Y abuses</A>
+<B> Previous:</B> <A NAME="tex2html670"
+  HREF="node26.html">DOS SEGY</A>
+ &nbsp <B>  <A NAME="tex2html676"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

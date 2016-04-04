@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The Selfdoc - Program Self-Documentation</TITLE>
+<META NAME="description" CONTENT="The Selfdoc - Program Self-Documentation">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node14.html">
+<LINK REL="previous" HREF="node12.html">
+<LINK REL="up" HREF="node10.html">
+<LINK REL="next" HREF="node14.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html465"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html461"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html455"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html463"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html466"
+  HREF="node14.html">SUDOC - List the</A>
+<B> Up:</B> <A NAME="tex2html462"
+  HREF="node10.html">Help facilities</A>
+<B> Previous:</B> <A NAME="tex2html456"
+  HREF="node12.html">SUNAME - Lists the</A>
+ &nbsp <B>  <A NAME="tex2html464"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00630000000000000000">
+The Selfdoc - Program Self-Documentation</A>
+</H1>
+
+<P>
+There are no Unix man pages for SU. To some people that seems
+to be a surprise (even a disappointment) as this would seem to be
+a standard Unix feature, which Seismic Unix should emulate.
+The package does contain an equivalent mechanism called a 
+<B>selfdoc</B> or self-documentation feature.
+
+<P>
+This is a paragraph that is written into every program, and arranged
+so that if the name of the program is typed on the commandline
+of a Unix terminal window, with no options or redirects to or 
+from files, the paragraph is printed to standard error (the screen).
+
+<P>
+For example:
+<PRE>
+% sustack
+                                                                
+ SUSTACK - stack adjacent traces having the same key header word
+                                                                
+     sustack &lt;input &gt;output [Optional parameters]
+                                                                
+ Required parameters:                                           
+        none                                                    
+                                                                
+ Optional parameters:                                           
+        key=cdp         header key word to stack on             
+        normpow=1.0     each sample is divided by the           
+                        normpow'th number of non-zero values    
+                        stacked (normpow=0 selects no division) 
+        verbose=0       verbose = 1 echos information           
+                                                                
+ Note:  The offset field is set to zero on the output traces.   
+        Sushw can be used afterwards if this is not acceptable.
+</PRE>
+
+<P>
+The first line indicates the name of the program <B>sustack</B> and
+a short description of what the program does. 
+This is the same line that appears for the listing of  <B>sustack</B>
+in the <B>suname</B> listing.
+The second line
+<PRE>
+     sustack &lt;stdin &gt;stdin [Optional parameters]
+</PRE>
+indicates how the program is to be typed on the commandline, with
+the words ``stdin'' and ``stdout'' indicating that the input
+is from the standard input and standard output, respectively.
+What this means in Unix terms is that the user could be inputting
+and outputting data via diskfiles or the Unix ``redirect in'' <IMG
+ WIDTH="20" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4.png"
+ ALT="$&lt;$"> 
+and ``redirect out'' <IMG
+ WIDTH="20" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$&gt;$"> symbols, or via pipes <IMG
+ WIDTH="11" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\vert$">.
+
+<P>
+The paragraphs labeled by ``Required parameters:'' and ``Optional parameters''
+indicate the commandline parameters which are required for the operation
+of the program, and those which are optional. The default values of
+the Optional parameters are given via the equality  are the values that the program assumes
+for these parameters when data are supplied,  with no additional commandline
+arguments given. For example: ``key=cdp'' indicates that <B>sustack</B> will
+stack over the common depth point gather number field, ``cdp.''
+(The shell script <B>sukeyword</B> tells the choices of keyword that
+are available.) 
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html465"
+  HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html461"
+  HREF="node10.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html455"
+  HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html463"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html466"
+  HREF="node14.html">SUDOC - List the</A>
+<B> Up:</B> <A NAME="tex2html462"
+  HREF="node10.html">Help facilities</A>
+<B> Previous:</B> <A NAME="tex2html456"
+  HREF="node12.html">SUNAME - Lists the</A>
+ &nbsp <B>  <A NAME="tex2html464"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

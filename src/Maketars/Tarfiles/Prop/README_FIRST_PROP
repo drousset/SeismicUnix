@@ -1,0 +1,30 @@
+The contents are compressed tarfiles of CWP codes that
+are proprietary to the Consortium Project on Seismic Inverse
+Methods for Complex Structures.
+
+These codes may be extracted via the UNIX command:
+
+zcat filename.tar.Z | tar -xvf -
+
+Each tarfile will produce a directory of the name 'filename'
+in the user's current working directory.
+
+
+The codes depend on the CWP/SU Free software package available
+via anonymous ftp from  ftp.cwp.mines.edu (138.67.12.4).
+The pertinent directory path is pub/cwpcodes. The files you
+will need are README_BEFORE_UNTARRING,
+untar_me_first.xx.tar.Z, and cwp.su.all.xx.tar.Z where xx is the number
+of the current release. If you do not have ftp access, please
+contact the CWP office at (303) 273-3557 and we will send you the
+free distribution on a floppy diskette.
+
+The file U-NUMBERS gives an explanation of each code.
+
+If you have questions about any of the codes please contact:
+
+John Stockwell	 | john@dix.Mines.EDU
+Center for Wave Phenomena (The Home of Seismic Un*x)
+Colorado School of Mines
+Golden, CO 80401 | http://www.cwp.mines.edu/cwpcodes
+voice: (303) 273-3049  |    fax: (303) 273-3478.

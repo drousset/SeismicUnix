@@ -1,0 +1,34 @@
+ SUBFILT - apply Butterworth bandpass filter 			
+
+ subfilt <stdin >stdout [optional parameters]			
+
+ Required parameters:						
+ 	if dt is not set in header, then dt is mandatory	
+
+ Optional parameters: (nyquist calculated internally)		
+ 	zerophase=1		=0 for minimum phase filter 	
+ 	locut=1			=0 for no low cut filter 	
+ 	hicut=1			=0 for no high cut filter 	
+ 	fstoplo=0.10*(nyq)	freq(Hz) in low cut stop band	
+ 	astoplo=0.05		upper bound on amp at fstoplo 	
+ 	fpasslo=0.15*(nyq)	freq(Hz) in low cut pass band	
+ 	apasslo=0.95		lower bound on amp at fpasslo 	
+ 	fpasshi=0.40*(nyq)	freq(Hz) in high cut pass band	
+ 	apasshi=0.95		lower bound on amp at fpasshi 	
+ 	fstophi=0.55*(nyq)	freq(Hz) in high cut stop band	
+ 	astophi=0.05		upper bound on amp at fstophi 	
+ 	verbose=0		=1 for filter design info 	
+ 	dt = (from header)	time sampling interval (sec)	
+
+
+ Credits:
+	CWP: Dave for bf.c subs and test drivers
+	CWP: Jack for su wrapper
+
+ Caveat: zerophase will not do good if trace has a spike near
+	   the end.  One could make a try at getting the "effective"
+	   length of the causal filter, but padding the traces seems
+	   painful in an already expensive algorithm.
+
+ Trace header fields accessed: ns, dt, trid
+

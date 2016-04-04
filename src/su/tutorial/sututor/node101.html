@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>SUPEF - Wiener predictive error filtering</TITLE>
+<META NAME="description" CONTENT="SUPEF - Wiener predictive error filtering">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node102.html">
+<LINK REL="previous" HREF="node100.html">
+<LINK REL="up" HREF="node97.html">
+<LINK REL="next" HREF="node102.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1638"
+  HREF="node102.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1634"
+  HREF="node97.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1628"
+  HREF="node100.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1636"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1639"
+  HREF="node102.html">SUSHAPE - Wiener shaping</A>
+<B> Up:</B> <A NAME="tex2html1635"
+  HREF="node97.html">1D Filtering Operations</A>
+<B> Previous:</B> <A NAME="tex2html1629"
+  HREF="node100.html">SUCONV, SUXCOR - convolution,</A>
+ &nbsp <B>  <A NAME="tex2html1637"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00944000000000000000">
+SUPEF - Wiener predictive error filtering</A>
+</H2><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+The prediction error filtering method, also known as Wiener filtering,
+is the principle process of traditional Wiener-Levinson deconvolution.
+The reason that this subsection is not headed ``deconvolution'' is
+because there are two additional issues that have to be addressed
+before prediction error filtering can be used for effective deconvolution.
+These issues are preprocessing of the data, and postprocess filtering.
+Indeed, much feedback has come back claiming that <B>supef</B>
+doesn't work properly, when in fact, it simply being used improperly.
+(This is our fault, for not supplying sufficient documentation.)
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">Using <B>supef</B>, itself, generally requires that the value
+of <B>maxlag</B> be set. This may be determined by first establishing the
+size of the wavelet being spiked, through application <B>suacor</B>.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">As the preprocessing step, you will probably need to use <B>sugain</B>
+to remove any decay in amplitudes with time that may result from geometric
+spreading. 
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">As a postprocessing step, you need to remove any increase in frequency
+content which has occurred due to the whitening effect of the 
+prediction error filter. The demos in the demos/Deconvolution  directory
+demonstrate the functioning of the program. However, these examples
+are a bit unrealistic for field data. For example, in the demos, the
+data are spiked, and then reverberations are removed via a cascaded
+of <B>supef</B> calls with <B>maxlag=.04</B> and 
+<B>minlag=.05 maxlag=.16</B>, respectively. However on field data,
+we would probably only use a single pass of the filter to remove
+reverberations, or to spike arrivals.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">The prediction error filter has a spectral whitening effect, which
+is likely to put high frequencies in the data that were not there
+originally. These must be filtered out. It is a good idea to assume
+that there is a <EM>loss</EM> of frequency information, and design
+the parameters for the postprocessing filtering, using <B>sufilter</B>
+to slightly reduce the frequency content from its original values.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">Also, an added feature of the Release&nbsp;32 version of <B>supef</B>
+is the mixing parameter, which permits the user to apply a weighted
+moving average to the autocorrelations that are computed as part of
+the prediction error filter computation. This can provide additional
+stability to the operation.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1638"
+  HREF="node102.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1634"
+  HREF="node97.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1628"
+  HREF="node100.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1636"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1639"
+  HREF="node102.html">SUSHAPE - Wiener shaping</A>
+<B> Up:</B> <A NAME="tex2html1635"
+  HREF="node97.html">1D Filtering Operations</A>
+<B> Previous:</B> <A NAME="tex2html1629"
+  HREF="node100.html">SUCONV, SUXCOR - convolution,</A>
+ &nbsp <B>  <A NAME="tex2html1637"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

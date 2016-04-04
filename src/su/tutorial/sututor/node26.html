@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>DOS SEGY</TITLE>
+<META NAME="description" CONTENT="DOS SEGY">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node27.html">
+<LINK REL="previous" HREF="node25.html">
+<LINK REL="up" HREF="node25.html">
+<LINK REL="next" HREF="node27.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html667"
+  HREF="node27.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html663"
+  HREF="node25.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html657"
+  HREF="node25.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html665"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html668"
+  HREF="node27.html">Landmark BCM2D format in</A>
+<B> Up:</B> <A NAME="tex2html664"
+  HREF="node25.html">SEG-Y abuses</A>
+<B> Previous:</B> <A NAME="tex2html658"
+  HREF="node25.html">SEG-Y abuses</A>
+ &nbsp <B>  <A NAME="tex2html666"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00713100000000000000">
+DOS SEGY</A>
+</H3>
+There is also a ``DOS SEGY'' format which is similar to the previous
+format, with the exception that the traces and headers are all written
+in a little-endian format. On a big-endian machine,
+the command to read such a dataset would be
+<PRE>
+% segyread tape=/dev/rmt0 verbose=1 endian=0 conv=0 | segyclean &gt; data.su
+</PRE>
+will read the data. Note, that endian=0 is set to swap the bytes.
+(All of the bytes, header and data are in the swapped format.)
+On a little-endian machine, the procedure is 
+<PRE>
+% segyread tape=/dev/rmt0 verbose=1 endian=1 conv=0 | segyclean &gt; data.su
+</PRE>
+with endian=1, in this case preventing byteswapping.
+
+<P>
+In each case, if we had a diskfile with some `filename', we would
+use ``tape=filename.''
+
+<P>
+<BR><HR>
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

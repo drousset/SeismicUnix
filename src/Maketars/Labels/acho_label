@@ -1,0 +1,42 @@
+prop label:
+
+label for proprietary codes diskette.
+CWP PROPRIETARY CODES
+23 Oct 1996
+UNIX TAR DISKETTE
+extract via: 
+tar  -xvf   /dev/floppy_device
+Contents:(as compressed tarfiles)
+fct,suinvvxzcs,tricxzco
+
+
+Free labels:
+
+CWP Free Codes Release 29
+23 Oct 1996
+UNIX TAR DISKETTE A
+extract via: 
+tar  -xvf  /dev/floppy_device
+Contents:
+CWP/SU Free codes
+
+
+CWP Free Codes Release 29
+23 Oct 1996
+UNIX TAR DISKETTE B
+extract via: 
+tar  -xvf  /dev/floppy_device
+Contents:(as compressed tarfiles)
+CWP/SU Free codes
+
+
+CWP Free Codes Release 29
+23 Oct 1996
+UNIX TAR DISKETTE C
+extract via: 
+tar  -xvf  /dev/floppy_device
+Contents:(as compressed tarfiles)
+CWP/SU Free codes
+
+
+Please make fancy labels. This is in answer to the request by Thomas Acho.

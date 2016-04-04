@@ -1,0 +1,25 @@
+label for free codes diskettes.
+
+
+CWP Free Codes Release 25
+17 Feb 1995
+UNIX TAR DISKETTE #1
+extract via: 
+tar  -xvf  /dev/raw_flppy_dev
+Contents:
+CWP/SU Free codes
+
+
+
+CWP Free Codes Release 25
+17 Feb 1995
+UNIX TAR DISKETTE #2
+extract via: 
+tar  -xvf  /dev/raw_flppy_dev
+Contents:(as compressed tarfiles)
+3Rd Party, Su Manual, Selfdocs
+
+
+
+Please make fancy labels. This is for enclosure in the GRI letter.
+

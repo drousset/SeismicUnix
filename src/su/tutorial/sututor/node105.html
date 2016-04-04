@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Seismic Modeling Utilities</TITLE>
+<META NAME="description" CONTENT="Seismic Modeling Utilities">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node113.html">
+<LINK REL="previous" HREF="node86.html">
+<LINK REL="up" HREF="sututor.html">
+<LINK REL="next" HREF="node106.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1683"
+  HREF="node106.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1679"
+  HREF="sututor.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1673"
+  HREF="node104.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1681"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1684"
+  HREF="node106.html">Background Wavespeed Profiles</A>
+<B> Up:</B> <A NAME="tex2html1680"
+  HREF="sututor.html">sututor</A>
+<B> Previous:</B> <A NAME="tex2html1674"
+  HREF="node104.html">SURESAMP - Resample Data</A>
+ &nbsp <B>  <A NAME="tex2html1682"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001000000000000000000">
+Seismic Modeling Utilities</A>
+</H1><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">An important aspect of seismic exploration and research are programs
+for creating synthetic data. Such programs find their use,
+both in the practical problem of modeling real data, as well
+as in the testing of new processing programs. A processing program
+that will not work on idealized model data will likely not work
+on real seismic data.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">Another important aspect of modeling programs is the fact that many
+seismic processing algorithms (such as migration) may be viewed
+as <EM>inverse processes</EM>.  The first step in such an inverse 
+problem may be to create a method to solve the forward problem,
+and then formulate the solution to the inverse
+problem as a ``backpropagation'' of the recorded data to its position
+in the subsurface.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">There are two parts to the seismic modeling task. The first part is the
+construction of background wavespeed profiles, which may consist
+of uniformly sampled arrays of floating point numbers.
+The second part is the construction of the synthetic wave
+information which propagates in that wavespeed profile.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">Because of the intimate relationship between seismic modeling and
+seismic processing, background wavespeed profiles created for
+modelling tasks, may also be useful for processing tasks.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">Of course, if some simple assumptions are made, it may be possible
+for background wavespeed information to be built into the modeling
+program.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html1685"
+  HREF="node106.html">Background Wavespeed Profiles</A>
+<LI><A NAME="tex2html1686"
+  HREF="node107.html">Uniformly Sampled Models</A>
+<LI><A NAME="tex2html1687"
+  HREF="node108.html">Synthetic Data Generators</A>
+<LI><A NAME="tex2html1688"
+  HREF="node109.html">Delaunay Triangulation</A>
+<UL>
+<LI><A NAME="tex2html1689"
+  HREF="node110.html">Triangulated Model Building</A>
+<LI><A NAME="tex2html1690"
+  HREF="node111.html">Synthetic Seismic Data in Triangulated Media</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1691"
+  HREF="node112.html">Tetrahedral Methods</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1683"
+  HREF="node106.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1679"
+  HREF="sututor.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1673"
+  HREF="node104.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1681"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1684"
+  HREF="node106.html">Background Wavespeed Profiles</A>
+<B> Up:</B> <A NAME="tex2html1680"
+  HREF="sututor.html">sututor</A>
+<B> Previous:</B> <A NAME="tex2html1674"
+  HREF="node104.html">SURESAMP - Resample Data</A>
+ &nbsp <B>  <A NAME="tex2html1682"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

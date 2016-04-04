@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>FARITH - Performs simple arithmetic on binary data.</TITLE>
+<META NAME="description" CONTENT="FARITH - Performs simple arithmetic on binary data.">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="previous" HREF="node40.html">
+<LINK REL="up" HREF="node33.html">
+<LINK REL="next" HREF="node42.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html848"
+  HREF="node42.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html844"
+  HREF="node33.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html840"
+  HREF="node40.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html846"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html849"
+  HREF="node42.html">Trace Header Manipulation</A>
+<B> Up:</B> <A NAME="tex2html845"
+  HREF="node33.html">Data Format conversion</A>
+<B> Previous:</B> <A NAME="tex2html841"
+  HREF="node40.html">TRANSP - Transposing Binary</A>
+ &nbsp <B>  <A NAME="tex2html847"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00727000000000000000">
+FARITH - Performs simple arithmetic on binary data.</A>
+</H2>
+
+<P>
+It is often necessary to perform arithmetical operations on files,
+or between two files of binary data. The program <B>farith</B> has
+been provided for many of these tasks.
+
+<P>
+Some of the tasks for single files supported by <B>farith</B> include
+
+<UL>
+<LI>scaling value,
+</LI>
+<LI>polarity reversal,
+</LI>
+<LI>signum function,
+</LI>
+<LI>absolute value,
+</LI>
+<LI>exponential,
+</LI>
+<LI>logarithm,
+</LI>
+<LI>square root,
+</LI>
+<LI>square,
+</LI>
+<LI>inverse (punctuated),
+</LI>
+<LI>inverse of square (punctuated),
+</LI>
+<LI>inverse of square root (punctuated).
+</LI>
+</UL>
+Binary operations (operations involving two files) include
+value by value
+
+<UL>
+<LI>addition,
+</LI>
+<LI>subtraction,
+</LI>
+<LI>multiplication,
+</LI>
+<LI>division,
+</LI>
+<LI>cartesian product.
+</LI>
+</UL>
+Seismic operations (which assume files consist of wavespeeds) include
+
+<UL>
+<LI>slowness perturbation (difference of inverses of files),
+</LI>
+<LI>sloth perturbation (difference of inverses of files),
+</LI>
+</UL>
+Examples of using <B>farith</B> are
+<PRE>
+% farith in=data.binary op=pinv out=data.out.bin
+% farith in=data1.binary in2=data2.binary op=add &gt; data.out2.bin
+</PRE> 
+
+<P>
+<BR><HR>
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

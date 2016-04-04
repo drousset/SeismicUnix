@@ -1,0 +1,462 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Data format questions</TITLE>
+<META NAME="description" CONTENT="Data format questions">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node133.html">
+<LINK REL="previous" HREF="node131.html">
+<LINK REL="up" HREF="node130.html">
+<LINK REL="next" HREF="node133.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html2033"
+  HREF="node133.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html2029"
+  HREF="node130.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html2023"
+  HREF="node131.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html2031"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2034"
+  HREF="node133.html">Tape reading and writing</A>
+<B> Up:</B> <A NAME="tex2html2030"
+  HREF="node130.html">Answers to Frequently Asked</A>
+<B> Previous:</B> <A NAME="tex2html2024"
+  HREF="node131.html">Installation questions</A>
+ &nbsp <B>  <A NAME="tex2html2032"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001320000000000000000">
+Data format questions</A>
+</H1><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">In this section, we address questions about converting data
+that are in various formats into <FONT SIZE="-1"><I>SU</I></FONT> format.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Question  5</B> &nbsp; 
+What is the data format that <FONT SIZE="-1"><I>SU</I></FONT> programs expect?</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Answer  5</B> &nbsp; 
+<EM>The <FONT SIZE="-1"><I>SU</I></FONT> data format is based on, (but is not exactly the same as)
+the <I>SEG-Y</I> format. The <FONT SIZE="-1"><I>SU</I></FONT> format
+consists of data traces each of which has a header.
+The <FONT SIZE="-1"><I>SU</I></FONT> trace header is identical to <I>SEG-Y</I> trace header.
+Both the header and the trace data are written in the
+native binary format of your machine.
+You will need to use <B>segyread</B> to convert SEGY data to SU data.
+</EM>
+<P>
+<EM><B>Caution</B>: The optional fields
+in the <I>SEG-Y</I> trace header are used for different purposes
+at different sites.  <FONT SIZE="-1"><I>SU</I></FONT> itself makes use of certain of these fields.
+Thus, you may need to use <TT>segyclean</TT>--see the answer to
+Question&nbsp;<A HREF="node132.html#SU:q:segyclean">7</A>.
+<FONT SIZE="-1"><I>SU</I></FONT> format does not have the binary and ebcdic tape headers that
+are part of the <I>SEG-Y</I> format.
+</EM>
+<P>
+<EM>After installing the package, you can get more information on the
+<I>SEG-Y</I>/<FONT SIZE="-1"><I>SU</I></FONT> header by typing: 
+</EM><PRE>
+% sukeyword -o
+</PRE><EM>
+This lists the include file <TT>segy.h</TT> that defines the <FONT SIZE="-1"><I>SU</I></FONT> trace header.</DIV><P></P>
+</EM><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Question  6</B> &nbsp; 
+Is there any easy way of adding necessary 
+<I>SEG-Y</I> information to our own modeled data to prepare
+our data for processing using the <FONT SIZE="-1"><I>SU</I></FONT> package?</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Answer  6</B> &nbsp; 
+<EM>It depends on the details of how your data was written to the file:
+</EM>
+<OL>
+<LI>If you have a `datafile'
+that is in the form of binary floating point numbers of the type
+that would be created by a C program, then use <TT>suaddhead</TT> to
+put <FONT SIZE="-1"><I>SU</I></FONT> (<I>SEG-Y</I>) trace headers on the data. Example:
+<PRE>
+% suaddhead &lt; datafile  ns=N_SAMP &gt; data.su
+</PRE>
+Here, <code>N_SAMP</code> is the (integer) number of samples per
+trace in the data.
+
+<P>
+</LI>
+<LI>If your data are Fortran-style floats, then you would use:
+<PRE>
+% suaddhead &lt; datafile ftn=1 ns=NS &gt; data.su
+</PRE>
+See also, Question&nbsp;<A HREF="node132.html#SU:q:fortran">10</A>.
+
+<P>
+</LI>
+<LI>If your data are <I>ASCII</I>, then use:
+<PRE>
+% a2b n1=N1 &lt; data.ascii | suaddhead ns=NS &gt; data.su
+</PRE>
+Here <code>N1</code> is the number of floats per line in the file
+<TT>data.ascii</TT>.
+
+<P>
+</LI>
+<LI>If you have some other data type, then you may use:
+<PRE>
+% recast &lt; data.other in=IN out=float | suaddhead ns=NS &gt; data.su
+</PRE>
+where <code>IN</code> is the type (int, double, char, etc...) 
+</LI>
+</OL>
+<P>
+<EM>
+For further information, consult the self-docs of the programs
+<TT>suaddhead</TT>, <TT>a2b</TT>, and&nbsp;<TT>recast</TT>.</DIV><P></P>
+</EM><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><A NAME="SU:q:segyclean"><B>Question  7</B></A> &nbsp; 
+I used <TT>segyread</TT> to read a <I>SEG-Y</I> tape.
+Everything seems to work fine,
+but when I plot my data with suximage, the window is black.
+What did I do wrong?</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Answer  7</B> &nbsp; 
+<EM>When you read an <I>SEG-Y</I> tape, you need to pipe the data through
+<TT>segyclean</TT> to zero the optional <I>SEG-Y</I> trace header field.
+If the <FONT SIZE="-1"><I>SU</I></FONT> programs see nonzero values in certain parts
+of the optional field, they try
+to display the data as ``nonseismic data,'' using those values
+to set the plot parameters.
+</EM>
+<P>
+<EM>Another possibility is that there are a few data values that are so
+large that they are overwhelming the 256 gray scale levels in the
+graphics.
+The way to get around this problem is to set <B>perc=99</B> in the
+graphics program. For example:
+</EM><PRE>
+% suximage &lt; sudata  perc=99 &amp;
+</PRE><EM> This will clip data values with size in
+the top 1 percentile of the total data.</DIV><P></P>
+</EM><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Question  8</B> &nbsp; 
+I am trying to plot data with the <TT>pswigb</TT>
+(or <TT>pswigp</TT>, or <TT>xwigb</TT>, or  ...)
+program.  I know that I have data with
+<code>n1=NSAMP</code> and <code>n2=NTRACES</code>,
+but when I plot, I find that I have to set <code>n1=NSAMP+60</code> for the plot
+to look even remotely correct. Why is this?</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Answer  8</B> &nbsp; 
+<EM>It is likely that you are trying to plot with the wrong tool.
+The input data format of the programs,
+<TT>pswigb</TT>, <TT>pswigp</TT>, <TT>pscontour</TT>, <TT>pscube</TT>, <TT>psmovie</TT>,
+<TT>xwigb</TT>, <TT>xgraph</TT>, and&nbsp;<TT>xmovie</TT>,
+expect data to consist of simple floating point numbers.
+If your data are <FONT SIZE="-1"><I>SU</I></FONT> data (<I>SEG-Y</I>) traces,
+then there is an additional
+header at the beginning of each trace,
+which, on most computer architectures,
+is the same number (240) of bytes
+as the storage for 60 floats.
+</EM>
+<P>
+<EM>To plot these data, use respectively:
+<TT>supswigb</TT>, <TT>supswigp</TT>, <TT>supscontour</TT>, <TT>supscube</TT>,
+<TT>supsmovie</TT>, <TT>suxwigb</TT>, <TT>suxgraph</TT>, or&nbsp;<TT>suxmovie</TT>.
+</EM>
+<P>
+<EM>Also, it is not necessary to specify the dimensions of the data for these
+latter programs.  The <TT>su</TT>-versions of the codes determine
+the necessary information from the appropriate header values.
+(In fact, that is <EM>all</EM> they do--the actual graphics is
+handled by the version without the <TT>su</TT> prefix.)</DIV><P></P>
+</EM><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Question  9</B> &nbsp; 
+I want to check the size of a file to see if it has the right number
+of values, but I am not sure how to take the header into account.
+How is this done?</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Answer  9</B> &nbsp; 
+<EM>If the file consists of simple floating point numbers, then the
+size in bytes equals the size of a float times the number of
+samples (<code>SIZE = 4 * N_SAMP</code>).
+The <FONT SIZE="-1"><I>SU</I></FONT> data (<I>SEG-Y</I> traces)
+also have a header (240 bytes per trace)
+giving the total number of bytes as:
+<BR><code>(240 + 4 N_SAMP ) N_TRACES</code>.
+<BR>
+The byte count computed in this way
+is the number that the UNIX command <TT>ls -l</TT> shows.
+</EM>
+<P>
+<EM><B>Caveats</B>: The above calculations assume that you have
+the conventional architecture and that the header definition
+in <TT>segy.h</TT> has not been altered.  Watch out as machines
+with 64 bit word size become common!</DIV><P></P>
+</EM><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><A NAME="SU:q:fortran"><B>Question  10</B></A> &nbsp; 
+I have some data in Fortran form and tried to convert it to <FONT SIZE="-1"><I>SU</I></FONT> data
+via the following:
+<PRE>
+% suaddhead &lt; data.fortran ns=N_SAMP ftn=1 &gt; data.su
+</PRE>
+but this did not work properly. I am sure that my fortran data
+are in unformatted binary floats. What should I do?</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Answer  10</B> &nbsp; 
+<EM>There are different ways of interpreting the term ``unformatted''
+with regard to fortran data.  Try:
+</EM><PRE>
+% ftnstrip &lt; data.fortran | suaddhead ns=N_SAMP &gt; data.su
+</PRE><EM>
+</EM>
+<P>
+<EM>The program <TT>ftnstrip</TT> can often succeed in converting
+your fortran data into C-like binary data, even when the
+<code>ftn=1</code> option in <TT>suaddhead</TT> fails.
+(Note: the program <B>ftnunstrip</B> may be used to take C-style
+binary data and convert it to Fortran form.)</DIV><P></P>
+</EM><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Question  11</B> &nbsp; 
+I just successfully installed the <I>CWP/SU</I> package, but when I
+try to run the demo scripts, I get many error messages describing
+programs that the shell script cannot find. How do I fix this?</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Answer  11</B> &nbsp; 
+<EM>You need to put <TT>CWPROOT/bin</TT> (where <TT>CWPROOT</TT>
+is <TT>/your/root/path</TT> that
+contains the <I>CWP/SU</I> source code, include files,
+libraries, and executables)
+in your shell <TT>PATH</TT>. This is done in your <TT>.cshrc</TT> file
+if you run under
+<TT>csh</TT> or <TT>tcsh</TT>.
+In Bourne shell (<TT>sh</TT>), Born Again shell (<TT>bash</TT>), or Korn shell
+(<TT>ksh</TT>) the <TT>PATH</TT> variable is in your <TT>.profile</TT> file.
+You also need
+to type
+</EM><PRE>
+% rehash
+</PRE><EM>
+if you are running C-shell <TT>/bin/csh</TT> or  TC-shell <TT>/bin/tcsh</TT>
+as your working shell environment, if you have not relogged since 
+you compiled the codes. </DIV><P></P>
+</EM><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Question  12</B> &nbsp; 
+How do I transfer data between <FONT SIZE="-1"><I>SU</I></FONT> and a commercial package, such
+as Promax.</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Answer  12</B> &nbsp; 
+<EM>The short answer is that you make a SEGY tape on disk file.
+To do convert a file called, say, "data.su" to a segy file
+do the following:
+</EM>
+<P>
+<EM></EM><PRE>
+% segyhdrs &lt; data.su
+% segywrite tape=data.segy &lt; data.su
+</PRE><EM> 
+</EM>
+<P>
+<EM>Now use Promax to read data.segy. This file is a
+"Promax tape-on-disk file in IBM Real format."
+Choose Promax menus accordingly.
+</EM>
+<P>
+<EM>For other commercial packages, use the appropriate
+commands to read a SEGY tape on disk file.
+</EM>
+<P>
+<EM>To go from the commercial package to <FONT SIZE="-1"><I>SU</I></FONT> follow
+the reverse steps. Create a file that is a SEGY tape image
+and then use 
+</EM><PRE>
+% segyread tape=data.segy | segyclean &gt; data.su
+</PRE><EM> </DIV><P></P>
+</EM><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Question  13</B> &nbsp; 
+I would like to strip the trace headers off of some SU data, perform
+an operation of some type on the bare traces and put the headers
+back on without losing any of the header information. How do I do this?</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Answer  13</B> &nbsp; 
+<EM>Do the following:
+</EM>
+<P>
+<EM></EM><PRE>
+% sustrip &lt; data.su head=headers &gt; data.binary
+</PRE><EM> 
+</EM>
+<P>
+<EM>(Do whatever was desired to data.binary to make data1.binary)
+</EM>
+<P>
+<EM></EM><PRE>
+% supaste &lt; data1.binary head=headers &gt; data1.su
+</PRE><EM> </DIV><P></P>
+</EM><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Question  14</B> &nbsp; 
+I have made some data on an IBM RS6000 and have transferred it to
+my Linux-based PC system. The data looks ok on the RS6000,
+but when I try to work with it on the PC, none of the SU programs seem
+to work. What is wrong?</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Answer  14</B> &nbsp; 
+<EM>The problem you have encountered is that there are two IEEE binary
+formats called respectively `big endian` and `little endian` or,
+alternately `high byte` and `low byte`. These terms refer to the
+order of the bytes that represent the data. IBM RS6000, Silicon
+Graphics, NeXT (black hardware), SUN, HP, PowerPC, any Motorola
+chip-based platforms are `big endian` machines, whereas, Intel-based
+PCs and Dec and Dec Alpha products are `little endian` platforms.
+</EM>
+<P>
+<EM>Two programs are supplied in the CWP/SU package for swapping
+the bytes for data transfer. These are  <B>swapbytes</B> and <B>suswapbytes</B>.
+</EM>
+<P>
+<EM>The program <B>swapbytes</B> is designed to permit the user to swap
+the bytes on binary data that are all one type of data (floats, doubles,
+shorts, unsigned shorts, longs, unsigned longs, and ints).
+</EM>
+<P>
+<EM>For data that are in the <FONT SIZE="-1"><I>SU</I></FONT> format, the program <B>suswapbytes</B> is
+provided.
+</EM>
+<P>
+<EM>Furthermore, within the programs <B>segyread</B> and <B>segywrite</B>
+there are ``swap='' flags that permit the user to specify whether
+the platform they are working on are ``big endian'' or ``little endian''
+platforms.
+</EM>
+<P>
+<EM>In older releases of <FONT SIZE="-1"><I>SU</I></FONT> there were problems with the bitwise operations
+that would be encountered in the wiggle-trace drawing routines. However,
+these problems have been fixed via the ENDIANFLAG that appears in
+Makefile.config.</DIV><P></P>
+</EM><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Question  15</B> &nbsp; 
+How do I convert data that are in the SEG-2 format to SEGY?</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Answer  15</B> &nbsp; 
+<EM>In $CWPROOT/src/Third_Party/seg2segy   there are two programs
+that have been made available to us by the University of Pau
+in France, for this purpose. These should be easy to install
+on any system where <FONT SIZE="-1"><I>SU</I></FONT> has been installed.
+</EM>
+<P>
+<EM>Once you have converted   data.seg2  to  data.segy, you may
+read it into the <FONT SIZE="-1"><I>SU</I></FONT> format via:
+</EM>
+<P>
+<EM></EM><PRE>
+% segyread tape=data.segy &gt; data.su
+</PRE><EM> </DIV><P></P>
+</EM><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2033"
+  HREF="node133.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html2029"
+  HREF="node130.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html2023"
+  HREF="node131.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html2031"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2034"
+  HREF="node133.html">Tape reading and writing</A>
+<B> Up:</B> <A NAME="tex2html2030"
+  HREF="node130.html">Answers to Frequently Asked</A>
+<B> Previous:</B> <A NAME="tex2html2024"
+  HREF="node131.html">Installation questions</A>
+ &nbsp <B>  <A NAME="tex2html2032"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

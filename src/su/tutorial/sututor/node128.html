@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>A typical SU processing flow</TITLE>
+<META NAME="description" CONTENT="A typical SU processing flow">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="previous" HREF="node127.html">
+<LINK REL="up" HREF="node125.html">
+<LINK REL="next" HREF="node129.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1981"
+  HREF="node129.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1977"
+  HREF="node125.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1973"
+  HREF="node127.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1979"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1982"
+  HREF="node129.html">Extending SU by shell</A>
+<B> Up:</B> <A NAME="tex2html1978"
+  HREF="node125.html">Understanding and using SU</A>
+<B> Previous:</B> <A NAME="tex2html1974"
+  HREF="node127.html">Executing shell programs</A>
+ &nbsp <B>  <A NAME="tex2html1980"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION001223000000000000000"></A><A NAME="SU:sec:Dmoshell"></A>
+<BR>
+A typical SU processing flow
+</H2><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+Suppose you want to use <B>sudmofk</B>.  You've read the self-doc, but
+a detailed example is always welcome isn't it?  The place to look is
+the directory <B>su/examples</B>.  In this case, we are lucky and find
+the shell program, <B>Dmo</B>.  Again, the numbers in square brackets at the
+end of the lines shown below are <EM>not</EM> part of the listing.
+</FONT></FONT></FONT></FONT><PRE>
+#! /bin/sh
+# dmo
+set -x                                                            [1]
+
+# set parameters
+input=cdp201to800                                                 [2]
+temp=dmocogs
+output=dmocmgs
+smute=1.7
+vnmo=1500,1550,1700,2000,2300,2600,3000                           [3]
+tnmo=0.00,0.40,1.00,2.00,3.00,4.00,6.00
+
+
+# sort to common-offset, nmo, dmo, inverse-nmo, sort back to cmp
+susort &lt;$input offset cdp |                                       [4]
+sunmo smute=$smute vnmo=$vnmo tnmo=$tnmo |                        [5]
+sudmofk cdpmin=201 cdpmax=800 dxcdp=13.335 noffmix=4 verbose=1 |  [6]
+sunmo invert=1 smute=$smute vnmo=$vnmo tnmo=$tnmo &gt;$temp          [7]
+susort &lt;$temp cdp offset &gt;$output                                 [8]
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+<B>Discussion of numbered lines:</B>
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">The core of the shell program (lines 5-7) is recognized as the typical
+dmo process: crude nmo, dmo, and then ``inverse'' nmo.
+The dmo processing is surrounded by sorting operations
+(lines 4 and 8).  Here is a detailed discussion of the shell program
+keyed to the numbers appended to the listing (see also the discussion
+above for the <code>Plot</code> shell):
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<OL>
+<LI>Set a debugging mode that asks UNIX
+to echo the lines that are executed.  You can comment
+this line off when its output is no longer of interest.  An
+alternate debugging flag is <code>set -v</code> which echos
+lines as they are read by the shell interpreter.  You
+can use both modes at once if you like.
+
+<P>
+</LI>
+<LI>This line and the next two lines set filenames that,
+in this case, are in the same directory as the shell program itself.
+Again, the reason for using parameters here is to make it easy
+to ``clone'' the shell for use with other data sets.
+Those of us who work with only a few data sets at any given time,
+find it convenient to devote a directory to a given data set and
+keep the shells used to process the data in that directory as
+documentation of the processing parameters used.  (<FONT SIZE="-1"><I>SU</I></FONT> does not have
+a built-in ``history'' mechanism.)
+
+<P>
+</LI>
+<LI>The dmo process requires a set of velocity-time picks for
+the subsidiary nmo processes.  Because these picks must be consistent
+between the nmo and the inverse nmo, it is a good idea to make them
+parameters to avoid editing mistakes.  Again, note the format
+of <FONT SIZE="-1"><I>SU</I></FONT> parameter vectors: comma-separated strings with no spaces.
+The nmo program (<B>sunmo</B>) will give an error message and abort
+if the <code>vnmo</code> and <code>tnmo</code> vectors have different lengths.
+
+<P>
+</LI>
+<LI>Note that <B>susort</B> allows the use of <EM>secondary</EM>
+sort keys.  Do not assume that a secondary field that is
+initially in the ``right'' order will remain in that order
+after the sort--if you care about the order of some secondary
+field, specify it (as this shell program does). In this line,
+we sort the data according to increasing offsets and then, within
+each offset, we sort according to increasing cdp number.
+
+<P>
+</LI>
+<LI>The forward nmo step.
+
+<P>
+</LI>
+<LI>The dmo step.
+
+<P>
+</LI>
+<LI>The inverse nmo step.
+
+<P>
+</LI>
+<LI>Sort back to cdp and have increasing offset within each cdp.
+</LI>
+</OL><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">If you want to thoroughly understand this shell program, your next
+step is to study the self-docs of the programs involved:
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT></FONT><PRE>
+% sunmo
+
+SUNMO - NMO for an arbitrary velocity function of time and CDP
+
+sunmo &lt;stdin &gt;stdout [optional parameters]
+
+Optional Parameters:
+vnmo=2000         NMO velocities corresponding to times in tnmo
+tnmo=0            NMO times corresponding to velocities in vnmo
+
+...
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+Related shell programs are <B>su/examples/Nmostack</B> and
+<B>su/examples/Mig</B>.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1981"
+  HREF="node129.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1977"
+  HREF="node125.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1973"
+  HREF="node127.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1979"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1982"
+  HREF="node129.html">Extending SU by shell</A>
+<B> Up:</B> <A NAME="tex2html1978"
+  HREF="node125.html">Understanding and using SU</A>
+<B> Previous:</B> <A NAME="tex2html1974"
+  HREF="node127.html">Executing shell programs</A>
+ &nbsp <B>  <A NAME="tex2html1980"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,19 @@
+label for proprietary codes diskette.
+
+attn: Robert Bloor
+Western Geophysical
+455 London Road
+Isleworth
+Middlesex
+TW7 5AB
+ENGLAND
+
+
+
+CWP PROPRIETARY CODES
+19 July 1994
+UNIX TAR DISKETTE
+extract via: 
+tar -xvf /dev/yr_flppy_dev
+Contents:(as compressed tarfiles)
+sudmotivz (U31), supsmigti (U32)

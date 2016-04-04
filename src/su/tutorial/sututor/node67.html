@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>PostScript Plotting of General Floating Point Data</TITLE>
+<META NAME="description" CONTENT="PostScript Plotting of General Floating Point Data">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node68.html">
+<LINK REL="previous" HREF="node66.html">
+<LINK REL="up" HREF="node60.html">
+<LINK REL="next" HREF="node68.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1200"
+  HREF="node68.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1196"
+  HREF="node60.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1190"
+  HREF="node66.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1198"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1201"
+  HREF="node68.html">PostScript Plotting of SU</A>
+<B> Up:</B> <A NAME="tex2html1197"
+  HREF="node60.html">X-Windows Plotting Programs</A>
+<B> Previous:</B> <A NAME="tex2html1191"
+  HREF="node66.html">PostScript Plotting Programs</A>
+ &nbsp <B>  <A NAME="tex2html1199"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00815000000000000000">
+PostScript Plotting of General Floating Point Data</A>
+</H2><FONT SIZE="-1"></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1">The programs that are used for PostScript plotting of general
+floating point data (data without SU headers) are
+</FONT></FONT>
+<UL>
+<LI>PSCONTOUR - PostScript CONTOURing of a two-dimensional function f(x1,x2),
+</LI>
+<LI>PSIMAGE - PostScript IMAGE plot of a uniformly-sampled function f(x1,x2),
+</LI>
+<LI>PSCUBE - PostScript image plot of a data CUBE,
+</LI>
+<LI>PSGRAPH - PostScript GRAPHer Graphs n[i] pairs of (x,y) coordinates,
+</LI>
+<LI>PSMOVIE - PostScript MOVIE plot of a uniformly-sampled function f(x1,x2,x3),
+</LI>
+<LI>PSWIGB - PostScript WIGgle-trace plot of f(x1,x2) via Bitmap,
+</LI>
+<LI>PSWIGP - PSWIGP - PostScript WIGgle-trace plot of f(x1,x2) via Polygons.
+</LI>
+</UL><FONT SIZE="-1"></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1">Again, you may create binary data to test these programs by stripping
+off the headers of some suplane data.
+</FONT></FONT><PRE>
+% suplane | sustrip &gt; data.bin
+n1=64 n2=32 d1=0.004000
+nt=64 ntr=32 dt=0.004000
+ns=64
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+The dimensions of the data are n1=64 samples per trace by n2=32 traces.
+</FONT></FONT></FONT><PRE>
+% pscontour &lt; data.bin n1=64 n2=32 title="contour" &gt; data1.eps
+% psimage &lt; data.bin n1=64 n2=32  title="image"  &gt; data2.eps
+% pscube &lt; data.bin n1=64 n2=32  title="cube plot"  &gt; data4.eps
+% pswigb &lt; data.bin n1=64 n2=32  title="bitmap wiggle trace"  &gt; data3.eps
+% pswigp &lt; data.bin n1=64 n2=32  title="wiggle trace"  &gt; data4.eps
+% psmovie &lt; data.bin n1=64 n2=32  title="movie"  &gt; data5.eps
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+The output files contain Adobe Level 2 Encapsulated PostScript.
+You should be able to view these files with any standard X-windows
+PostScript previewer (such as ``ghostview'').
+</FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">Please note, that the output from ``psmovie'' may not work on your
+system. This output works under NeXTStep, but is multi-page Encapsulated
+PostScript, which is not generally supported by PostScript devices.
+</FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">To test psgraph, make an ascii file containing  a double
+column listing of pairs of data to be plotted such as the
+following
+</FONT></FONT></FONT><PRE>
+1 1
+2 1.5
+3 3
+4 8
+10 7
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+Call this file ``data.ascii''
+Then use ``a2b'' to convert the file to binary and then plot it
+with psgraph
+</FONT></FONT></FONT></FONT><PRE>
+% a2b &lt; data.ascii n1=2 &gt; data.bin
+n=5
+% psgraph &lt; data.bin n=5 &gt; data6.eps
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+Note that the ``n=5'' that is echoed by <B>a2b</B> is the same as
+the input to <B>psgraph</B>.
+This permits the following trick to be used
+</FONT></FONT></FONT></FONT><PRE>
+% a2b &lt; data.ascii outpar=junk.par n1=2 &gt; data.bin
+% psgraph &lt; data.bin par=junk.par &gt; data6.eps
+</PRE><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">
+to yield the same output.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1200"
+  HREF="node68.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1196"
+  HREF="node60.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1190"
+  HREF="node66.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1198"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1201"
+  HREF="node68.html">PostScript Plotting of SU</A>
+<B> Up:</B> <A NAME="tex2html1197"
+  HREF="node60.html">X-Windows Plotting Programs</A>
+<B> Previous:</B> <A NAME="tex2html1191"
+  HREF="node66.html">PostScript Plotting Programs</A>
+ &nbsp <B>  <A NAME="tex2html1199"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

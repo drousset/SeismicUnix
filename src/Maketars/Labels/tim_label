@@ -1,0 +1,20 @@
+label for free codes diskettes.
+
+
+CWP Free Codes Release 27
+23 Jan 1995
+UNIX TAR DISKETTE A
+extract via: 
+tar  -xvf  /dev/floppy_dev
+Contents:(as compressed tarfiles)
+CWP/SU Free codes, part A
+
+
+
+CWP Free Codes Release 27
+23 Jan 1995
+UNIX TAR DISKETTE B
+extract via: 
+tar  -xvf  /dev/floppy_dev
+Contents:(as compressed tarfiles)
+CWP/SU Free codes, part B

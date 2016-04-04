@@ -1,0 +1,33 @@
+
+label for "free" codes diskettes.
+
+
+CWP Free Codes Release 26.5
+12 June 1995
+UNIX TAR DISKETTE
+extract via: 
+tar  -xvf  /dev/raw_flppy_dev
+Contents: 
+the CWP/SU Free package
+
+
+
+
+label for "prop" codes diskettes.
+
+
+
+
+CWP PROPRIETARY CODES
+12 June 1995
+UNIX TAR DISKETTE
+extract via: 
+tar  -xvf   /dev/yr_flppy_dev
+Contents:(as compressed tarfiles)
+suinvvxz_m, suinvvxzco, suinvvxzcs,
+tricxzco, gbmod
+
+
+
+
+

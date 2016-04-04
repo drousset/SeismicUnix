@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>1D Filtering Operations</TITLE>
+<META NAME="description" CONTENT="1D Filtering Operations">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="previous" HREF="node96.html">
+<LINK REL="up" HREF="node86.html">
+<LINK REL="next" HREF="node98.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html1583"
+  HREF="node98.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1579"
+  HREF="node86.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1575"
+  HREF="node96.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1581"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1584"
+  HREF="node98.html">SUFILTER - applies a</A>
+<B> Up:</B> <A NAME="tex2html1580"
+  HREF="node86.html">General Operations on SU</A>
+<B> Previous:</B> <A NAME="tex2html1576"
+  HREF="node96.html">Radon Transform - Tau_P</A>
+ &nbsp <B>  <A NAME="tex2html1582"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00940000000000000000">
+1D Filtering Operations</A>
+</H1><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">A large part of what is called seismic processing, may be
+thought of as being ``filtering.''
+There are filtering operations for 1D applications in
+the SU package that span simple filtering tasks, to more
+sophisticated tasks including deconvolution and wavelet shaping operations.
+These operations are 1D, in that they are applied trace by trace.
+</FONT></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">Several types of filtering operations that arise in seismic
+processing are
+</FONT></FONT></FONT></FONT>
+<UL>
+<LI>zero bandpass, bandreject, lowpass, and highpass , and notch filtering,
+</LI>
+<LI>minimum or zero phase Butterworth filtering,
+</LI>
+<LI>Wiener prediction error (deconvolution),
+</LI>
+<LI>Wiener wavelets shaping,
+</LI>
+<LI>convolution,
+</LI>
+<LI>crosscorrelation,
+</LI>
+<LI>autocorrelation,
+</LI>
+<LI>data resampling with sinc interpolation,
+</LI>
+<LI>fractional derivatives/integrals,
+</LI>
+<LI>median filtering,
+</LI>
+<LI>time varying filtering.
+</LI>
+</UL><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1">The programs that are provided to meet these needs are:
+</FONT></FONT></FONT></FONT>
+<UL>
+<LI>SUFILTER - applies a zero-phase, sine-squared tapered filter 
+</LI>
+<LI>SUBFILT - apply Butterworth bandpass filter
+</LI>
+<LI>SUACOR - auto-correlation
+</LI>
+<LI>SUCONV, SUXCOR - convolution, correlation with a user-supplied filter
+</LI>
+<LI>SUPEF - Wiener predictive error filtering
+</LI>
+<LI>SUSHAPE - Wiener shaping filter 
+</LI>
+<LI>SURESAMP - Resample in time,
+</LI>
+<LI>SUFRAC - take general (fractional) time derivative or integral of
+data, plus a phase shift.  Input is TIME DOMAIN data.
+</LI>
+<LI>SUMEDIAN - MEDIAN filter about a user-defined polygonal curve with     
+the distance along the curve specified by key header word 
+</LI>
+<LI>SUTVBAND - time-variant bandpass filter (sine-squared taper)
+</LI>
+</UL><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html1585"
+  HREF="node98.html">SUFILTER - applies a zero-phase, sine-squared tapered filter</A>
+<LI><A NAME="tex2html1586"
+  HREF="node99.html">SUBFILT - apply Butterworth bandpass filter</A>
+<LI><A NAME="tex2html1587"
+  HREF="node100.html">SUCONV, SUXCOR - convolution, correlation with a user-supplied filter</A>
+<LI><A NAME="tex2html1588"
+  HREF="node101.html">SUPEF - Wiener predictive error filtering</A>
+<LI><A NAME="tex2html1589"
+  HREF="node102.html">SUSHAPE - Wiener shaping filter</A>
+<UL>
+<LI><A NAME="tex2html1590"
+  HREF="node103.html">2D Filtering Operations</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html1591"
+  HREF="node104.html">SURESAMP - Resample Data in Time</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html1583"
+  HREF="node98.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html1579"
+  HREF="node86.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html1575"
+  HREF="node96.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html1581"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html1584"
+  HREF="node98.html">SUFILTER - applies a</A>
+<B> Up:</B> <A NAME="tex2html1580"
+  HREF="node86.html">General Operations on SU</A>
+<B> Previous:</B> <A NAME="tex2html1576"
+  HREF="node96.html">Radon Transform - Tau_P</A>
+ &nbsp <B>  <A NAME="tex2html1582"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,82 @@
+label for proprietary codes diskettes.
+
+
+
+
+CWP PROPRIETARY CODE
+11 Jan 1999
+UNIX TAR DISKETTE 1/2
+extract via: 
+tar  -xvf   /dev/yr_flppy_dev
+Contents:(as compressed tarfiles)
+part 1 of total CWP proprietary
+releases
+
+CWP PROPRIETARY CODE
+12 Jan 1999
+UNIX TAR DISKETTE 2/2
+extract via: 
+tar  -xvf  /dev/yr_flppy_dev
+Contents:(as compressed tarfiles)
+part 2 of total CWP proprietary
+releases
+
+
+
+
+
+label for "free" codes diskettes.
+
+
+label for  "free A":
+
+CWP Free Codes Release 32
+12 Jan 1999
+UNIX TAR DISKETTE  1 of 4
+extract via: 
+tar  -xvf  /dev/floppy_device
+Contents: 
+cwp.su.all.32a-d.tar.Z
+
+label for "free B":
+
+CWP Free Codes Release 32
+12 Jan 1999
+UNIX TAR DISKETTE  2 of 4
+extract via: 
+tar  -xvf  /dev/floppy_device
+Contents: 
+cwp.su.all.32e-f.tar.Z
+
+
+label for "free C":
+
+CWP Free Codes Release 32
+12 Jan 1999
+UNIX TAR DISKETTE  3 of 4
+extract via: 
+tar  -xvf  /dev/floppy_device
+Contents: 
+cwp.su.all.32g-i.tar.Z
+
+
+label for "free D":
+
+CWP Free Codes Release 32
+12 Jan 1999
+UNIX TAR DISKETTE  4 of 4
+extract via: 
+tar  -xvf  /dev/floppy_device
+Contents: 
+LEGAL_STATEMENT README*
+untar_me_first sumanual
+
+
+Barbara,
+	These are the labels for the diskettes for the 2 new sponsors. 
+
+John Stockwell	 | john@dix.Mines.EDU
+Center for Wave Phenomena (The Home of Seismic Un*x)
+Colorado School of Mines
+Golden, CO 80401 | http://www.cwp.mines.edu/cwpcodes
+voice: (303) 273-3049  |    fax: (303) 273-3478.

@@ -1,0 +1,69 @@
+#! /bin/sh
+
+TARLIST1=" README_BEFORE_UNTARRING  \
+LEGAL_STATEMENT			\
+README_FIRST			\
+documentation.30.a4.tar.Z	\
+documentation.30.letter.tar.Z	\
+untar_me_first.30.tar.Z		\
+cwp.su.all.30.tar.Z"
+
+TARLIST2="README_FIRST	\
+U-NUMBERS	\
+rays.tar.Z	\
+ccco.tar.Z	\
+cz.tar.Z	\
+cshot.tar.Z	\
+cxz.tar.Z	\
+elas.tar.Z	\
+triso.tar.Z	\
+bdmo.tar.Z	\
+cxzcs.tar.Z	\
+extrap.tar.Z	\
+cxzco.tar.Z	\
+cwell.tar.Z	\
+sumiggbzo.tar.Z	\
+sudipdivcor.tar.Z	\
+dmovz.tar.Z	\
+suinvvxzco.tar.Z	\
+sudmofkcw.tar.Z	\
+dmolevan.tar.Z	\
+miggbzo3d.tar.Z	\
+dmoir3d.tar.Z	\
+susynlvfti.tar.Z	\
+gbmod.tar.Z	\
+fct.tar.Z	\
+miggbzoan.tar.Z	\
+extrapvti.tar.Z	\
+sudgast.tar.Z	\
+sumigpsti.tar.Z	\
+sudmotivz.tar.Z	\
+tifowler.tar.Z	\
+tihaledmo.tar.Z	\
+fctanis.tar.Z	\
+extminti.tar.Z	\
+suinvvxzcs.tar.Z	\
+suinvvxz_m.tar.Z	\
+tricxzco.tar.Z	\
+mrafxzwt.tar.Z"
+
+TAPE=/dev/rmt0
+FREE=/usr/local/cwp/src/Maketars/Tarfiles/Free
+PROP=/usr/local/cwp/src/Maketars/Tarfiles/Prop
+pause after putting tape in drive
+
+mt -f /dev/rmt0 setdensity 0x14
+mt -f /dev/rmt0 setdensity 0x14
+
+pause 
+
+mt -f /dev/rmt0 status
+
+tar -cvf $TAPE -C $FREE $TARLIST1 -C $PROP $TARLIST2
+
+pause
+
+tar -tvf $TAPE
+
+
+exit 0

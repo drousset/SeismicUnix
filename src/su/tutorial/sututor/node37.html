@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>FTNUNSTRIP - convert C binary floats to Fortran style floats </TITLE>
+<META NAME="description" CONTENT="FTNUNSTRIP - convert C binary floats to Fortran style floats ">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="previous" HREF="node36.html">
+<LINK REL="up" HREF="node36.html">
+<LINK REL="next" HREF="node38.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html802"
+  HREF="node38.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html798"
+  HREF="node36.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html794"
+  HREF="node36.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html800"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html803"
+  HREF="node38.html">H2B - Importing 8</A>
+<B> Up:</B> <A NAME="tex2html799"
+  HREF="node36.html">Going from C to</A>
+<B> Previous:</B> <A NAME="tex2html795"
+  HREF="node36.html">Going from C to</A>
+ &nbsp <B>  <A NAME="tex2html801"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H3><A NAME="SECTION00723100000000000000">
+FTNUNSTRIP - convert C binary floats to Fortran style floats </A>
+</H3>
+
+<P>
+However, another possibility is to make ``fake'' Fortran floats
+with a C-program. Such a program is <B>ftnunstrip</B>.
+
+<P>
+This program assumes that the record length is constant
+throughout the input and output files.
+In fortran code reading these floats, the following implied
+do loop syntax would be used:
+        DO i=1,n2
+                 READ (10) (someARRAY(j), j=1,n1)
+        END DO
+Here n1 is the number of samples per record, n2 is the number
+of records, 10 is some default file (fort.10, for example) which
+is opened as form='unformatted'. Here  ``someArray(j)'' is an array
+dimensioned to size n1.
+
+<P>
+Please note that the Fortran style of having BOR and EOR markers
+is smart, if used properly, but is stupid if used incorrectly. 
+The Fortran READ statement finds out from the BOR marker how many 
+bytes will follow, reads the number of values specified, keeping 
+track of the number of bytes. When it finishes reading, it compares
+the number of bytes read to the number of bytes listed in the EOR
+value, and can effectively trap errors in bytes read, or premature
+EOR.
+
+<P>
+Because there is an additional ``sizeof(int)'' (usually 4 bytes)
+at the beginning and end of every record, it is smart to have as few
+records as is necessary. The worst case scenario is to have every
+value of data be a record, meaning that the size of the file could
+be 2/3 BOR and EOR markers and 1/3 data!
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html802"
+  HREF="node38.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html798"
+  HREF="node36.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html794"
+  HREF="node36.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html800"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html803"
+  HREF="node38.html">H2B - Importing 8</A>
+<B> Up:</B> <A NAME="tex2html799"
+  HREF="node36.html">Going from C to</A>
+<B> Previous:</B> <A NAME="tex2html795"
+  HREF="node36.html">Going from C to</A>
+ &nbsp <B>  <A NAME="tex2html801"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

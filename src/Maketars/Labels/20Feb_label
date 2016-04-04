@@ -1,0 +1,51 @@
+
+label for "free" codes diskettes.
+
+
+label for  "free A":
+
+CWP Free Codes Release 30
+21 Feb 1997
+UNIX TAR DISKETTE  1 of 3
+extract via: 
+tar  -xvf  /dev/floppy_device
+Contents: 
+cwp.su.all.30A.tar.Z
+
+
+label for "free B":
+
+CWP Free Codes Release 30
+21 Feb 1997
+UNIX TAR DISKETTE  2 of 3
+extract via: 
+tar  -xvf  /dev/floppy_device
+Contents: 
+cwp.su.all.30B.tar.Z, README*
+
+label for "free C":
+
+CWP Free Codes Release 30
+21 Feb 1997
+UNIX TAR DISKETTE  3 of 3
+extract via: 
+tar  -xvf  /dev/floppy_device
+Contents: 
+sumanual
+
+
+
+
+label for "prop" codes diskette.
+
+
+CWP PROPRIETARY CODES
+21 February 1997
+UNIX TAR DISKETTE
+extract via: 
+tar  -xvf   /dev/yr_flppy_dev
+Contents:
+mrafxzwt, README, and rereleases
+
+
+

@@ -1,0 +1,256 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2K.1beta (1.47)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Geometry Setting</TITLE>
+<META NAME="description" CONTENT="Geometry Setting">
+<META NAME="keywords" CONTENT="sututor">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2K.1beta">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="sututor.css">
+
+<LINK REL="next" HREF="node135.html">
+<LINK REL="previous" HREF="node133.html">
+<LINK REL="up" HREF="node130.html">
+<LINK REL="next" HREF="node135.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html2057"
+  HREF="node135.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html2053"
+  HREF="node130.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html2047"
+  HREF="node133.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html2055"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2058"
+  HREF="node135.html">Technical Questions</A>
+<B> Up:</B> <A NAME="tex2html2054"
+  HREF="node130.html">Answers to Frequently Asked</A>
+<B> Previous:</B> <A NAME="tex2html2048"
+  HREF="node133.html">Tape reading and writing</A>
+ &nbsp <B>  <A NAME="tex2html2056"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION001340000000000000000">
+Geometry Setting</A>
+</H1><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Question  17</B> &nbsp; 
+How do I do ``geometry setting'' in SU?</DIV><P></P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><P>
+<DIV><B>Answer  17</B> &nbsp; 
+<P>
+<EM>There is a common seismic data manipulation task that often is 
+called "geometry setting" in commercial packages in which the
+user converts information in the survey observers' logs
+into values in the trace headers.
+</EM>
+<P>
+<EM>The CWP/SU package does indeed, have provisions for getting and
+setting header fields, as well as computing a third header field
+from one or two other header fields. The programs that you need
+to use for this are:
+</EM>
+<P>
+<EM>
+<BR>
+<BR>
+sugethw    ("SU get header word") 
+<BR>
+sushw      ("SU set header word") 
+<BR>
+suchw      ("SU change or compute header word")
+<BR>
+<BR>
+</EM>
+<P>
+<EM>Type the name of each program to see the self
+documentation of that code.
+</EM>
+<P>
+<EM>
+<BR>
+<BR>
+In addition, to find out what the header field "keywords"
+mentioned in these programs are:  type:    sukeyword -o
+</EM>
+<P>
+<EM>
+<BR>
+<BR>
+You may have the information in a variety of forms.
+The most common and least complicated assumptions of that form 
+will be made here.
+</EM>
+<P>
+<EM>
+<BR>
+<BR>
+The task requires the following basic steps.
+</EM>
+<P>
+<EM>
+<BR>
+<BR>
+</EM>
+<OL>
+<LI>Get your data into SU format. The SU format is not exactly SEGY,
+   but it does preserve the SEGY header information. If you are
+   starting with SEGY data (either on tape, or on in the form of
+   a diskfile) then you use "segyread" to read the data into an
+   su file format.
+
+<P>
+For tape:
+
+<P>
+<PRE>
+      % segyread tape=/dev/rmt0 bfile=data.1 header=h.1 | segyclean &gt; data.su
+</PRE>
+
+<P>
+For diskfile
+
+<P>
+<PRE>
+      %  segyread tape=data.segy bfile=data.1 header=h.1 | segyclean &gt; data.su
+</PRE> 
+   The file   data.segy is assumed here to be a "tape image" of segy data.
+   You have to be careful because some commercial software will write
+   SEGY-like data, by mimicking the layout of the SEGY format, but 
+   this format will not be in the true IBM tape format that SEGY is defined
+   to be.  In Promax, if you write a SEGY file in IBM Real format, then this
+   will be true SEGY tape image.
+   working on.
+
+<P>
+</LI>
+<LI>If you have your data in the SU format, then you may view the
+   ranges of the SEGY headers (headers that are not set will not
+   be shown) via:
+<PRE>
+   % surange &lt; data.su
+</PRE>
+
+<P>
+</LI>
+<LI>Data often comes with some fields already set. To dump these
+   fields in a format that is convenient for geometry setting,
+   you would use    sugethw  in the following way:
+
+<P>
+<PRE>
+   % sugethw &lt; data.su  output=geom  key=key1,key2,... &gt; hfile.ascii
+</PRE>
+
+<P>
+The strings "key1,key2,..." are the keywords representing the desired
+   SEGY trace header fields. These keywords may be listed via:
+
+<P>
+<PRE>
+   % sukeyword -o
+</PRE>
+
+<P>
+</LI>
+<LI>Once you have dumped the desired header fields  into  hfile.ascii
+   then you may edit them with the editor of your choice. The point
+   is that you may create a multi-column ascii file that lists the
+   values of specific header fields (trace by trace, as they appear
+   in data.su) by *any* method you wish. Each column will contain
+   the value of a specific header field to be set.
+
+<P>
+</LI>
+<LI>Now that you have created the ascii file containing your header values,
+   you may load these values into data.su via:
+
+<P>
+<PRE>
+   % a2b &lt; hfile.ascii n1=N_columns &gt; hfile.bin
+</PRE> 
+   Here,  N_columns is the number of columns in   hfile.ascii.
+   This is to convert hfile.ascii to a binary file.
+
+<P>
+Now use:
+<PRE>
+   % sushw &lt; data.su key=key1,key2,...  infile=hfile.bin &gt; data1.su
+</PRE> 
+   Here   key1,key2,... are the appropriate keywords representing
+   the fields being set, listed in the exact order the values appear,
+   column by column in hfile.ascii.
+
+<P>
+</LI>
+<LI>If you want to compute a third header field from two given header
+   field values, then you may use: <B>suchw</B> for this.
+   Also, if the header fields that you want to set are
+   systematic in some way (are constant for each trace or vary
+   linearly across a gather), then you don't have to use the
+   "infile=" option. You may simply give the
+   necessary values to   sushw.   See the selfdocs for   sushw and
+   suchw  for examples of these.
+</LI>
+</OL><EM></DIV><P></P>
+</EM><FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT>
+<P>
+<FONT SIZE="-1"><FONT SIZE="-1"><FONT SIZE="-1"></FONT></FONT></FONT><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html2057"
+  HREF="node135.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html2053"
+  HREF="node130.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html2047"
+  HREF="node133.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html2055"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/share/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html2058"
+  HREF="node135.html">Technical Questions</A>
+<B> Up:</B> <A NAME="tex2html2054"
+  HREF="node130.html">Answers to Frequently Asked</A>
+<B> Previous:</B> <A NAME="tex2html2048"
+  HREF="node133.html">Tape reading and writing</A>
+ &nbsp <B>  <A NAME="tex2html2056"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+John Stockwell
+2007-04-10
+</ADDRESS>
+</BODY>
+</HTML>

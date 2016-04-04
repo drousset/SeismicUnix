@@ -1,0 +1,10 @@
+#! /bin/sh
+
+
+for i in mk.*
+do
+	make -f $i
+done
+
+exit 0
+
