@@ -1,9 +1,0 @@
-SUATTRIBUTES - instantaneous trace ATTRIBUTES 			
-SUBACKUS - calculate Thomsen anisotropy parameters from 	
-SUBACKUSH - calculate Thomsen anisotropy parameters from 	
-
-SUHISTOGRAM - create histogram of input amplitudes		
-SULPRIME - find appropriate Backus average length for  	
-SUMAX - get trace by trace local/global maxima, minima, or absolute maximum
-SUMEAN - get the mean values of data traces				",	
-SUQUANTILE - display some quantiles or ranks of a data set            

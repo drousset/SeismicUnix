@@ -1,7 +1,0 @@
-#! /bin/sh
-
-for i in *
-do
-	cd $i ; Shell
-	cd ..
-done

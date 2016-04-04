@@ -1,8 +1,0 @@
-G001  cwp,par    Jack K. Cohen's C language CWP scientific code.
-G002  plot,xcwp  Dave Hale's C and X-windows graphics libraries and mains.
-G003  su         Jack K. Cohen's C seismic unix processing system.
-G004  wximplicit Zhiming Li's C w-x implicit modeling and inversion code.
-G005  npc        Tong Chen's network parallel computing software for use
- 		 with the public domain package PVM  from Oak Ridge National
-		 Laboratory.
-
