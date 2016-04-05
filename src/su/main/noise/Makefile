@@ -10,6 +10,7 @@ LFLAGS= $(PRELFLAGS) -L$L -lsu -lpar -lcwp -lm $(POSTLFLAGS)
 PROGS =			\
 	$B/suaddnoise	\
 	$B/suharlan	\
+	$B/sugroll	\
 	$B/sujitter
 
 

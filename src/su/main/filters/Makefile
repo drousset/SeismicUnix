@@ -22,6 +22,7 @@ PROGS =			\
 	$B/sumedian	\
 	$B/susmgauss2	\
 	$B/suphase	\
+	$B/susvdfilt	\
 	$B/sutvband
 
 
