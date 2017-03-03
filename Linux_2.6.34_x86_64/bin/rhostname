@@ -1,9 +1,0 @@
-#! /bin/sh
-# rhostname - get name of remote host
-# Jack 06/12/90
-
-who am i | grep $USER | head -1 |
-sed '
-	s/.*(//
-	s/).*//
-'

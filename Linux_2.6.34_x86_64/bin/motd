@@ -1,6 +1,0 @@
-#! /bin/sh
-# motd - echo the current motd
-# Usage: motd
-# Author: Shuki
-
-exec more /etc/motd
