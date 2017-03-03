@@ -1,1 +1,0 @@
-cc -shared -o libcom.so flipxy.c ../../lib/sac.a
