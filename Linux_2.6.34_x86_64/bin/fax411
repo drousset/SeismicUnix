@@ -1,0 +1,23 @@
+#! /bin/sh
+# 411 - Access phone book as a database (after Kernighan and Pike)
+# Usage: 411 pattern
+# Note: ignoring case in searches
+# A feature (or bug) is that 411 sans args prints the whole phonebook.
+# Jack K. Cohen, 1985
+# Modified 7 Jan 1992 by John Stockwell
+#    to include a search of a user-defined phonebook: $HOME/lib/phonebook
+
+PATH=/bin:/usr/bin:/usr/ucb
+
+PHONEDIRS="/usr/local $HOME"
+
+for i in $PHONEDIRS
+	do
+	if test -f $i/lib/faxphonebook
+	then
+		grep -i "$*" $i/lib/faxphonebook
+	else
+		echo 
+	fi
+	done
+exit 0

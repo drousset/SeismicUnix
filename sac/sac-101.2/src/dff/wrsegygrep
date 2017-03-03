@@ -1,0 +1,126 @@
+175,176c175,176
+<    outHdr.max *= ( scale + ( scale < 0 ? -0.5 : 0.5 ) ) ;
+<    outHdr.min *= ( scale + ( scale < 0 ? -0.5 : 0.5 ) ) ;
+---
+>    outHdr.max *= scale ;
+>    outHdr.min *= scale ;
+198,200d197
+<    /* Call function to stuff and char buffer with the segy header */
+< /*   loadbuffer( buffer , &outHdr ) ;
+< */
+203,204c200
+< /*   check = write( segyFile , buffer , 240 ) ;
+< */ check = write( segyFile , (char *) ( &outHdr.lineSeq ) , 240 ) ;
+---
+>    check = write( segyFile , (char *) ( &outHdr.lineSeq ) , 240 ) ;
+233,342d228
+< 
+< 
+< void loadbuffer( char *buffer , SEGYHEAD *Hdr )
+< {
+<    memcpy( (void *)(buffer      ) , (void *)(&Hdr->lineSeq) , 4 ) ;
+<    memcpy( (void *)(buffer +   4) , (void *)(&Hdr->reelSeq) , 4 ) ;
+<    memcpy( (void *)(buffer +   8) , (void *)(&Hdr->event_number) ,  4 ) ;
+<    memcpy( (void *)(buffer +  12) , (void *)(&Hdr->channel_number) , 4 ) ;
+<    memcpy( (void *)(buffer +  16) , (void *)(&Hdr->energySourcePt) ,    4 ) ;
+<    memcpy( (void *)(buffer +  20) , (void *)(&Hdr->cdpEns) ,   4 ) ;
+<    memcpy( (void *)(buffer +  24) , (void *)(&Hdr->traceInEnsemble) ,  4 ) ;
+< 
+< 
+<    memcpy( (void *)(buffer +  28) , (void *)(&Hdr->traceID) ,  2 ) ;
+<    memcpy( (void *)(buffer +  30) , (void *)(&Hdr->vertSum) ,   2 ) ;
+<    memcpy( (void *)(buffer +  32) , (void *)(&Hdr->horSum) ,   2 ) ;
+<    memcpy( (void *)(buffer +  34) , (void *)(&Hdr->dataUse) ,  2 ) ;
+< 
+<    memcpy( (void *)(buffer +  36) , (void *)(&Hdr->sourceToRecDist) , 4 ) ;
+<    memcpy( (void *)(buffer +  40) , (void *)(&Hdr->recElevation) ,  4 ) ;
+<    memcpy( (void *)(buffer +  44) , (void *)(&Hdr->sourceSurfaceElevation) ,  4 ) ;
+<    memcpy( (void *)(buffer +  48) , (void *)(&Hdr->sourceDepth) , 4 ) ;
+<    memcpy( (void *)(buffer +  52) , (void *)(&Hdr->datumElevRec) ,   4 ) ;
+<    memcpy( (void *)(buffer +  56) , (void *)(&Hdr->datumElevSource) ,   4 ) ;
+<    memcpy( (void *)(buffer +  60) , (void *)(&Hdr->sourceWaterDepth) ,  4 ) ;
+<    memcpy( (void *)(buffer +  64) , (void *)(&Hdr->recWaterDepth) ,  4 ) ;
+< 
+<    memcpy( (void *)(buffer +  68) , (void *)(&Hdr->elevationScale) , 2 ) ;
+<    memcpy( (void *)(buffer +  70) , (void *)(&Hdr->coordScale) , 2 ) ;
+< 
+<    memcpy( (void *)(buffer +  72) , (void *)(&Hdr->sourceLongOrX) , 4 ) ;
+<    memcpy( (void *)(buffer +  76) , (void *)(&Hdr->sourceLatOrY) , 4 ) ;
+<    memcpy( (void *)(buffer +  80) , (void *)(&Hdr->recLongOrX) , 4 ) ;
+<    memcpy( (void *)(buffer +  84) , (void *)(&Hdr->recLatOrY) , 4 ) ;
+< 
+<    memcpy( (void *)(buffer +  88) , (void *)(&Hdr->coordUnits) , 2 ) ;
+<    memcpy( (void *)(buffer +  90) , (void *)(&Hdr->weatheringVelocity) , 2 ) ;
+<    memcpy( (void *)(buffer +  92) , (void *)(&Hdr->subWeatheringVelocity) , 2 ) ;
+<    memcpy( (void *)(buffer +  94) , (void *)(&Hdr->sourceUpholeTime) , 2 ) ;
+<    memcpy( (void *)(buffer +  96) , (void *)(&Hdr->recUpholeTime) , 2 ) ;
+<    memcpy( (void *)(buffer +  98) , (void *)(&Hdr->sourceStaticCor) , 2 ) ;
+<    memcpy( (void *)(buffer + 100) , (void *)(&Hdr->recStaticCor) , 2 ) ;
+<    memcpy( (void *)(buffer + 102) , (void *)(&Hdr->totalStatic) , 2 ) ;
+<    memcpy( (void *)(buffer + 104) , (void *)(&Hdr->lagTimeA) , 2 ) ;
+<    memcpy( (void *)(buffer + 106) , (void *)(&Hdr->lagTimeB) , 2 ) ;
+<    memcpy( (void *)(buffer + 108) , (void *)(&Hdr->delay) , 2 ) ;
+<    memcpy( (void *)(buffer + 110) , (void *)(&Hdr->muteStart) , 2 ) ;
+<    memcpy( (void *)(buffer + 112) , (void *)(&Hdr->muteEnd) , 2 ) ;
+<    memcpy( (void *)(buffer + 114) , (void *)(&Hdr->sampleLength) , 2 ) ;
+<    memcpy( (void *)(buffer + 116) , (void *)(&Hdr->deltaSample) , 2 ) ;
+<    memcpy( (void *)(buffer + 118) , (void *)(&Hdr->gainType) , 2 ) ;
+<    memcpy( (void *)(buffer + 120) , (void *)(&Hdr->gainConst) , 2 ) ;
+<    memcpy( (void *)(buffer + 122) , (void *)(&Hdr->initialGain) , 2 ) ;
+<    memcpy( (void *)(buffer + 124) , (void *)(&Hdr->correlated) , 2 ) ;
+<    memcpy( (void *)(buffer + 126) , (void *)(&Hdr->sweepStart) , 2 ) ;
+<    memcpy( (void *)(buffer + 128) , (void *)(&Hdr->sweepEnd) , 2 ) ;
+<    memcpy( (void *)(buffer + 130) , (void *)(&Hdr->sweepLength) , 2 ) ;
+<    memcpy( (void *)(buffer + 132) , (void *)(&Hdr->sweepType) , 2 ) ;
+<    memcpy( (void *)(buffer + 134) , (void *)(&Hdr->sweepTaperAtStart) , 2 ) ;
+<    memcpy( (void *)(buffer + 136) , (void *)(&Hdr->sweepTaperAtEnd) , 2 ) ;
+<    memcpy( (void *)(buffer + 138) , (void *)(&Hdr->taperType) , 2 ) ;
+<    memcpy( (void *)(buffer + 140) , (void *)(&Hdr->aliasFreq) , 2 ) ;
+<    memcpy( (void *)(buffer + 142) , (void *)(&Hdr->aliasSlope) , 2 ) ;
+<    memcpy( (void *)(buffer + 144) , (void *)(&Hdr->notchFreq) , 2 ) ;
+<    memcpy( (void *)(buffer + 146) , (void *)(&Hdr->notchSlope) , 2 ) ;
+<    memcpy( (void *)(buffer + 148) , (void *)(&Hdr->lowCutFreq) , 2 ) ;
+<    memcpy( (void *)(buffer + 150) , (void *)(&Hdr->hiCutFreq) , 2 ) ;
+<    memcpy( (void *)(buffer + 152) , (void *)(&Hdr->lowCutSlope) , 2 ) ;
+<    memcpy( (void *)(buffer + 154) , (void *)(&Hdr->hiCutSlope) , 2 ) ;
+<    memcpy( (void *)(buffer + 156) , (void *)(&Hdr->year) , 2 ) ;
+<    memcpy( (void *)(buffer + 158) , (void *)(&Hdr->day) , 2 ) ;
+<    memcpy( (void *)(buffer + 160) , (void *)(&Hdr->hour) , 2 ) ;
+<    memcpy( (void *)(buffer + 162) , (void *)(&Hdr->minute) , 2 ) ;
+<    memcpy( (void *)(buffer + 164) , (void *)(&Hdr->second) , 2 ) ;
+<    memcpy( (void *)(buffer + 166) , (void *)(&Hdr->timeBasisCode) , 2 ) ;
+<    memcpy( (void *)(buffer + 168) , (void *)(&Hdr->traceWeightingFactor) , 2 ) ;
+<    memcpy( (void *)(buffer + 170) , (void *)(&Hdr->phoneRollPos1) , 2 ) ;
+<    memcpy( (void *)(buffer + 172) , (void *)(&Hdr->phoneFirstTrace) , 2 ) ;
+<    memcpy( (void *)(buffer + 174) , (void *)(&Hdr->phoneLastTrace) , 2 ) ;
+<    memcpy( (void *)(buffer + 176) , (void *)(&Hdr->gapSize) , 2 ) ;
+<    memcpy( (void *)(buffer + 178) , (void *)(&Hdr->taperOvertravel) , 2 ) ;
+< 
+<    memcpy( (void *)(buffer + 180) , (void *)(&Hdr->station_name) , 6 ) ;
+<    memcpy( (void *)(buffer + 186) , (void *)(&Hdr->sensor_serial) , 8 ) ;
+<    memcpy( (void *)(buffer + 194) , (void *)(&Hdr->channel_name) , 4 ) ;
+< 
+<    memcpy( (void *)(buffer + 198) , (void *)(&Hdr->totalStaticHi) , 2 ) ;
+< 
+<    memcpy( (void *)(buffer + 200) , (void *)(&Hdr->samp_rate) , 4 ) ;
+< 
+<    memcpy( (void *)(buffer + 204) , (void *)(&Hdr->data_form) , 2 ) ;
+<    memcpy( (void *)(buffer + 206) , (void *)(&Hdr->m_secs)  , 2 ) ;
+<    memcpy( (void *)(buffer + 208) , (void *)(&Hdr->trigyear) , 2 ) ;
+<    memcpy( (void *)(buffer + 210) , (void *)(&Hdr->trigday) , 2 ) ;
+<    memcpy( (void *)(buffer + 212) , (void *)(&Hdr->trighour) , 2 ) ;
+<    memcpy( (void *)(buffer + 214) , (void *)(&Hdr->trigminute) , 2 ) ;
+<    memcpy( (void *)(buffer + 216) , (void *)(&Hdr->trigsecond) , 2 ) ;
+<    memcpy( (void *)(buffer + 218) , (void *)(&Hdr->trigmills) , 2 ) ;
+< 
+<    memcpy( (void *)(buffer + 220) , (void *)(&Hdr->scale_fac) , 4 ) ;
+< 
+<    memcpy( (void *)(buffer + 224) , (void *)(&Hdr->inst_no) , 2 ) ;
+<    memcpy( (void *)(buffer + 226) , (void *)(&Hdr->not_to_be_used) , 2 ) ;
+< 
+<    memcpy( (void *)(buffer + 228) , (void *)(&Hdr->num_samps) , 4 ) ;
+< 
+<    memcpy( (void *)(buffer + 232) , (void *)(&Hdr->max) , 4 ) ;
+<    memcpy( (void *)(buffer + 236) , (void *)(&Hdr->min) , 4 ) ;
+< 
+< } /* end loadbuffer() */

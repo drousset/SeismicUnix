@@ -86,7 +86,7 @@ END`
 
 echo $n2
 
-suxmovie < snaps.su n1=$nz n2=$n2 clip=1e-13 loop=1 title="snapshots horizontal vertical " width=$nxplot height=$nzplot  sleep=200000 &
+suxmovie < snaps.su n1=$nz n2=$n2 clip=1e-13 loop=1 title="snapshots horizontal vertical " width=$nxplot height=$nzplot  sleep=2 &
 
 # shot gathers from a horizontal line of geophones
 suximage <  hs.su xbox=0 ybox=400 wbox=$nx hbox=$nz  perc=99 title="  shot gathers  vertical horizontal " &

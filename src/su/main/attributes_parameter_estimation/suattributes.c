@@ -1,7 +1,9 @@
 /* Copyright (c) Colorado School of Mines, 2011.*/
-/* All rights reserved.		       */
+/* All rights reserved.                       */
 
-/* SUATTRIBUTES:  $Revision: 1.34 $ ; $Date: 2013/08/20 22:24:04 $	*/
+
+/* SUATTRIBUTES:  $Revision: 1.35 $ ; $Date: 2016/05/09 16:43:24 $	*/
+
 
 #include "su.h"
 #include "segy.h"
@@ -20,21 +22,18 @@ char *sdoc[] = {
 " 	mode=amp	output flag 					",
 " 	       		=amp envelope traces				",
 " 	       		=phase phase traces				",
+" 	       		=uphase unwrapped phase traces			",
 " 	       		=freq frequency traces				",
+"			=freqw Frequency Weighted Envelope		",
+"			=thin  Thin-Bed (inst. freq - average freq)	",
 "			=bandwith Instantaneous bandwidth		",
 "			=normamp Normalized Phase (Cosine Phase)	",
 " 	       		=fdenv 1st envelope traces derivative		",
 " 	       		=sdenv 2nd envelope traces derivative		",
 " 	       		=q Ins. Q Factor				",
-" ... unwrapping related options ....					",
 "	unwrap=		default unwrap=0 for mode=phase			",
 " 			default unwrap=1 for freq, uphase, freqw, Q	",
 " 			dphase_min=PI/unwrap				",
-"       trend=0		=1 remove the linear trend of the inst. phase	",
-" 	zeromean=0	=1 assume instantaneous phase is zero mean	",
-" 									",
-"			=freqw Frequency Weighted Envelope		",
-"			=thin  Thin-Bed (inst. freq - average freq)	",
 "	wint=		windowing for freqw				",
 "			windowing for thin				",
 "			default=1 					",
@@ -45,31 +44,39 @@ char *sdoc[] = {
 " This program performs complex trace attribute analysis. The first three",
 " attributes, amp,phase,freq are the classical Taner, Kohler, and	",
 " Sheriff, 1979.							",
-"  									",
-" The unwrapping algorithm is the \"simple\" unwrapping algorithm that	",
-" searches for jumps in phase.						",
 " 									",
-" The quantity dphase_min is the minimum change in the phase angle taken",
-" to be the result of phase wrapping, rather than natural phase	 ",
-" variation in the data. Setting unwrap=0 turns off phase-unwrapping	",
-" alltogether. Choosing  unwrap > 1 makes the unwrapping function more	",
-" sensitive to instantaneous phase changes.				",
+" 									",
+" The unwrap parameter is active only for mode=freq and mode=phase. The	",
+" quantity dphase_min is the minimum change in the phase angle taken to be",
+" the result of phase wrapping, rather than natural phase variation in the",
+" data. Setting unwrap=0 turns off phase-unwrapping altogether. Choosing",
+" unwrap > 1 makes the unwrapping function more sensitive to phase changes.",
 " Setting unwrap > 1 may be necessary to resolve higher frequencies in	",
-" data (or sample data more finely).					",
+" data (or sample data more finely). The phase unwrapping is crude. The ",
+" differentiation needed to compute the instantaneous frequency		",
+" freq(t)= d(phase)/dt is a simple centered difference.			",
+"	 					       			",
+" The mode=uphase generates uwrapped phase traces by integrating the	",
+" instantaneous amplitude traces.		       			",
 "	 					       			",
 " Examples:								",
 " suvibro f1=10 f2=50 t1=0 t2=0 tv=1 | suattributes2 mode=amp | ...	",
 " suvibro f1=10 f2=50 t1=0 t2=0 tv=1 | suattributes2 mode=phase | ...	",
 " suvibro f1=10 f2=50 t1=0 t2=0 tv=1 | suattributes2 mode=freq | ...	",
 " suplane | suattributes mode=... | supswigb |...       		",
-"	 					       			",
+
 NULL};
 
 /* Credits:
- *	CWP: Jack K. Cohen
+ *	CWP: Jack Cohen
  *      CWP: John Stockwell (added freq and unwrap features)
  *	UGM (Geophysics Students): Agung Wiyono
- *	   email:aakanjas@gmail.com (others) added more attributes
+ *           email:aakanjas@gmail.com (others)
+ *	CSM: Kylee Brown and Steven Rennolet, Senior Design,
+ *	     updates to instanteous phase, instantaneous frequency,
+ *	     first time derivative of the envelope, second time derivative
+ *	     of the envelope, instantaneous quality factor, and thin bed
+ *	     indicator
  *					
  *
  * Algorithm:
@@ -79,8 +86,14 @@ NULL};
  *  phase(t) = arctan( c.im(t)/c.re(t))
  *  freq(t) = d(phase)/dt
  *
- * Reference: Taner, M. T., Koehler, A. F., and  Sheriff R. E.
- * "Complex seismic trace analysis", Geophysics,  vol.44, p. 1041-1063, 1979
+ * Reference: 
+ *  Taner, M. T., Koehler, A. F., and  Sheriff R. E.   "Complex seismic trace 
+ *      analysis", Geophysics,  vol.44, p. 1041-1063, 1979
+ *  Chopra, S. and K.  Marfurt, 2005, A historical perspective, Geophysics,
+ *      vol. 70, no. 5, p.3SO-295SO, Society of Exploration Geophysicists.
+ *  Barnes, A. E, 1992, The calculation of instantaneous frequency and 
+ *      instantaneous bandwidth, Geophysics, vol. 57, no. 11, p. 1520-1524,
+ *      Society of Exploration Geophysicists.
  *
  * Trace header fields accessed: ns, trid
  * Trace header fields modified: d1, trid
@@ -101,6 +114,7 @@ NULL};
 #define UPHASE		 11
 
 /* function prototype of functions used internally */
+void unwrap_phase(int n, float unwrap, float *phase);
 void differentate1d(int n, float h, float *f);
 void twindow(int nt, int wtime, float *data);
 
@@ -111,21 +125,19 @@ main(int argc, char **argv)
 {
 	cwp_String mode;	/* display: real, imag, amp, arg	*/
 	int imode=AMP;		/* integer abbrev. for mode in switch	*/
-	register complex *ct=NULL;	/* complex trace		*/
+	register complex *ct;	/* complex trace			*/
 	int nt;			/* number of points on input trace	*/
 	float dt;		/* sample spacing			*/
-	float *data=NULL;	/* array of data from each trace	*/
-	float *hdata=NULL;	/* array of Hilbert transformed data	*/
+	float *data;		/* array of data from each trace	*/
+	float *hdata;		/* array of Hilbert transformed data	*/
 	float unwrap;		/* PI/unwrap=min dphase assumed to by wrap*/
 	int wint;		/* n time sampling to window */
 	cwp_Bool seismic;	/* is this seismic data?		*/
 	int ntout;
-	int trend=0;		/* =1 remove trend from instantaneous phase */
-	int zeromean=0;		/* =1 assume zero mean inst. phase func. */
-
 	/* Initialize */
 	initargs(argc, argv);
 	requestdoc(1);
+	
 
 	/* Get info from first trace */
 	if (!gettr(&tr)) err("can't get first trace");
@@ -141,7 +153,6 @@ main(int argc, char **argv)
 
 	/* Get mode; note that imode is initialized to AMP */
 	if (!getparstring("mode", &mode))	mode = "amp";
-	if (!getparint("trend", &trend))	trend=0;
 
 	if      (STREQ(mode, "phase"))  imode = ARG;
 	else if (STREQ(mode, "freq"))	imode = FREQ;
@@ -180,12 +191,11 @@ main(int argc, char **argv)
 	break;
 	}
 
-	checkpars();
-
 	/* allocate space for data and hilbert transformed data, cmplx trace */
 	data = ealloc1float(nt);
 	hdata = ealloc1float(nt);
 	ct = ealloc1complex(nt);
+
 
 	/* Loop over traces */
 	do {
@@ -217,21 +227,16 @@ main(int argc, char **argv)
 		{
 			float *phase = ealloc1float(nt);
 
-			/* capture real and imaginary parts of the data */
-			/* calculate unwrapped phase			*/
 			for (i = 0; i < nt; ++i) {
 				float re = ct[i].r;
 				float im = ct[i].i;
-				if (re*re+im*im){
-					phase[i] = atan2(im, re);
-				} else {
-					phase[i] = 0.0;
-					}
+				if (re*re+im*im)  phase[i] = atan2(im, re);
+				else              phase[i] = 0.0;
 			}
-			    
-			/* unwrap the phase */
-			if (unwrap!=0) 
-			simple_unwrap_phase(nt, trend, zeromean, unwrap, phase);
+
+			/* phase unwrapping */
+			/* default unwrap=0 for this mode */
+			if (unwrap!=0) unwrap_phase(nt, unwrap, phase);
 			
 			/* write phase values to tr.data */
 			for (i = 0; i < nt; ++i) tr.data[i] = phase[i];
@@ -242,59 +247,8 @@ main(int argc, char **argv)
 		break;
 		case FREQ:
 		{
-			float *freq = ealloc1float(nt);
-			float *u = ealloc1float(nt);
-			float *uprime = ealloc1float(nt);
-			float *v = ealloc1float(nt);
-			float *vprime = ealloc1float(nt);
-			float	fnyq = 0.5 / dt;
-
-			for (i = 0; i < nt; ++i) {
-				u[i] = ct[i].r;
-				uprime[i] = ct[i].r;
-				v[i] = ct[i].i;
-				vprime[i] = ct[i].i;
-			}
-
-			/* compute inst. frequency by computing the	*/
-			/* derivative of the instantaneous phase.	*/
-			/* Note that: 					*/
-			/* freq(t) = d/dt[ phase[t] ] 			*/ 
-			/*  = d/dt ( arctan (v/u) )			*/
-			/*   = [ 1/ (1 +(v/u)^2) ] ( v'/u - vu'/u^2 )	*/
-			/*   = ( v'u - vu' )/(u^2 +v^2)			*/
-
-			differentate1d(nt, 2.0*PI*dt,uprime );
-			differentate1d(nt, 2.0*PI*dt,vprime );
-
-			for (i=0; i < nt ; ++i){
-				float num = (vprime[i]*u[i] - v[i]*uprime[i]);
-				float den = (u[i]*u[i] + v[i]*v[i]);
-			
-				if (ABS(den)>FLT_EPSILON){
-					freq[i] = num/den;
-				} else {
-					freq[i] = 0.0;
-				}
-			
-				/* correct values greater nyquist frequency */
-				if (freq[i] > fnyq)
-					freq[i] = 2 * fnyq - freq[i];
-				if (freq[i] < 0 )
-					freq[i] = ABS(freq[i]);
-
-				/* write freq(t) values to tr.data */
-				tr.data[i] = freq[i];
-			}
-					
-
-			/* set trace id */
-			tr.trid = INSTFREQ;
-		}
-		break;
-		case UPHASE:
-		{
 			float *phase = ealloc1float(nt);
+			float	fnyq = 0.5 / dt;
 
 			for (i = 0; i < nt; ++i) {
 				float re = ct[i].r;
@@ -308,10 +262,57 @@ main(int argc, char **argv)
 			}
 
 			/* unwrap the phase */
-			simple_unwrap_phase(nt, trend, zeromean, unwrap, phase);
+			if (unwrap!=0) unwrap_phase(nt, unwrap, phase);
 
-			/* write phase values into the trace*/
+			/* compute freq(t)=dphase/dt */
+			differentate1d(nt, 2.0*PI*dt, phase);
+			
+			/* correct values greater nyquist frequency */
+			for (i=0 ; i < nt; ++i)	{
+				if (phase[i] > fnyq)
+					phase[i] = 2 * fnyq - phase[i];
+			}
+                                        
+			/* write freq(t) values to tr.data */
 			for (i=0 ; i < nt; ++i) tr.data[i] = phase[i];
+
+			/* set trace id */
+			tr.trid = INSTFREQ;
+		}
+		break;
+		case UPHASE:
+		{
+			float *phase = ealloc1float(nt);
+			float	fnyq = 0.5 / dt;
+
+			for (i = 0; i < nt; ++i) {
+				float re = ct[i].r;
+				float im = ct[i].i;
+				if (re*re+im*im) {
+					phase[i] = atan2(im, re);
+				} else {
+					phase[i] = 0.0;
+				}
+				
+			}
+
+			/* unwrap the phase */
+			if (unwrap!=0) unwrap_phase(nt, unwrap, phase);
+
+			/* compute freq(t)=dphase/dt */
+			differentate1d(nt, 2.0*PI*dt, phase);
+			
+			/* correct values greater nyquist frequency */
+			for (i=0 ; i < nt; ++i)	{
+				if (phase[i] > fnyq)
+					phase[i] = 2 * fnyq - phase[i];
+			}
+			/* integrate instantaneous frequency values */
+			/* and write unwrapped phase values to tr.data */
+			for (i = 1; i < nt; ++i) {
+				tr.data[0] = phase[0];
+                                tr.data[i] += phase[i-1];
+                        }
 
 			/* set trace id */
 			tr.trid = INSTPHASE;
@@ -320,66 +321,41 @@ main(int argc, char **argv)
 		case FREQW:
 		{
 			float	fnyq = 0.5 / dt;
-			float *u = ealloc1float(nt);
-			float *uprime = ealloc1float(nt);
-			float *v = ealloc1float(nt);
-			float *vprime = ealloc1float(nt);
-			float *freq = ealloc1float(nt);
+			float *freqw = ealloc1float(nt);
+			float *phase = ealloc1float(nt);
 			float *envelop = ealloc1float(nt);
 			float *envelop2 = ealloc1float(nt);
-
 			for (i = 0; i < nt; ++i) {
-				u[i] = ct[i].r;
-				uprime[i] = ct[i].r;
-				v[i] = ct[i].i;
-				vprime[i] = ct[i].i;
+				float re = ct[i].r;
+				float im = ct[i].i;
+				if (re*re+im*im) {
+					phase[i] = atan2(im, re);
+					} else {
+						phase[i] = 0.0;
+						}
+				envelop[i] = sqrt(re*re + im*im);
 			}
 
-			/* compute inst. frequency by computing the	*/
-			/* derivative of the instantaneous phase.	*/
-			/* Note that: 					*/
-			/* freq(t) = d/dt[ phase[t] ] 			*/ 
-			/*  = d/dt ( arctan (v/u) )			*/
-			/*   = [ 1/ (1 +(v/u)^2) ] ( v'/u - vu'/u^2 )	*/
-			/*   = ( v'u - vu' )/(u^2 +v^2)			*/
+			/* unwrap the phase */
+			if (unwrap!=0) unwrap_phase(nt, unwrap, phase);
 
-			differentate1d(nt, 2.0*PI*dt,uprime );
-			differentate1d(nt, 2.0*PI*dt,vprime );
-
-
-			for (i=0; i < nt ; ++i){
-				float num = (vprime[i]*u[i] - v[i]*uprime[i]);
-				float den = (u[i]*u[i] + v[i]*v[i]);
+			/* compute freq(t)=dphase/dt */
+			differentate1d(nt, 2.0*PI*dt, phase);
 			
-
-				if (ABS(den)>FLT_EPSILON){
-					freq[i] = num/den;
-				} else {
-					freq[i] = 0.0;
-				}
-			
-				/* correct values greater nyquist frequency */
-				if (freq[i] > fnyq)
-					freq[i] = 2 * fnyq - freq[i];
-				if (freq[i] < 0 )
-					freq[i] = ABS(freq[i]);
-			
-				envelop[i] = sqrt(den);
-
-				envelop2[i]=envelop[i]*freq[i];
-
+			/* correct values greater nyquist frequency */
+			for (i=0 ; i < nt; ++i)	{
+				if (phase[i] > fnyq)
+					phase[i] = 2 * fnyq - phase[i];
+			envelop2[i]=envelop[i]*phase[i];
 			}
-			
 			twindow(nt, wint, envelop);
 			twindow(nt, wint, envelop2);
-
 			/* correct values greater nyquist frequency */
 			for (i=0 ; i < nt; ++i) {
-			freq[i] = (envelop[i] == 0.0) ? 0.0 :envelop2[i]/envelop[i];
+			freqw[i] = (envelop[i] == 0.0) ? 0.0 :envelop2[i]/envelop[i];
 			}
-
 			/* write freq(t) values to tr.data */
-			for (i=0 ; i < nt; ++i) tr.data[i] = freq[i];
+			for (i=0 ; i < nt; ++i) tr.data[i] = freqw[i];
 			
 			/* set trace id */
 			tr.trid = INSTFREQ;
@@ -391,9 +367,9 @@ main(int argc, char **argv)
 			float *phase = ealloc1float(nt);
 			float *freqw = ealloc1float(nt);
 			float *phase2 = ealloc1float(nt);
-			
 
-			/* calculate the unwrapped phase */
+
+
 			for (i = 0; i < nt; ++i) {
 				float re = ct[i].r;
 				float im = ct[i].i;
@@ -406,7 +382,7 @@ main(int argc, char **argv)
 			}
 
 			/* unwrap the phase */
-			simple_unwrap_phase(nt, trend, zeromean, unwrap, phase);
+			if (unwrap!=0) unwrap_phase(nt, unwrap, phase);
 
 			/* compute freq(t)=dphase/dt */
 			differentate1d(nt, 2.0*PI*dt, phase);
@@ -415,7 +391,7 @@ main(int argc, char **argv)
 			for (i=0 ; i < nt; ++i)	{
 				if (phase[i] > fnyq)
 					phase[i] = 2 * fnyq - phase[i];
-				phase2[i]=phase[i];
+					phase2[i]= 2 * fnyq - phase[i];
 			}
 			/* Do windowing for Average Ins . Freq over wint*/
 			twindow(nt, wint, phase2);
@@ -439,9 +415,9 @@ main(int argc, char **argv)
 
 		/* Bandwidth (Barnes 1992)
 
-			  |d(envelope)/dt|
+		          |d(envelope)/dt|
 		band =abs |--------------|
-			  |2 PI envelope |
+		          |2 PI envelope |
 	 	*/
 
 			for (i = 0; i < nt; ++i) {
@@ -457,7 +433,7 @@ main(int argc, char **argv)
 				   if (2.0*PI*envelop2[i]!=0.0) {
 					tr.data[i] = ABS(envelop[i]/(2.0*PI*envelop2[i]));
 				   } else {
-					tr.data[i]=0.0;
+				        tr.data[i]=0.0;
 				   }
 				}
 				tr.trid = ENVELOPE;
@@ -471,7 +447,7 @@ main(int argc, char **argv)
 				float re = ct[i].r;
 				float im = ct[i].i;
 				if (re*re+im*im)  phase = atan2(im, re);
-				else	      phase = 0.0;
+				else              phase = 0.0;
 				na[i] = cos(phase);
 			}
 			for (i=0 ; i < nt; ++i) tr.data[i] = na[i];
@@ -490,10 +466,8 @@ main(int argc, char **argv)
 			}
 		/*conv(nt, 0, envelop, nt, 0, time, ntout, 0, ouput);*/
 
-			differentate1d(nt, 2.0*PI*dt, amp);
-
-			for (i=0 ; i < nt; ++i) tr.data[i] = amp[i];
-
+		differentate1d(nt, 2.0*PI*dt, amp);
+		for (i=0 ; i < nt; ++i) tr.data[i] = amp[i];
 			/* set trace id */
 			tr.trid = ENVELOPE;
 		}
@@ -522,11 +496,11 @@ main(int argc, char **argv)
 			float *phase = ealloc1float(nt);
 			float	fnyq = 0.5 / dt;
 
-		/* Bandwidth (Barnes 1992)
+		/* Banswith (Barnes 1992)
 
-			-PI Freq(t) d(envelope)/dt
+		        -PI Freq(t) d(envelope)/dt
 		band =  --------------------------
-				 envelope(t)
+		                 envelope(t)
 	 	*/
 
 			for (i = 0; i < nt; ++i) {
@@ -543,10 +517,8 @@ main(int argc, char **argv)
 			}
 			/* get envelope diff */
 			differentate1d(nt, dt, envelop);
-
 			/* unwrap the phase */
-			simple_unwrap_phase(nt, trend, zeromean, unwrap, phase);
-
+			if (unwrap!=0) unwrap_phase(nt, unwrap, phase);
 			/* compute freq(t)=dphase/dt */
 			differentate1d(nt, 2.0*PI*dt, phase);
 
@@ -620,6 +592,66 @@ Author: John Stockwell, CWP, 1994
 	free1float(temp);
 }
 
+void unwrap_phase(int n, float w, float *phase)
+/************************************************************************
+unwrap_phase - unwrap the phase
+*************************************************************************
+Input:
+n		number of samples
+w		unwrapping flag; returns an error if w=0
+phase		array[n] of input phase values
+
+Output:
+phase		array[n] of output phase values
+*************************************************************************
+Notes:
+The phase is assumed to be continuously increasing. The strategy is
+to look at the change in phase (dphase) with each time step. If it is larger
+than PI/w, then use the previous value of dphase. No attempt is
+made at smoothing the dphase curve.
+*************************************************************************
+Author: John Stockwell, CWP, 1994
+************************************************************************/
+{
+	int i;
+	float pibyw=0.0;
+	float *dphase;
+	float *temp;
+
+	/* prevent division by zero in PI/w */
+	if (w==0)  err("wrapping parameter is zero");
+	else       pibyw = PI/w;
+
+	/* allocate space */
+	dphase = ealloc1float(n);
+	temp = ealloc1float(n);
+
+	/* initialize */
+	temp[0]=phase[0];
+	dphase[0]=0.0;
+
+	/* compute unwrapped phase at each time step */
+	for (i = 1; i < n; ++i) {
+
+		/* compute jump in phase */
+		dphase[i] = ABS(phase[i] - phase[i-1]);
+
+		/* if dphase >= PI/w, use previous dphase value */
+		if (ABS(dphase[i] - dphase[i-1]) >= pibyw )
+			dphase[i] = dphase[i-1];
+
+		/* sum up values in temporary vector */
+		temp[i] = temp[i-1] + dphase[i];
+	}
+
+	/* assign values of temporary vector to phase[i] */
+	for (i=0; i<n; ++i) phase[i] = temp[i];
+
+	/* free space */
+	free1float(temp);
+	free1float(dphase);
+}
+
 void twindow(int nt, int wtime, float *data)
 /************************************************************
 twindow - simple time gating
@@ -627,7 +659,7 @@ twindow - simple time gating
 Input:
 nt	number of time samples
 wtime	= n*dt   where n are integer ex=1,2,3,4,5,...
-	  wtime=3 as default
+          wtime=3 as default
  used for Frequency Weighted and Thin-bed attributes
 *************************************************************
 Author:	UGM (Geophysics Students): Agung Wiyono, 2005
@@ -676,7 +708,7 @@ Author:	UGM (Geophysics Students): Agung Wiyono, 2005
 	
 	for (i=0; i<nt; ++i) data[i] = temp[i];
 
-	/* Memory free */
+	/* Memori free */
 	free1float(temp);
 }
 

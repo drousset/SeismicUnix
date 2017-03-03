@@ -48,7 +48,7 @@
    the X11 & Motif.
 
    If you create a new Makefile.config.${ARCH} file, please send a
-   copy to John Stockwell <john@dix.mines.edu> so he can include
+   copy to John Stockwell <jstockwe@mines.edu> so he can include
    it with the next release.
 
    To start the compile:

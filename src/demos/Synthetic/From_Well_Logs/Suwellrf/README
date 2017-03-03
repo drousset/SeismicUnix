@@ -14,7 +14,7 @@ cat sonic.txt | awk '{print $2 " " $3 }' | a2b n1=2 | psgraph n=2500,2500,2000,2
 
 
 
-John Stockwell	 | john@dix.Mines.EDU
+John Stockwell	 | jstockwe@mines.edu
 Center for Wave Phenomena (The Home of Seismic Un*x)
 Colorado School of Mines
 Golden, CO 80401 | http://www.cwp.mines.edu/cwpcodes

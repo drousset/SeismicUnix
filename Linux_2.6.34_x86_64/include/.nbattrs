@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="Bayesian">
+        <attr name="OpenIDE-Folder-SortMode" stringvalue="N"/>
+    </fileobject>
+    <fileobject name="Dct">
+        <attr name="OpenIDE-Folder-SortMode" stringvalue="N"/>
+    </fileobject>
+    <fileobject name="MGL">
+        <attr name="OpenIDE-Folder-SortMode" stringvalue="N"/>
+    </fileobject>
+    <fileobject name="Reflect">
+        <attr name="OpenIDE-Folder-SortMode" stringvalue="N"/>
+    </fileobject>
+    <fileobject name="Tetra">
+        <attr name="OpenIDE-Folder-SortMode" stringvalue="N"/>
+    </fileobject>
+    <fileobject name="Triangles">
+        <attr name="OpenIDE-Folder-SortMode" stringvalue="N"/>
+    </fileobject>
+    <fileobject name="Wpc">
+        <attr name="OpenIDE-Folder-SortMode" stringvalue="N"/>
+    </fileobject>
+    <fileobject name="Xmcwp">
+        <attr name="OpenIDE-Folder-SortMode" stringvalue="N"/>
+    </fileobject>
+    <fileobject name="Xtcwp">
+        <attr name="OpenIDE-Folder-SortMode" stringvalue="N"/>
+    </fileobject>
+</attributes>

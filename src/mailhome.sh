@@ -4,11 +4,11 @@
 #set -x
 
 # these items identify the date/release of the codes
-DATE="14 March 2016"
-RELEASE="44R2"
+DATE="22 February 2017"
+RELEASE="44R4"
 
 # home address
-ADDRESS="john@dix.mines.edu"
+ADDRESS="jstockwe@mines.edu"
 
 # message
 MESSAGE="Installing the $DATE version (Release ${RELEASE}) of the CWP codes."

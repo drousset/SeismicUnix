@@ -1,0 +1,67 @@
+#! /bin/sh
+# Shell: add411
+# Usage: add411 -s	to update SYSTEM phonebook
+#               -p	to update a user's PERSONAL phonebook
+# Authors: John Stockwell and Jack K. Cohen
+# Modify either PERSONAL or SYSTEM phonebooks
+
+PATH=/bin:/usr/bin:/usr/ucb
+
+SYSPDIR=/usr/local/lib
+LOCPDIR=$HOME/lib
+
+# check for arguments
+for i
+do
+	case $i in
+	-s)	# update system phonebook
+		if
+			cp $SYSPDIR/phonebook $SYSPDIR/phonebook.bak
+		then
+			echo "SYSTEM phonebook backed up as:"
+			echo "     $SYSPDIR/phonebook.bak"
+		fi
+		sleep 1
+
+		exec vi $SYSPDIR/phonebook
+		1>&2; exit 1
+	;;
+	-p)	# update users locally defined phonebook
+		cd $HOME
+		if test ! -d lib
+		then
+		echo "$HOME/lib doesn't exist, creating"
+			mkdir lib
+		fi
+
+		cd lib
+
+		if test ! -f phonebook
+		then
+		echo "$HOME/lib/phonebook doesn't exist, creating"
+		touch phonebook
+		chmod 600 phonebook
+
+		exec vi $LOCPDIR/phonebook
+		1>&2; exit 1
+		fi
+
+		if
+			cp $LOCPDIR/phonebook $LOCPDIR/phonebook.bak
+		then
+			echo "PRIVATE phonebook backed up as:"
+			echo "     $LOCPDIR/phonebook.bak"
+		fi
+		sleep 2
+
+		exec vi $LOCPDIR/phonebook
+		1>&2; exit 1
+	;;
+	esac
+done
+
+# else echo a usage message
+echo "Usage: add411 -s		to update the SYSTEM phonebook"
+echo "              -p		to update a user's PERSONAL phonebook"
+
+exit 0

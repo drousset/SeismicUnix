@@ -27,7 +27,7 @@ with Stew Levin's XDR libraries, as well as the sfio libraries.
 The version in $(CWPROOT)/src/su/main   has the sfio related 
 items fenced off with a dummy compile-time flag.
 
-John Stockwell	 | john@dix.Mines.EDU
+John Stockwell	 | jstockwe@mines.edu
 Center for Wave Phenomena (The Home of Seismic Un*x)
 Colorado School of Mines
 Golden, CO 80401 | http://www.cwp.mines.edu/cwpcodes

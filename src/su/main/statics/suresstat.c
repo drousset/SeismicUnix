@@ -1,7 +1,7 @@
 /* Copyright (c) Colorado School of Mines, 2011.*/
 /* All rights reserved.                       */
 
-/* SURESSTAT: $Revision: 1.21 $ ; $Date: 2015/04/24 16:56:22 $		*/
+/* SURESSTAT: $Revision: 1.20 $ ; $Date: 2015/04/07 15:50:42 $		*/
 
 #include "su.h"
 #include "segy.h"
@@ -12,17 +12,22 @@ char *sdoc[] = {
 " 									",
 " SURESSTAT - Surface consistent source and receiver statics calculation",
 " 									",
-"   suresstat fn=  [optional parameters]				",
+"   suresstat <stdin [optional parameters]				",
 " 									",
 " Required parameters: 							",
-" fn=		seismic file				",
 " ssol=		output file source statics				",
 " rsol=		output file receiver statics				",
+" ntraces=	number of traces in input data set (must be correct!)	",
 " 									",
 " Optional parameters:							",
 " ntpick=50 	maximum static shift (samples)         			",
 " niter=5 	number of iterations					",
-" imax=100000 	largest shot (fldr),reciver(tracf) or cmp(cdp) number	",
+" nshot=240 	largest shot number (fldr=1 to nshot)			",
+" nr=335 	largest receiver number (tracf=1 to nr)			",
+" nc=574 	maximum number of cmp's (for array allocation)		",
+" sfold=96 	maximum shot gather fold				",
+" rfold=96 	maximum receiver gather fold				",
+" cfold=48 	maximum cmp gather fold					",
 " sub=0 	subtract super trace 1 from super trace 2 (=1)		",
 " 		sub=0 strongly biases static to a value of 0		",
 " mode=0 	use global maximum in cross-correllation window		",
@@ -38,8 +43,6 @@ char *sdoc[] = {
 " The method employed here is based on the method of Ronen and Claerbout:",
 " Geophysics 50, 2759-2767 (1985).					",
 "  									",
-" The input data are NMO-corrected and sorted into shot gathers ( fldr)  ",
-" Rreceiver id position should be stored in headerword tracf	        ",
 " The output files are binary files containing the source and receiver	",
 " statics, as a function of shot number (trace header fldr) and      	",
 " receiver station number (trace header tracf). 			",
@@ -58,11 +61,25 @@ char *sdoc[] = {
 " shots being assigned a static of 0.  A static correction for each    	",
 " receiver station (tracf=1 to tracf=nr) is calculated, with missing    ",
 " receivers again assigned a static of 0.                               ", 
-" To window out the most cohherent region use suwind tmin= tmax= and 	",
-" save the result into a file. This will reduce the amount of time  	",
-" the code will spent on scaning the file,since the file is much smaller",
+"									",
+" The ntracesces parameter must be equal to the number of prestack traces.",
 " The ntpick parameter sets the maximum allowable shift desired (in	",
 "   samples NOT time).							",
+" The niter parameter sets the number of iterations desired.		",
+" The nshot parameter must be equal to the maximum fldr number in	",
+"     the data. Note that this number might be different from the actual",
+"     number of shot records in the data (i.e., the maximum ep number).	",
+"     For getting the correct maximum fldr number, you may use the surange",
+"     command.								",
+" The nr parameter must be equal to the largest number of receivers	",
+"     per shot in the whole data.					",
+" The nc parameter must be equal to the number of prestack traces in	",
+"     the data.								",
+" The sfold parameter must be equal to the nr parameter.		",
+" The rfold parameter must be equal to the maximum ep number.		",
+" The cfold parameter must be equal to the maximum CDP fold,		",
+"     which is equal to the maximum number under the cdpt entry in the	",
+"     output of the surange command.					",
 "									",
 " To apply the static corrections, use sustatic with hdrs=3		",
 NULL};
@@ -76,44 +93,41 @@ NULL};
  * Credits:
  *	CWP: Timo Tjan, 4 October 1994
  *
- *      rewritten by Thomas Pratt, USGS, Feb. 2000. 
- *      Modified by A. Bitri, BRGM-France, Apr. 2015
+ *      rewritten by Thomas Pratt, USGS, Feb. 2000.
+ *
  * Trace header fields accessed: ns, dt, tracf, fldr, cdp
  */
 /**************** end self doc *******************************************/
 
 
-segy tr;
-
-FILE *fp;               /* File pointer */
+segy tr, tr2;
 
 /* prototypes for functions defined and used below */
 int max (float *trace, int mode, float perc, int nt);
 void window (float *trace, int nt, int nnt, float *ntrace);
 
-int main(int argc, char *argv[])
+int
+main(int argc, char **argv)
 {
-	char *fn="";            /* name of the file */
 	int nt;			/* number of points on input traces*/
 	float mdt;		/* sample rate in milliseconds*/
 	int nt_super;		/* number of points on traces in supertrace*/
 	int ntotal_super;	/* total number of points in supertrace*/
 	int ntraces;		/* number of input traces*/
 	int nshot, nc, nr;	/* number of shots, cmps and recs */
-	int imax;                /* max number of shots or cmp or recs*/ 
 	int sfold, cfold, rfold;/* source, cmp and receiver fold */
+	int n_o;		/* near offset */
 	int ntcc;		/* nr. of points on c-c in traces */
 	int ntpick;		/* nr. of points on trace for picking */
 	int ntout;		/* nr. of points on c-c out traces */
 	int nt_r;		/* nr. of points on resamp. c-c in traces */
+	int resamp;		/* resampling rate */
 	int ntr;		/* number of trace on input */
 	int iter, niter;	/* iteration vars */
 	register int ishot, ichan, irec, icmp;	/* gather counters */
 	register int itrace;    /* gather counters */
+	int icmpshift;			/* shift applied to icmp */
 	register int it, i, j=0, k, l;	/* counters */
-	int *ST;                /* temporary shot array */
-	int *RT;                /* temporary receiver array */
-	int *CT;                /* temporary cdp array */
 	int *cmpntr;		/* cmp selector */
 	int *recntr;				/* receiver gather fold */
 	int *shotntr;				/* shot gather fold */
@@ -142,35 +156,30 @@ int main(int argc, char *argv[])
 	initargs(argc, argv);
 	requestdoc(1);
 
-	getparstring("fn",&fn);
-	
-	/* Open the file */
-	fp = efopen(fn,"r");
-	if ((fp = fopen(fn, "r")) == NULL)
-		err("suresstat: can't open input data file");
-
-	
-	/* get the number of traces in data */
-
-	ntraces = fgettra(fp, &tr, 0);
-	
-
-
-	dt = ((double) tr.dt)/1000.0;   /* dt in milliseconds (microseconds in trace header) */
+	/* Get info from first trace and store first header */
+	if (!(ntr = gettra(&tr, 0)))  err("can't get first trace");
+	dt = ((double) tr.dt)/1000.0;   /* dt in milliseconds (microseconds in trace header */
 	mdt = tr.dt/1000.0;
 	if (!dt) getparfloat("dt", &dt);
 	if (!dt) MUSTGETPARFLOAT("dt", &dt);
 	nt = tr.ns;
-	rewind(fp);
+	/* if (nt%2 == 0) err("nt must be odd"); */
 
 	/* Get optional parameters */
 	if (!getparint("ntcc",&ntcc)) ntcc=250; 
+	if (!getparint("icmpshift",&icmpshift)) icmpshift=9; 
 	if (ntcc%2 == 0) ++ntcc;
 	if (!getparint("ntpick",&ntpick)) ntpick=50; 
+	if (!getparint("ntraces",&ntraces)) ntraces=50; 
+	if (!getparint("resamp",&resamp)) resamp=4; 
+	if (!getparint("n_o",&n_o)) n_o=7; 
 	if (!getparint("niter",&niter)) niter=5;
-
-	if (!getparint("imax",&imax)) imax=100000; 
-
+	if (!getparint("nshot",&nshot)) nshot=240; 
+	if (!getparint("nr",&nr)) nr=335; 
+	if (!getparint("nc",&nc)) nc=574; 
+	if (!getparint("sfold",&sfold)) sfold=96; 
+	if (!getparint("rfold",&rfold)) rfold=96; 
+	if (!getparint("cfold",&cfold)) cfold=48; 
 	if (!getparint("mode",&mode)) mode=0; 
 	if (!getparint("sub",&sub)) sub=0; 
 	if (!getparfloat("perc",&perc)) perc=10.; 
@@ -183,73 +192,29 @@ int main(int argc, char *argv[])
 
         checkpars();
 	/* Compute time windowing parameters */
-	nt_r = ntcc;
+	nt_r = ntcc*resamp;
 	if (verbose == 1) warn("nt_r=%i",nt_r);
 	ntout = 2*ntpick + 1;
 	nt_super = nt+(2*ntpick);  /*trace length plus buffer on each end*/
-
-	/* Allocate temporary arrays */
-	ST = ealloc1int(imax);
-	RT = ealloc1int(imax);
-	CT = ealloc1int(imax);
-	
-	/* Initialization*/
-
-        sfold=0;
-        cfold=0;
-        rfold=0;
-	nc=0;
-	nr=0;
-	nshot=0;
-
-	/* Scan the datafile to define sfold, rfold,cfold,nshot,nr,nc */
-		
-		 for (itrace=0; itrace<ntraces; itrace++){
-
-				fgettra(fp, &tr, itrace);
-			icmp = tr.cdp;     /*location of cdp number in header*/
-			irec = tr.tracf;   /*location of receiver station in header*/
-			ishot = tr.fldr;   /*location of shot number in header*/
-
-			j = ++CT[icmp];
-			k = ++RT[irec];
-			l = ++ST[ishot];
-
-			if( j > cfold) cfold=j;
-			if( k > rfold) rfold=k;
-			if( l > sfold) sfold=l;
-			if(icmp > nc) nc=icmp;
-			if(irec > nr) nr=irec;
-			if(ishot > nshot) nshot=ishot;
-		
-		} 
-
-	rewind(fp);
-
-	/* Free tempory arrays */
-
-	free1int(ST);
-	free1int(RT);
-	free1int(CT);
-
-	/**************/
-	
 	i=(nr>nshot) ? nr : nshot;
 	ntotal_super=nt_super*i;
-	
-	/* Allocate space */
+	if (verbose == 1) warn("nt=%i, nt_super=%i, ntotal_super=%i",nt, nt_super, ntotal_super);
 
+	/* Allocate space */
 	cmpntr = alloc1int(nc+1);
 	recntr = alloc1int(nr+1);
 	shotntr = alloc1int(nshot+1);
+	g_trace = alloc1float(ntotal_super);
 	t = alloc1float(nt_r);
 
+	if (verbose == 1) warn("nr=%i rfold=%i",nr,rfold);
 	cmp_loc = alloc2int(cfold+1,nc+1);
 	rec_loc = alloc2int(rfold+1,nr+1);
-	shot_loc = alloc2int(sfold+1,nshot+1); 
+	shot_loc = alloc2int(sfold+1,nshot+1);
 	header = alloc2int(3,ntraces+1);
 
 	model = alloc2float(nt,nc+1);
+	model_trace = alloc1float(ntotal_super);
 
 	filter = alloc1float(ntcc+1);
 	cc_tr = alloc1float(nt_r+1);
@@ -258,8 +223,6 @@ int main(int argc, char *argv[])
 	corr_trace = alloc1float(ntout);
 	pick_tr = alloc1float(ntpick+1);
 
-	model_trace = alloc1float(ntotal_super);
-	g_trace = alloc1float(ntotal_super);
 	data = alloc2float(nt,ntraces+1);
 
 	tsstat = alloc1float(nshot+1);
@@ -277,26 +240,11 @@ int main(int argc, char *argv[])
 	memset((void *) recntr, 0 , (nr+1)*ISIZE);
 	memset((void *) shotntr, 0 , (nshot+1)*ISIZE);
 
-	/**********************************************/	
-
-	 if (verbose == 1) warn(" cfold=%d,rfold=%d,sfold=%d\n",cfold,rfold,sfold);
-
-
-
-	fprintf(stderr," Number of traces= %10d\n",ntraces);
-	fprintf(stderr," Number of shots= %10d\n",nshot);
-	fprintf(stderr," Number of receivers= %10d\n",nr);
-	fprintf(stderr," Number of cdps= %10d\n",nc);
-
-
-		
-
-	/* scan the datafile and load info into the table */
-
+	/* Read rest of data */
 	for (itrace=0; itrace<ntraces; itrace++){
-		
-			/* if(itrace>0) gettra(&tr,itrace);*/
-			fgettra(fp, &tr, itrace);
+
+	/* we already read the first trace, so just put it into the arrays */
+			if(itrace>0) gettra(&tr,itrace);
 
 			icmp = tr.cdp;     /*location of cdp number in header*/
 			irec = tr.tracf;   /*location of receiver station in header*/
@@ -312,13 +260,10 @@ int main(int argc, char *argv[])
 			header[itrace+1][1]=icmp;
 			header[itrace+1][2]=irec;
 			header[itrace+1][3]=ishot;
-			
 
 			for (it=1; it<=nt; it++)
 				data[itrace+1][it] = tr.data[it];
 	}
-	
-
 
 	/* start iterations */
 	for (iter=1; iter<=niter; iter++) {

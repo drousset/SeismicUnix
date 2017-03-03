@@ -109,7 +109,7 @@ done
 {	echo "#include <stdio.h>"
 	echo "kpvxxx: stdin;"
 } > kpv.xxx.c
-cc -c -E kpv.xxx.c >kpv.xxx.cpp
+${CC} -c -E -P kpv.xxx.c >kpv.xxx.cpp
 grep kpvxxx kpv.xxx.cpp > kpv.xxx.name
 p1='kpvxxx:[ 	]*'
 p2='[ 	]*;.*'

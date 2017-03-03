@@ -45,7 +45,7 @@ compiler. This includes the fortran compiler, but I had to
 remove the -m486 option in the OPTF card to make it work.
 
 
-John Stockwell	 | john@dix.Mines.EDU
+John Stockwell	 | jstockwe@mines.edu
 Center for Wave Phenomena (The Home of Seismic Un*x)
 Colorado School of Mines
 Golden, CO 80401 | http://www.cwp.mines.edu/cwpcodes

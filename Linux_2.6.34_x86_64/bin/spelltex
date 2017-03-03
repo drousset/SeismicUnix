@@ -1,0 +1,59 @@
+#!/bin/sh
+#
+# "spelltex"	K. J. Turner	02/03/93
+#
+# This script does a crude job of running the standard UNIX
+# spell-checker on LaTeX files, having "untexed" them first.
+#
+# Source files without a ".tex" extension are automatically given
+# one.
+#
+# If the environment variable SPELLDIR is defined, it gives the
+# directory containing the local spelling file to be used, otherwise
+# "British" spelling is used.
+
+prog="`basename $0`"
+wordsfile="words"
+SPELLFILE="$SPELLDIR/$wordsfile"
+ext=".tex"
+
+if [ -f "$SPELLFILE" -a -r "$SPELLFILE" ]
+  then pars="-d $SPELLFILE"
+  else pars="-b"
+fi
+
+if [ $# -eq 0 ]
+  then
+    untex | spell $pars
+    exit 0
+fi
+
+if [ $# -eq 1 ]
+  then many=0
+  else many=1
+fi
+
+echo
+
+while [ "$1" != "" ]; do
+  name="`expr Z$1 : Z'\(.*\)\'$ext`"
+  if [ "$name" = "" ]
+    then name=$1; filename=$name$ext
+    else filename=$1
+  fi
+  if [ -f $filename -a -r $filename ]
+    then
+      if [ $many -eq 1 ]
+        then
+	  echo "$filename:"
+	  echo
+      fi
+      untex < $filename | spell $pars
+    else
+      echo "$prog: cannot read $filename"
+  fi
+  echo
+  shift
+done
+
+exit 0

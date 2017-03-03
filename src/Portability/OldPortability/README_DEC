@@ -309,7 +309,7 @@ but it has not been tested on DEC, yet.
 See README_LITTLE_ENDIAN for information about fixing the
 big-endian/little-endian aspects of the code.
 
-John Stockwell	 | john@dix.Mines.EDU
+John Stockwell	 | jstockwe@mines.edu
 Center for Wave Phenomena (The Home of Seismic Un*x)
 Colorado School of Mines
 Golden, CO 80401 | http://www.cwp.mines.edu/cwpcodes

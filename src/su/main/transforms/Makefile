@@ -23,13 +23,14 @@ PROGS =			\
 	$B/suhilb	\
 	$B/suifft	\
 	$B/suminphase	\
+	$B/suphasevel	\
 	$B/suradon	\
 	$B/suslowft	\
 	$B/suslowift	\
 	$B/suspecfk	\
 	$B/suspecfx	\
 	$B/suspeck1k2	\
-	$B/suphasevel	\
+	$B/sust		\
 	$B/sutaup	\
 	$B/suwfft	\
 	$B/suzerophase

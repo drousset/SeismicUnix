@@ -40,7 +40,7 @@ We have split these off from libcwp.a because of transportability
 difficulties. To use these subroutines,  you will need to
 link to  libcwputils.a when you compile your code.
 
-John Stockwell	 | john@dix.Mines.EDU
+John Stockwell	 | jstockwe@mines.edu
 Center for Wave Phenomena (The Home of Seismic Un*x)
 Colorado School of Mines
 Golden, CO 80401 | http://www.cwp.mines.edu/cwpcodes

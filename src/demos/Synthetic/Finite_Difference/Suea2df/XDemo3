@@ -110,7 +110,7 @@ END`
 echo $n2
 
 
-suxmovie < snaps.su n1=$nz n2=$n2 clip=1e-13 loop=1 title="snapshots horizontal vertical " width=$n2 height=$nz  sleep=70000 &
+suxmovie < snaps.su n1=$nz n2=$n2 clip=1e-13 loop=1 title="snapshots horizontal vertical " width=$n2 height=$nz  sleep=2 &
 
 sleep 10
 

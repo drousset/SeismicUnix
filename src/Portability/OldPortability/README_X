@@ -121,7 +121,7 @@ i) DefaultColorDepth - A problem which is becoming more common is
    set to 8 bits. CWP/SU graphics used to be 8 bit only, but now
    you need to set your colordepth to 16 bit or higher.
 
-John Stockwell	 | john@dix.Mines.EDU
+John Stockwell	 | jstockwe@mines.edu
 Center for Wave Phenomena (The Home of Seismic Un*x)
 Colorado School of Mines
 Golden, CO 80401 | http://www.cwp.mines.edu/cwpcodes

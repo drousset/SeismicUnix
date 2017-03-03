@@ -1,0 +1,6 @@
+#include "cwp.h"
+#include "su.h"
+#include "segy.h"
+#include "par.h"
+#include "defineStratInv.h"
+#include "globalStratInv.h"

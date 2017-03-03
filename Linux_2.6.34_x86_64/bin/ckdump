@@ -1,0 +1,31 @@
+#! /bin/sh
+# ckdump -- check the results of the automated dump
+# Author: Craig (hacked by John)
+
+# machine where dump directories reside
+DUMPHOST=hilbert
+
+# list of machines being dumped
+DUMPLIST="dobrin slotnick dix "
+
+echo
+echo "Hourly Automated Dumps:"
+
+rsh $DUMPHOST "cd /scratch/Backups/Hourly; df .; ls -lR Old New; cat /usr/adm/hourly.log"  | more
+
+echo
+echo "Daily Automated Dumps:"
+
+rsh $DUMPHOST "cd /scratch/Backups/Daily; df .; ls -lR Old New; cat /usr/adm/daily.log" | more
+
+echo
+echo "Dump Dates:"
+
+for i in $DUMPLIST
+do
+	echo
+	echo ${i}:/etc/dumpdates:
+	rsh ${i} cat /etc/dumpdates
+done
+
+exit 0

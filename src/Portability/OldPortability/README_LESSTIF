@@ -20,7 +20,7 @@ for that platform.
 5) Uncommenting the  "Lesstif" IMOTIF and LMOTIF paths in Makefile.config
    simply type:    make  xminstall
 
-John Stockwell	 | john@dix.Mines.EDU
+John Stockwell	 | jstockwe@mines.edu
 Center for Wave Phenomena (The Home of Seismic Un*x)
 Colorado School of Mines
 Golden, CO 80401 | http://www.cwp.mines.edu/cwpcodes

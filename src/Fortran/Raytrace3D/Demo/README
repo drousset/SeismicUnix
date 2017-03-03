@@ -87,7 +87,7 @@ RAYTRACE3D will take the values in parameters v0, vx, vy, vz to
 generate a linearly distributed background velocity model.
 
 
-John Stockwell	 | john@dix.Mines.EDU
+John Stockwell	 | jstockwe@mines.edu
 Center for Wave Phenomena (The Home of Seismic Un*x)
 Colorado School of Mines
 Golden, CO 80401 | http://www.cwp.mines.edu/cwpcodes

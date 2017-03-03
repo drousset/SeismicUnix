@@ -1,0 +1,9 @@
+#! /bin/sh
+# moldy - find files not accessed for 90 days
+# Usage: moldy
+
+
+/usr/bin/find . -atime +90 -exec ls -l {} \;
+
+
+

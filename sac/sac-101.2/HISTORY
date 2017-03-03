@@ -1,0 +1,213 @@
+These are official releases
+
+2008/09/04 Version 101.2
+        * Supported Platforms: Solaris, Linux (32/64 bit) Mac OS X
+          (PPC and i686, <= 10.5), and Windows under Cygwin.
+        * See Compliation notes for Version 101.1
+        * Multiple-session command-line history file  (See 
+	  sac/utils/README_utils)
+        * (Re)-introduction of SAC Library
+            - Filtering, Envelopes, Correlations, Convolutions
+            - Examples in sac/doc/examples
+            - sac-config helper script for compiling (sac/bin/sac-config)
+            - More to come in future releases
+        * Update: Evalresp now at 3.2.40
+        * BUG FIX: ASCII to Integer Conversion
+        * BUG FIX: Scripts which do not end with a quit
+        * BUG FIX: Transfer command output cleaned up
+        * BUG FIX: Fixed Conversion of Real floating point numbers to text
+        * BUG FIX: Interpolation of long time series fixed
+        * BUG FIX: Get Blackboard variable (getbbv)
+        * Enhancement: Matlab scripts to read and write SAC Files
+        * Enhancement: Added rsach to read a SAC Header
+        * Enhancement: Added readcor to read a Correlation Function
+        * Enhancement: Matlab/SAC Interaction available through configure
+        * Enhancement: lh columns 2 can now be set in an initializing macro 
+        * Enhancement: GMT Map command updated
+        * Enhancement: SAC now knows if it run from a script "<<EOF"
+        * Updated build system, now cleaner using config.h
+        
+	   - Known Bugs
+	      - SSS traveltimes command (endian issue)
+	      - do file wild  segmentation fault with a large number of files
+	      - plot header is incorrect
+	      - reading of long integers done incorrectly
+	      - ch o gmt does not report errors
+	      - line termination does not handle all type of line termination
+	      - merge command broken
+	      - time shrinks on plots with large number of records
+	      - SGF byte order
+	      - errors should be on stdout
+	      - Scaling, Limit on files is currently 1000 
+	      
+2007/11/20 Version 101.1
+	* Supported Platforms: Solaris, Linux (32/64 bit), Mac OS X
+	  ( PPC and i686, <= 10.4 ), and Windows under Cygwin.
+	  - Compilation on 64 bit systems (Linux) requires specific options 
+	    to the ./configure script to create a 32 bit version on a 64 bit 
+	    platform.  Please consult the Readme.buildsac for details.  
+	  - OSX/i686 builds are not successful using gcc 3 (10.4 and below)
+	  - OSX/PPC builds are successful using gcc 3 or gcc 4. (10.4 and 
+	    below).
+	       If one wants to use the sacio library with Fortran calls,
+	       one may need to compile those Fortran programs using gcc 3.
+	       See Readme for details.
+	  - OSX 10.5 is not supported at this time.
+	  - Build are reported to work on OSX 10.2, but required compilation
+	    on that platform.
+	  - Linux builds are successful using gcc3 or gcc 4, but builds on
+	    CentOS 5 will not work on machines running CentOS 4.
+          - Windows versions are available under the Cygwin Environment and 
+	    must be compiled by each user due to licensing restrictions.
+	    There is a separate source distribution for Cygwin (because aux
+	    cannot be used as a directory name in Windows).
+	* Changed Build System to ./configure / autotools method
+	  This should provide a more robust way to create and install SAC
+	* Updated: sgftox.csh change postscript viewer to ghostscript
+	* Addition of libsacio.a, same file as sacio.a.  Changed to
+	  ease compilation.
+	* Added wsac3: same as wsac0, but writes out all current header 
+	  vaiables.  However, on the Mac PPC platform, there are 
+	  compatibility problems with gcc and g77.  See Readme for details.
+	  Added wsac3 description to  aux/help/user_man/10appendix.
+	* BUG FIX: Sort command now works with the SeisMgr database off
+	* BUG FIX: Parsing of polezero files now works for lengthy
+	  character strings.
+	* BUG Fix: Parsing of multiple blackboard variables fixed
+	* BUG FIX: Large Crosshairs work again
+	  Enable by defining the environment variable 
+	  SAC_PPK_LARGE_CROSSHAIRS to 1
+	* ENHANCEMENT: Zoom within PPK now does not care about pick order
+	* BUG FIX: o changed to odelta to avoid a conflict
+	* BUG FIX: isNaN() unsuitable for double, changed to system
+	  command isnan().  Found while checking polezero constants.
+	* ENHANCEMENT: DEPRECATED Function added
+	* ENHANCEMENT: Suppress Copyright notice Option Added
+	  SAC_DISPLAY_COPYRIGHT
+
+	* To Do:
+	   - Build and Testing
+	      Testing suite
+
+	   - Known Bugs
+	      Files that begin with a long integer
+              Line termination while parsing files
+	      No error output on "ch o gmt" truncation, better error 
+	      reporting
+	      r pha*? multiple times gives segmentation fault
+	      Missing SAC> when run in a script
+	      Error should in in stderr not stdout
+	      "WARNING: Number 4003 integer too large" 
+	      wsac1 and wsac2 do not update all header variables
+	      "do .. wild" loop bombs if total number of characters  
+                  for filenames too large
+
+           - Plotting Bugs
+	      Time shrinks on plots with lots of records
+	      Reformat Plotting Window
+
+	   - General Code Cleanups
+	      Merge files that overlap, better merge code
+	      remove code repetition, hdr.h, extfuncs.h, and  SacHeader.h
+	      Use of common blocks, global variables
+	      rolllback command does not work
+
+	   - Additional Functionality
+	      Scalability, 1000 files, more, no limit ?
+	      write with a format 
+	         e.g. "write %kzdate.%kztime.%kstnm.%knetwk.% kcmpnm.sac"
+	      get/set functionality
+	      	       includes initialization file
+		       and setting "set lh.columns 2"
+	      make sgftops independent of endian used when writing .sgf file
+
+2007/03/03 Version 101.0
+	* Supported Platforms: Solaris, Linux (32 bit), and Mac OS X 
+	  (both OSX/PPC and OSX/i686).  On OSX/i686, a build does not
+	  work using gcc 3.  On OSX/PPC, builds are successful with either
+	  gcc 3 and gcc 4 for OS 10.4 and gcc 3 for 10.3.  A successful build
+	  is reported on OS 10.2, but builds on 10.4 will not run on 10.2.
+	  Builds on Solaris 2.9 will work on 2.8.  On Linux, successful 
+	  builds on either gcc 3 or gcc 4.  Sac is not supported on 64-bit
+	  architectures, but successful builds on 64-bit machines are 
+	  reported using the -m32 flag with gcc plus other modifications.
+	* Added ~/utils with sources and makefile for sacswap, saclst,
+	  and sgftops.  Executables are included in ~/bin.
+	* Major Bug Fixed for all SACIO Library routines.
+          Use of library with Fortran and/or C now sane 
+	* Major Bug Fix: Writehdr Different Endian Bug
+	* Variable: SAC_USE_DATABASE
+		Use Database
+		   If environment variable is undefined or set to 1
+	           % setenv SAC_USE_DATABASE 1
+		Do Not Use Database
+		  If environment variable is set to 0
+	           % setenv SAC_USE_DATABASE 0
+	* Variable: SAC_DISPLAY_COPYRIGHT
+		 Show Copyright
+		    If environment variable is undefined
+		Do Not Show Copyright
+		   If environment variable is defined
+	           % setenv SAC_DISPLAY_COPYRIGHT 1
+	* YLimit Bug fixed
+	* Minor Bug Fixes: Compilation Bugs and Warnings, bugs in sgftops
+	  and sgftoeps.csh
+	* To Do:
+	   - Build and Testing
+	      ./configure system
+	      Universal Builds on OS X
+	      Testing suite
+
+	   - Known Bugs
+	      Files that begin with a long integer
+              Line termination while parsing files
+	      No error output on "ch o gmt" truncation, better error 
+	      reporting r pha*? multiple times gives segmentation fault
+	      Missing SAC> when run in a script
+	      Error should in in stderr not stdout
+	      "WARNING: Number 4003 integer too large" 
+	      'lh inclusive non-existent-header' causes a to segfault
+	      wsac0 does not update all header variables
+	      SGF files written with one byte order cannot be read
+		  on systems using the opposite byte order
+	      "do .. wild" loop bombs if total number of characters  
+                  for filenames too large
+
+           - Plotting Bugs
+      	      Plotpk cross-hairs
+	      Time shrinks on plots with lots of records
+	      Reformat Plotting Window
+
+	   - General Code Cleanups
+	      Merge files that overlap, better merge code
+	      remove code repetition, hdr.h, extfuncs.h, and  SacHeader.h
+	      Use of common blocks, global variables
+	      rolllback command does not work
+
+	   - Additional Functionality
+	      Scalability, 1000 files, more, no limit ?
+	      write with a format 
+	         e.g. "write %kzdate.%kztime.%kstnm.%knetwk.% kcmpnm.sac"
+	      get/set functionality
+	      	       includes initialization file
+		       and setting "set lh.columns 2"
+
+	       	     
+2005/07/25 Version 100.1 beta
+        * Supported Platforms: Solaris, Linux and Mac OS X (10.3 and 10.4
+          Builds on OS 10.4 will not work on OS 10.3.  Okay vice versa)
+        * Command line editing (using libedit)
+        * X11 Windowing bug fixes
+        * Enhancements to sgftops (bin/sgftoeps.csh)
+        * bug fixes: help crashed if entry not a valid help item;
+                     pause/redraw problem
+        * Not fixed: readhdr/writehdr problem when changing endian;
+                     cross-hair cursor size in ppk;
+                     endian converter/sensor for .sgf files;
+                     reported rollback problem
+
+2004/12/08 Version 100.00
+	* Supported Platforms: Solaris, Linux and Mac OS X
+ 	* Automatic Byte-swapping added
+ 	* Initial Release of OS X version
+ 	* Linux readalpha bug fix

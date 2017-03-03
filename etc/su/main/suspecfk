@@ -1,0 +1,12 @@
+#
+#	ARGUMENTS FOR: suspecfk
+#
+SourceFileName=/su/main/suspecfk.c
+#
+#	DO NOT MODIFY THE ABOVE PROPERTY
+#
+Description=Description no available
+dt=
+dx=
+tmpdir=
+verbose=0

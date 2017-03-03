@@ -44,7 +44,7 @@ version 10.4, with a systype of BSD4.3.  The C compiler is version 6.9.
    find X11 and Xt, then check to see that the IX11 and LX11 paths
    are set correctly in Makefile.config.
 
-John Stockwell	 | john@dix.Mines.EDU
+John Stockwell	 | jstockwe@mines.edu
 Center for Wave Phenomena (The Home of Seismic Un*x)
 Colorado School of Mines
 Golden, CO 80401 | http://www.cwp.mines.edu/cwpcodes

@@ -1,0 +1,52 @@
+#! /bin/sh
+# Shell: wordtex
+# Author: John Stockwell 26 July 1990
+# a spell checker for TeX and LaTeX documents, based largely on 
+# Jack Cohen's program   wwb
+ROOT=/usr/local
+SRC=$ROOT
+BIN=$ROOT/cwp/bin
+
+PATH=/bin:/usr/bin:/usr/sbin:$BIN
+
+cmd=`basename $0`
+typos=/tmp/$$.dict
+typos1=/tmp/$$.dict1
+exceptions=$SRC/textproc/words/words
+exceptions2=/usr/dict/web2
+
+case $# in
+	1) # Normal usage
+	;;
+	*) echo Usage: $cmd file 1>&2; exit 1
+	;;
+esac
+out=wt.$1	# Name of output file.
+echo > $out
+echo File $1: >>$out
+
+# Start double word checker
+echo Double words: >>$out
+cat $1| 
+sed '
+s/\\ref{.*}//
+s/\\label{.*}//
+s/\\epsffile{.*}//
+s/{equation}//
+s/{eqnarray\*}//
+s/\,/ /g
+' | 
+/usr/local/cwp/bin/untex  |
+tr A-Z a-z |
+awk '
+	NF > 0 {
+		if ($1 == lastword)
+			printf "%s, line %d\n", $1, NR
+		for (i = 2; i<= NF; i++)
+			if ($i == $(i-1))
+				printf "%s, line %d\n", $i, NR
+		if (NF > 0)
+				lastword = $NF
+	}
+' |
+sed 's/^/	/' >>$out

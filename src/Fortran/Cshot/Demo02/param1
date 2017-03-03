@@ -7,7 +7,7 @@ s                                   :
 dummygeo                            :dummy geometry file
 sg                                  :second plot descriptor (sgq)   ...THIS
 r                                   :job descriptor (rlt)              DIRECTORY
-don't care                          :output filename(s)
+don'tcare                           :output filename(s)
   0.   80.                          :range of takeoff angles 
 1.                                  :increment in takeoff angle
 4000.0  6000.0  9000.0

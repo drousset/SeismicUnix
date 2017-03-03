@@ -63,7 +63,7 @@ MGLLFLAGS= $(PRELFLAGS) -L$L -L$(LX11) -L$(LGLUT) -L$(LGL) \
         -lGL -lGLU -lglut -ltrack -lpar -lcwp -lm $(POSTLFLAGS)  
 
 
-John Stockwell	 | john@dix.Mines.EDU
+John Stockwell	 | jstockwe@mines.edu
 Center for Wave Phenomena (The Home of Seismic Un*x)
 Colorado School of Mines
 Golden, CO 80401 | http://www.cwp.mines.edu/cwpcodes

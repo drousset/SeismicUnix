@@ -1,0 +1,30 @@
+#! /bin/sh 
+# view the CWP Library list
+
+LIBDIR=/Net/slotnick/Users/barbara/CWPlibrary
+LIBFILE=$LIBDIR/librarylist.new
+
+# check for news arguments
+for i
+do
+	case $i in
+	-m) # more the list
+		cat $LIBFILE | nroff -mme | more ; exit 1
+	;;
+	-e) # view with edit the lib list
+		echo "click on EDIT window "
+		echo "then type \"command\"-f to find"
+		open $LIBFILE ; exit 1
+	;;
+	-f) # preview with vme the lib list
+		vme $LIBFILE ; exit 1
+	;;
+	esac
+done
+
+echo "Usage: cwpbooks -f      fancy viewing of the CWP Library Book List"
+echo "       cwpbooks -e      view with edit (permits the use of the finder)"
+echo "       cwpbooks -m      view with more (terminal window use)"
+
+exit 0
+

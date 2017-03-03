@@ -1,0 +1,5 @@
+#include "cwp.h"
+#include "su.h"
+#include "segy.h"
+#include "definePosteriori.h" 
+#include "globalPosteriori.h" 

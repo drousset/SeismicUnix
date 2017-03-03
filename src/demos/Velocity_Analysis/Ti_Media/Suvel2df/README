@@ -33,7 +33,7 @@ Because delta=0 in the model then eta should equal epsilon and it was
 close difference 0.04.  Also, the estimated Vnmo=2001 m/s is
 close to the modeled one of 2000 m/s.
 
-John Stockwell	 | john@dix.Mines.EDU
+John Stockwell	 | jstockwe@mines.edu
 Center for Wave Phenomena (The Home of Seismic Un*x)
 Colorado School of Mines
 Golden, CO 80401 | http://www.cwp.mines.edu/cwpcodes

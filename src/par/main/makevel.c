@@ -183,7 +183,7 @@ main (int argc, char **argv)
 				xn = 2.0*(x-xlens)/dlens;
 				ynn = 2.0*(y-ylens)/dlens;
 				zn = 2.0*(z-zlens)/tlens;
-				v[iz] += vlens*exp(-lambda*xn*xn+ynn*ynn+zn*zn);
+				v[iz] += vlens*exp(-lambda*(xn*xn+ynn*ynn+zn*zn));
 				/*
 				if (z>zbot && z<ztop) v[iz] += vlens;
 				*/

@@ -1,0 +1,55 @@
+#! /bin/sh
+# system news program
+# based in part on the news program in Kernighan and Pike, 1984
+
+# check for news arguments
+for i
+do
+	case $i in
+	-o) 	for k in ` /bin/ls /usr/local/news`
+		do
+			echo "old news: $k"
+		done
+		1>&2; exit 1
+	;;
+	-p)	cd /usr/local/news
+		for j in ` /bin/ls -t * $HOME/.news_time`
+		do
+			case $j in
+			*' not found')
+			;;
+			*/.news_time)	break
+			;;
+			*) echo " news: $j  "
+			esac
+		more $j
+		touch $HOME/.news_time
+		done
+		1>&2; exit 1
+	;;
+	-l)	cd /usr/local/news
+		for j in ` /bin/ls -t * $HOME/.news_time`
+		do
+			case $j in
+			*' not found')
+			;;
+			*/.news_time)	break
+			;;
+			*) echo " news: $j  "
+			esac
+		done
+		1>&2; exit 1
+	;;
+	*)	more /usr/local/news/$i
+		touch $HOME/.news_time
+		1>&2; exit 1
+	;;
+	esac
+done
+
+echo "Usage: news -l      lists the current news list"
+echo "       news -o      old news items are listed"
+echo "       news -p      prints all of the items on the current list"
+echo "       news item    a particular (old or new) item is printed" 
+
+exit 0

@@ -1,0 +1,30 @@
+#! /bin/sh
+# hogs - show usages
+# Usage: hogs [directory]
+# Jack K. Cohen, 1990
+
+
+cmd=`basename $0`
+
+case $# in
+0)
+	dirname=.
+;;
+1)
+	dirname=$1
+;;
+*)
+	echo "$cmd [dirname]" 1>&2 ; exit 1
+esac
+
+cd $dirname
+for i in `ls`
+do
+	if
+		[ -d $i ]
+	then
+		du -s $i
+	fi
+done
+
+exit 0

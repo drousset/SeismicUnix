@@ -1,0 +1,133 @@
+/* inc/config.h.in.  Generated from configure.in by autoheader.  */
+
+/* Macro which defines the Date of the Current Build */
+#undef BUILD_DATE
+
+/* Cygwin32 System */
+#undef CYGWIN
+
+/* Compile without SeisMgr Database Capabilities */
+#undef DATABASE_DISABLED
+
+/* Compile with SeisMgr Database Capabilities */
+#undef DATABASE_ENABLED
+
+/* Compile without editline comand line capabilities */
+#undef EDITLINE_DISABLED
+
+/* Define to 1 if `TIOCGWINSZ' requires <sys/ioctl.h>. */
+#undef GWINSZ_IN_SYS_IOCTL
+
+/* System Libraries define fmax */
+#undef HAVE_FUNC_FMAX
+
+/* System Libraries define fmin */
+#undef HAVE_FUNC_FMIN
+
+/* System Libraries define lround */
+#undef HAVE_FUNC_LROUND
+
+/* Define to 1 if you have the <inttypes.h> header file. */
+#undef HAVE_INTTYPES_H
+
+/* Define to 1 if you have the `dl' library (-ldl). */
+#undef HAVE_LIBDL
+
+/* Define to 1 if you have the `m' library (-lm). */
+#undef HAVE_LIBM
+
+/* Define to 1 if you have the `rpc' library (-lrpc). */
+#undef HAVE_LIBRPC
+
+/* Matlab Interface Routines */
+#undef HAVE_MATLAB
+
+/* Define to 1 if you have the <memory.h> header file. */
+#undef HAVE_MEMORY_H
+
+/* Define to 1 if you have the <readline/readline.h> header file. */
+#undef HAVE_READLINE_READLINE_H
+
+/* Define to 1 if you have the <stdint.h> header file. */
+#undef HAVE_STDINT_H
+
+/* Define to 1 if you have the <stdlib.h> header file. */
+#undef HAVE_STDLIB_H
+
+/* Define to 1 if you have the <strings.h> header file. */
+#undef HAVE_STRINGS_H
+
+/* Define to 1 if you have the <string.h> header file. */
+#undef HAVE_STRING_H
+
+/* Define to 1 if you have the <sys/stat.h> header file. */
+#undef HAVE_SYS_STAT_H
+
+/* Define to 1 if you have the <sys/types.h> header file. */
+#undef HAVE_SYS_TYPES_H
+
+/* Define to 1 if you have the <unistd.h> header file. */
+#undef HAVE_UNISTD_H
+
+/* Unix Emulation */
+#undef LINUX
+
+/* Location of Matlab Libraries */
+#undef MATLAB_BIN
+
+/* Location of Matlab Libraries */
+#undef MATLAB_LIB
+
+/* System Libraries missing fmax */
+#undef MISSING_FUNC_FMAX
+
+/* System Libraries missing fmin */
+#undef MISSING_FUNC_FMIN
+
+/* System Libraries missing lround */
+#undef MISSING_FUNC_LROUND
+
+/* Define to 1 if your C compiler doesn't accept -c and -o together. */
+#undef NO_MINUS_C_MINUS_O
+
+/* Apple/OSX/Darwin Operating System */
+#undef OSX
+
+/* Define to the address where bug reports for this package should be sent. */
+#undef PACKAGE_BUGREPORT
+
+/* Define to the full name of this package. */
+#undef PACKAGE_NAME
+
+/* Define to the full name and version of this package. */
+#undef PACKAGE_STRING
+
+/* Define to the one symbol short name of this package. */
+#undef PACKAGE_TARNAME
+
+/* Define to the version of this package. */
+#undef PACKAGE_VERSION
+
+/* Compile with command line capabilities */
+#undef READLINE
+
+/* SUN/Solaris Operating System */
+#undef SOLARIS
+
+/* Define to 1 if you have the ANSI C header files. */
+#undef STDC_HEADERS
+
+/* Compile with X11 double buffers */
+#undef USE_X11_DOUBLE_BUFFER
+
+/* Compile without X11 double buffers */
+#undef USE_X11_DOUBLE_BUFFER_DISABLED
+
+/* Compile with X11 multiple color depths */
+#undef USE_X11_MULTIPLE_DEPTHS
+
+/* Compile without X11 multiple color depth */
+#undef USE_X11_MULTIPLE_DEPTHS_DISABLED
+
+/* Define to 1 if the X Window System is missing or not being used. */
+#undef X_DISPLAY_MISSING

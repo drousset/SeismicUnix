@@ -30,7 +30,6 @@ suxmovie  clip=1.0 \
 	title="Acoustic Finite-Differencing" \
 	windowtitle="Movie" \
 	label1=$label1 label2=$label2 \
-	n1=$n1 d1=$d1 f1=$f1 n2=$n2 d2=$d2 f2=$f2 \
-	loop=1 sleep=10000  -geometry 800x400 &
+	n1=$n1 d1=$d1 f1=$f1 n2=$n2 d2=$d2 f2=$f2 &
 
 exit 0

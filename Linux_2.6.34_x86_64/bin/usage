@@ -1,0 +1,31 @@
+#! /bin/sh
+# usage - report on diskusage
+
+PATH=/bin:/usr/bin:/usr/ucb:
+
+case $# in
+        0) USERNAME=`whoami`
+	;;
+        1) USERNAME=$1
+	;;
+        *) echo "Usage:    usage <username>"; exit 1 
+	;;
+esac
+
+
+
+cd /usr/local/news
+
+echo "Diskusage for user:  $USERNAME"
+echo
+
+grep $USERNAME diskusage* |
+sed 's/\./	on	/' |
+sed 's/\:/	/g' | awk '{print $2 " " $3 " " $4}'
+
+
+
+
+exit 0
+
+

@@ -1,0 +1,71 @@
+#! /bin/sh
+# wwb - spell command with exception list, plus ...
+# 	check for doubled words (ignoring case) plus ...
+#	diction and ...
+#	put result on wwb.file
+# Usage: wwb filename
+# RESTRICTION: One file only.
+# Copyright 1985 by Jack K. Cohen
+
+# NOTES on spelling checker:
+# The spelling exception list is assumed to be sorted:
+#	 sort -o exclist exclist
+# Other users should change the exception list below (it might contain
+#	the names of you and yours, etc.)
+# BUG: No spell options allowed, currently.
+
+# NOTES on double word checker:
+# K & P's "double", page 121, made insensitive to case for the single file.
+
+# To improve transportability, the following directory definitions
+# were added by John Stockwell (29 Jan 1990).
+BIN=/bin
+BIN1=/usr/bin
+WORDSDIR=/usr/local/src/cwproff
+
+cmd=`$BIN1/basename $0`
+typos=/tmp/$$.dict
+exceptions=$WORDSDIR/words
+
+case $# in
+1) # Normal usage
+;;
+*) $BIN/echo Usage: $cmd file 1>&2; exit 1
+;;
+esac
+
+out=wwb.$1	# Name of output file.
+$BIN/echo >$out
+$BIN/echo File $1: >>$out
+# Start spelling checker
+$BIN/echo Typos: >>$out
+trap '$BIN/rm $typos 1>/dev/null 2>/dev/null' 0 1 2 15
+$BIN/sed '/^\.so/d' $1 |	# Kill off nroff includes
+$BIN1/spell >$typos
+# spell sorts with -f option; but comm demands ASCII collating sequence!
+$BIN1/sort -o $typos $typos
+$BIN1/comm -23 $typos $exceptions |
+$BIN/sed 's/^/	/' >>$out
+
+# Start double word checker
+$BIN/echo Double words: >>$out
+$BIN1/tr A-Z a-z <$1 |	# Remove case sensitivity.
+$BIN/awk '
+	NF > 0 {
+		if ($1 == lastword)
+			printf "%s, line %d\n", $1, NR
+		for (i = 2; i<= NF; i++)
+			if ($i == $(i-1))
+				printf "%s, line %d\n", $i, NR
+		if (NF > 0)
+				lastword = $NF
+	}
+' |
+$BIN/sed 's/^/	/' >>$out
+
+# Start cliche checker
+$BIN/echo Cliches: >>$out
+$BIN/sed '/^.so/d' $1 |	# Kill off nroff includes
+$BIN1/diction >>$out
+
+$BIN/echo wwb $1 output ready in $out 1>&2; exit 0

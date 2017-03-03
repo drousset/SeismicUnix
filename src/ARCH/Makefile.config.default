@@ -462,7 +462,7 @@ OPTF = -O
 
 # Use this for HP
 # (If you figure out what goes in 
-#the next line,  email me: john@dix.mines.edu)
+#the next line,  email me: jstockwe@mines.edu)
 #OPTF =
 
 

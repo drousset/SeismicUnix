@@ -14,7 +14,7 @@ BINDIR=	../../../bin
 # Compiler and flags to use
 CXFLAGS=
 CCMODE=	-O
-CCFLAGS= -I. $(CCMODE) $(LIBTYPE) $(CXFLAGS)
+CCFLAGS= -I. -P $(CCMODE) $(LIBTYPE) $(CXFLAGS)
 # AR=	ar
 # CC=	cc
 

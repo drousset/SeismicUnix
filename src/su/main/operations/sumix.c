@@ -19,6 +19,9 @@ char *sdoc[] = {
 " Note: 								",
 " The number of values defined by mix=val1,val2,... determines the number",
 " of traces to be averaged, the values determine the weights.		",
+" Mix applied left-to-right (in 2D data) and only begins after the	",
+" nmix traces, where nmix is the number of mix weights to avoid 	",
+" left end edge effects. 						",
 " 									",
 " Examples: 								",
 " sumix <stdin mix=.6,1,1,1,.6 >sdout 	(default) mix over 5 traces weights",
@@ -28,6 +31,7 @@ NULL};
 
 /* Author:
  *	CWP: John Stockwell, Oct 1995
+ *	UArk: Chris Liner, Nov 2016 (skip nmix traces to min edge effects) 
  *
  * Trace header fields accessed: ns
  */
@@ -54,9 +58,9 @@ main(int argc, char **argv)
 	int itr=0;		/* trace counter			*/
 	size_t databytes;	/* number of bytes (nt*FSIZE)		*/
 	size_t mixbytes;	/* number of bytes (nt*FSIZE*nmix)	*/
-	float *mix;		/* array of mix values			*/
-	float *temp;		/* temp array for mixing 		*/
-	float **data;		/* array for mixing 			*/
+	float *mix=NULL;	/* array of mix values			*/
+	float *temp=NULL;	/* temp array for mixing 		*/
+	float **data=NULL;	/* array for mixing 			*/
 	
 	
 	/* Initialize */
@@ -111,16 +115,20 @@ main(int argc, char **argv)
 
 		/* Read data portion of trace into first column of data[][] */
 		memcpy( (void *) data[0], (const void *) tr.data, databytes);
+		
+		if (itr >= nmix) {
 	
-		/* Loop over time samples */
-		for (it=0; it<nt; ++it) {
+			/* Loop over time samples */
+			for (it=0; it<nt; ++it) {
 
-			/* Weighted moving average (mix) */
-			for(imix=0; imix<nmix; ++imix)
-				temp[it]+=data[imix][it]*mix[imix];
+				/* Weighted moving average (mix) */
+				for(imix=0; imix<nmix; ++imix)
+					temp[it]+=data[imix][it]*mix[imix];
 
-			/* put mixed data back in seismic trace */
-			tr.data[it] = temp[it]; 
+				/* put mixed data back in seismic trace */
+				tr.data[it] = temp[it]; 
+			}
+		
 		}
 
 		/* Bump columns of data[][] over by 1 */

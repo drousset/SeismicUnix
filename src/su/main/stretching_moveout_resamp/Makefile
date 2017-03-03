@@ -9,6 +9,7 @@ D = $L/libcwp.a $L/libpar.a $L/libsu.a
 LFLAGS= $(PRELFLAGS) -L$L -lsu -lpar -lcwp -lm $(POSTLFLAGS)
 
 PROGS =			\
+	$B/sudlmo	\
 	$B/suilog	\
 	$B/sulog	\
 	$B/sunmo	\

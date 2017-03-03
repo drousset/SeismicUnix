@@ -1,0 +1,10 @@
+#! /bin/sh
+# cktime -- check network time synchronization
+# Author: Craig
+
+machines="cauchy dix dobrin ewing green gu heiland hilbert huygens jeffries keller klein kramer lamb lewis love mintrop rayleigh sengbush sheriff shrock slotnick sonya ulam wenzel"
+
+for i in $machines
+do
+	/usr/etc/timedc clockdiff $i
+done

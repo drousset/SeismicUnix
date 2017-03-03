@@ -46,8 +46,7 @@ suxmovie < snaps.su clip=.5 \
 	windowtitle="Movie" \
 	label1="$label1" label2="$label2" \
 	n1=$n1 d1=$d1 f1=$f1 n2=$n2 d2=$d2 f2=$f2 \
-	cmap=gray loop=2 interp=0 \
-	-geometry ${WIDTH}x${HEIGHT}+${WIDTHOFF2}+${HEIGHTOFF1} &
+	cmap=gray loop=2 interp=0 &
 
 suximage < hseis.out perc=99 \
 	title="Shot Record @ z=1000" \
