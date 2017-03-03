@@ -131,23 +131,23 @@ int getSPSfield(char *Line, int rev, int idx, void *addr)
          fprintf(stderr,"****  Unsupported SPS format %d!!\n\n",rev);
          return 1;
    }
-   //  Define the structure to use
-   if ( Line[0] == 'R' || Line[0] == 'S' ) {// this is a point record
+  /*  Define the structure to use */
+   if ( Line[0] == 'R' || Line[0] == 'S' ) {/* this is a point record */
       if ( rev == 0 ) {
          pparse = pparse0;
       } else if ( rev == 2 ) {
          pparse = pparse2;
       }
    }
-   else if ( Line[0] == 'X' ) {             //this is a relation record
+   else if ( Line[0] == 'X' ) {             /*this is a relation record */
       if ( rev == 0 ) {
          pparse = xparse0;
       } else if ( rev == 2 ) {
          pparse = xparse2;
       }
    }
-   else  {                                  //what is this?
-      // throw a tantrum
+   else  {                                  /* what is this? */
+      /* throw a tantrum */
       fprintf(stderr,"****  Unsupported SPS record %c!!\n\n",Line[0]);
       return 1;
    }
@@ -156,11 +156,11 @@ int getSPSfield(char *Line, int rev, int idx, void *addr)
    ilast = Ini + pparse[idx].len;
 
    if ( strlen(Line) < Ini )
-   {  // No field left to be read
-      // Just return with target untouched
-      return -1;  //  Return a -1 like sscanf would if failed.
+   {   /* No field left to be read */
+      /* Just return with target untouched */
+      return -1;  /*  Return a -1 like sscanf would if failed. */
    } else if ( strlen(Line) < ilast) {
-      ilast = strlen(Line);  //  Just reduce the parse length
+      ilast = strlen(Line);  /*  Just reduce the parse length */
    }
 
    // Save the starting character of next field
@@ -168,13 +168,13 @@ int getSPSfield(char *Line, int rev, int idx, void *addr)
 
    Line[ilast] = '\0';
 
-   // This option will produce a zero if conversion worked, nonzero otherwise.
-   //nconv = 1-sscanf(&Line[Ini], pparse[idx].fmt, addr);
+   /* This option will produce a zero if conversion worked, nonzero otherwise. */
+   /* nconv = 1-sscanf(&Line[Ini], pparse[idx].fmt, addr); */
    nconv = sscanf(&Line[Ini], pparse[idx].fmt, addr);
-   // Debug
-   //fprintf (stderr,"%s: %s '%s' = %d\n",pparse[idx].name,pparse[idx].fmt, &Line[Ini],nconv); 
+   /* Debug */
+   /* fprintf (stderr,"%s: %s '%s' = %d\n",pparse[idx].name,pparse[idx].fmt, &Line[Ini],nconv);  */
 
-   // recover the starting character of next field
+   /* recover the starting character of next field */
    Line[ilast] = tmp;
 
    return nconv;
