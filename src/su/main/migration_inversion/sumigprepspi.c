@@ -370,15 +370,7 @@ segy tr, tro;
        for(ix=0;ix<nx;ix++)
 	 v[iz][ix]=vp[iz][ix+ix2];
      
-     vmax=v[0][0];vmin=v[0][0];
-     
-     for(iz=0;iz<nz;++iz) {
-       for(ix=0;ix<nx;++ix) {
-	 if(v[iz][ix]>=vmax) vmax=v[iz][ix];
-	 if(v[iz][ix]<=vmin) vmin=v[iz][ix];
-       }
-     }
-     
+          
      /* allocate space */
      cp = alloc2complex(nx,nw);
      cp1 = alloc2complex(nx,nw);
@@ -485,6 +477,14 @@ segy tr, tro;
        pfa2cc(-1,1,nk,nw,cq[0]);
        pfa2cc(-1,1,nk,nw,cq1[0]);
        
+       vmax=v[iz][0];vmin=v[iz][0];
+     
+       for(ix=0;ix<nx;++ix) {
+	 if(v[iz][ix]>=vmax) vmax=v[iz][ix];
+	 if(v[iz][ix]<=vmin) vmin=v[iz][ix];
+       }
+          
+	     
        /* The second time phase shift */
        v1=vmin;
        v2=vmax;
