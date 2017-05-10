@@ -4,8 +4,8 @@
 #set -x
 
 # these items identify the date/release of the codes
-DATE="22 February 2017"
-RELEASE="44R4"
+DATE="24 April 2017"
+RELEASE="44R5"
 
 # home address
 ADDRESS="jstockwe@mines.edu"

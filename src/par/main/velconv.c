@@ -1,7 +1,7 @@
 /* Copyright (c) Colorado School of Mines, 2011.*/
 /* All rights reserved.                       */
 
-/* VELCONV: $Revision: 1.14 $ ; $Date: 2011/11/16 16:42:16 $	*/
+/* VELCONV: $Revision: 1.17 $ ; $Date: 2017/04/11 19:57:11 $	*/
 
 #include "par.h"
 
@@ -23,6 +23,11 @@ char *sdoc[] = {
 " zt             depth as a function of time			",
 " tz             time as a function of depth			",
 " 								",
+" These are active only if otherfile= is specified 		",
+" othert 	other as a function of time			",
+" otherz 	other as a function of depth			",
+" 								",
+" 								",
 " Optional Parameters:						",
 " nt=all                 number of time samples			",
 " dt=1.0                 time sampling interval			",
@@ -31,14 +36,30 @@ char *sdoc[] = {
 " dz=1.0                 depth sampling interval		",
 " fz=0.0                 first depth				",
 " nx=all                 number of traces			",
+" verbose=0		 silent, =1 chatty 			",
+" 								",
+" Other input: 							",
+" otherfile=	input file containg other input			",
+" 								",
+" If type=othert, then vint(t) is assumed. If type=otherz then     ",
+"  vint(z) is assumed. 						",
 " 								",
 " Example:  \"intype=vintz outtype=vrmst\" converts an interval velocity",
 "           function of depth to an RMS velocity function of time.",
 " 								",
-" Notes:  nt, dt, and ft are used only for input and output functions",
-"         of time; you need specify these only for vintt, vrmst, orzt.",
-"         Likewise, nz, dz, and fz are used only for input and output",
-"         functions of depth.					",
+" Notes: 							",  
+" The variables t, dt, and ft are used only for input and output ",
+" functions of time; you need specify these only for vintt, vrmst,",
+" orzt.								",
+" 								",
+" Likewise, nz, dz, and fz are used only for input and output	",
+" functions of depth.					",
+" 								",
+" The otherfile= option is an input file with the same number of",
+" samples as the input interval velocity as a function of depth",
+" or time. The otherfile may contain impedence, density, or other",
+" model that is desired to be converted from depth to time or time"
+" to depth.							",
 " 								",
 " The input and output data formats are C-style binary floats.	",
 NULL};
@@ -71,14 +92,42 @@ void tzzt(int nz, float dz, float fz, float tz[], float vfz, float vlz,
 int
 main (int argc, char **argv)
 {
-	int nt,nz,nin=0,nout=0,nx,ix;
-	float dt,ft,dz,fz,*din,*dout,*zt,*tz;
-	char *intype="",*outtype="";
-	FILE *infp=stdin,*outfp=stdout;
+	int nt;		/* number of time samples */
+	int nz;		/* number of depth samples */
+	int nin=0;	/* number of samples input */
+	int nout=0;	/* number of samples output */
+	int nx;		/* horizontal size of input/output */
+	int ix;		/* counter in x */
+
+	float dt;	/* time sampling interval */
+	float ft;	/* first time sample */
+	float dz;	/* depth sampling interval */
+	float fz;	/* first depth sample */
+	float *din=NULL;	/* array of data in */
+	float *dout=NULL;	/* array of data out */
+	float *zt=NULL;		/* z(t) depth as a function of time */
+	float *tz=NULL;		/* t(z) time as a function of depth */
+	char *intype="";	/* input data type */
+	char *outtype="";	/* output data type*/
+
+	FILE *infp=stdin;	/* input file pointer */
+	FILE *outfp=stdout;	/* output file pointer */
+
+	/* otherfile variables */
+	float *otherin=NULL;	/* other data input */
+	char *otherfile="";	/* otherfile filename */
+	FILE *otherfp=NULL;	/* ...its file pointer */
+
+	cwp_Bool is_otherfile=cwp_false;	/* is otherfile defined? */
+
+	int verbose=0;		/* verbose flag */
 
 	/* hook up getpar to handle the parameters */
 	initargs(argc,argv);
 	requestdoc(2);
+
+	/* verbose flag */
+	if (!getparint("verbose",&verbose)) verbose = 0;
 
 	/* get required parameters */
 	if (!getparstring("intype",&intype)) err("Must specify intype!\n");
@@ -108,6 +157,20 @@ main (int argc, char **argv)
 	if (!getparfloat("dz",&dz)) dz = 1.0;
 	if (!getparfloat("fz",&fz)) fz = 0.0;
 
+	/* get otherfile */
+	getparstring("otherfile",&otherfile);
+	if (*otherfile!='\0')
+		is_otherfile=cwp_true;
+	if (is_otherfile && !(STREQ(intype,"otherz") || STREQ(intype,"othert")))
+		err("Must have intype=otherz or othert if otherfile= set!");
+
+	if (is_otherfile && !(STREQ(outtype,"otherz") || STREQ(outtype,"othert")))
+		err("Must have outtype=othert or otherz if otherfile= set!");
+		
+	if (is_otherfile)
+		otherfp = efopen(otherfile,"r");
+
+
 	/* determine number of samples per input and output trace */
 	if (
 		STREQ(intype,"vintt") || 
@@ -116,23 +179,34 @@ main (int argc, char **argv)
 		nin = nt;
 	} else if (
 		STREQ(intype,"vintz") || 
+		STREQ(intype,"otherz") || 
 		STREQ(intype,"tz") ) {
 		nin = nz;
+	} else if (STREQ(intype,"otherz") && is_otherfile) {
+		nin = nz;
+		if (verbose) warn("assuming vintz input velocity file!");
+	} else if (STREQ(intype,"othert") && is_otherfile) {
+		nin = nt; 
+		if (verbose) warn("assuming vintt input velocity file!");
 	} else {
 		err("invalid intype=%s!\n",intype);
 	}
+
 	if (
-		STREQ(outtype,"vintt") || 
-		STREQ(outtype,"vrmst") || 
+		STREQ(outtype,"othert") ||
+		STREQ(outtype,"vintt") ||
+		STREQ(outtype,"vrmst") ||
 		STREQ(outtype,"zt") ) {
 		nout = nt;
 	} else if (
+		STREQ(outtype,"otherz") || 
 		STREQ(outtype,"vintz") || 
 		STREQ(outtype,"tz") ) {
 		nout = nz;
 	} else {
 		err("invalid outtype=%s!\n",outtype);
 	}
+		
 
 	/* determine number of traces to process */
 	if (!getparint("nx",&nx)) nx = -1;
@@ -145,23 +219,37 @@ main (int argc, char **argv)
 	din = ealloc1float(nin);
 	dout = ealloc1float(nout);
 
+	/* the other data */
+	if (is_otherfile) otherin = ealloc1float(nin);
+
 	/* set input file pointer to beginning of file */
 	efseek(infp,(off_t)0L,0);
+	if(is_otherfile) efseek(otherfp,(off_t)0L,0);
 
 	/* loop over traces */
 	for (ix=0; ix<nx || nx<0; ix++) {
 
+		/* zero out the output array */
+		memset( (void *) dout, 0, nout * FSIZE);
+
 		/* read input data */
 		if (efread(din,sizeof(float),nin,infp)!=nin) break;
+		if (is_otherfile)
+			if (efread(otherin,sizeof(float),nin,otherfp)!=nin) break;
+
 
 		/* convert input data to zt and tz */
 		if (STREQ(intype,"vintt"))
+			in_vintt(nt,dt,ft,nz,dz,fz,din,zt,tz);
+		else if (STREQ(intype,"othert")) /* assume vintt input */
 			in_vintt(nt,dt,ft,nz,dz,fz,din,zt,tz);
 		else if (STREQ(intype,"vrmst"))
 			in_vrmst(nt,dt,ft,nz,dz,fz,din,zt,tz);
 		else if (STREQ(intype,"zt"))
 			in_zt(nt,dt,ft,nz,dz,fz,din,zt,tz);
 		else if (STREQ(intype,"vintz"))
+			in_vintz(nt,dt,ft,nz,dz,fz,din,zt,tz);
+		else if (STREQ(intype,"otherz")) /* assume vintz input */
 			in_vintz(nt,dt,ft,nz,dz,fz,din,zt,tz);
 		else if (STREQ(intype,"tz"))
 			in_tz(nt,dt,ft,nz,dz,fz,din,zt,tz);
@@ -173,17 +261,21 @@ main (int argc, char **argv)
 			out_vintt(nt,dt,zt,dout);
 		else if (STREQ(outtype,"vrmst"))
 			out_vrmst(nt,dt,ft,zt,dout);
+		else if (is_otherfile && STREQ(outtype,"othert"))
+			intlin(nin,tz,otherin,otherin[0],otherin[nin-1], nout,  tz,  dout);	
 		else if (STREQ(outtype,"zt"))
 			out_zt(nt,zt,dout);
 		else if (STREQ(outtype,"vintz"))
 			out_vintz(nz,dz,tz,dout);
+		else if (is_otherfile && STREQ(outtype,"otherz"))
+			intlin(nin, zt , otherin, otherin[0],otherin[nin-1], nout, zt,  dout);	
 		else if (STREQ(outtype,"tz"))
 			out_tz(nz,tz,dout);
 		else
 			err("invalid outtype=%s!\n",outtype);
 
-		/* write output data */
 		efwrite(dout,sizeof(float),nout,outfp);
+
 	}
 	return EXIT_SUCCESS;
 }
@@ -207,6 +299,7 @@ void in_vintt(int nt, float dt, float ft, int nz, float dz, float fz,
 	vlt = vintt[nt-1];
 	zttz(nt,dt,ft,zt,vft,vlt,nz,dz,fz,tz);
 }
+
 
 /* compute z(t) and t(z) from input vrms(t) */
 void in_vrmst(int nt, float dt, float ft, int nz, float dz, float fz,

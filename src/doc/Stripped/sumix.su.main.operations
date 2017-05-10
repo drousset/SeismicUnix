@@ -8,6 +8,9 @@
  Note: 								
  The number of values defined by mix=val1,val2,... determines the number
  of traces to be averaged, the values determine the weights.		
+ Mix applied left-to-right (in 2D data) and only begins after the	
+ nmix traces, where nmix is the number of mix weights to avoid 	
+ left end edge effects. 						
 
  Examples: 								
  sumix <stdin mix=.6,1,1,1,.6 >sdout 	(default) mix over 5 traces weights
@@ -16,6 +19,7 @@
 
  Author:
 	CWP: John Stockwell, Oct 1995
+	UArk: Chris Liner, Nov 2016 (skip nmix traces to min edge effects) 
 
  Trace header fields accessed: ns
 

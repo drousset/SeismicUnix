@@ -365,10 +365,10 @@ int main(int argc, char *argv[])
   if (! nz % 2 && opflag != 1) err("Error: nz must be odd!\n");
 
   for (l=0; l<nsourc; l++) {
-    if (isx[l] - (NXB+1)/2 < 0 && isx[l] + (NXB+1)/2 > nx-1) {
+    if (isx[l] - (NXB+1)/2 < 0 || isx[l] + (NXB+1)/2 > nx-1) {
       err("Error: (%d) source box beyond model's boundary in x-direction!\n",l);
     }
-    if (isz[l] - (NZB+1)/2 < 0 && isz[l] + (NZB+1)/2 > nz-1) {
+    if (isz[l] - (NZB+1)/2 < 0 || isz[l] + (NZB+1)/2 > nz-1) {
       err("Error: (%d) source box beyond model's boundary in z-direction!\n",l);
     }
   }
@@ -485,7 +485,7 @@ int main(int argc, char *argv[])
   bestr = ealloc2double(m2,nt);
   btemp = ealloc1double(m+50);
 
-  /* Bessel-coefficients */
+  /* Bessel coefficients */
   if (verbose) {
     getrusage(RUSAGE_SELF, &cput);
     user_s_bk = cput.ru_utime.tv_sec;
@@ -584,11 +584,15 @@ int main(int argc, char *argv[])
       for (i=0; i<NXB; i++) {
 	indx = isx[l]+i-NXB/2;
 	if (gbox[k][i] > 1.e-2) {
-	  if (indx<0 || indx>nx-1 || indz<0 || indz>nz-1)
-	    err("source box beyond grid boundary!\n");
 	  a1[indz][indx] = gbox[k][i] * amps[l];
 	}
       }
+    }
+  }
+
+  for (k=0; k<nz; k++) {
+    for (i=0; i<nx; i++) {
+      a1[k][i] *= 1./(r*dx*dz);
     }
   }
 

@@ -147,7 +147,7 @@ main (int argc, char **argv)
         	addsinc(time,amp,nt,dt,ft,temp);     
         
         	/* convolve wavelet with trace */
-        	conv(w->lw,w->iw,w->wv,nt,0,temp,nt,0,tr.data);               
+        	convolve_cwp(w->lw,w->iw,w->wv,nt,0,temp,nt,0,tr.data);               
         
         	/* free workspace */
         	free1float(temp);

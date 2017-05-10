@@ -13,6 +13,11 @@
  zt             depth as a function of time			
  tz             time as a function of depth			
 
+ These are active only if otherfile= is specified 		
+ othert 	other as a function of time			
+ otherz 	other as a function of depth			
+
+
  Optional Parameters:						
  nt=all                 number of time samples			
  dt=1.0                 time sampling interval			
@@ -21,14 +26,30 @@
  dz=1.0                 depth sampling interval		
  fz=0.0                 first depth				
  nx=all                 number of traces			
+ verbose=0		 silent, =1 chatty 			
+
+ Other input: 							
+ otherfile=	input file containg other input			
+
+ If type=othert, then vint(t) is assumed. If type=otherz then     
+  vint(z) is assumed. 						
 
  Example:  "intype=vintz outtype=vrmst" converts an interval velocity
            function of depth to an RMS velocity function of time.
 
- Notes:  nt, dt, and ft are used only for input and output functions
-         of time; you need specify these only for vintt, vrmst, orzt.
-         Likewise, nz, dz, and fz are used only for input and output
-         functions of depth.					
+ Notes: 							",  
+ The variables t, dt, and ft are used only for input and output 
+ functions of time; you need specify these only for vintt, vrmst,
+ orzt.								
+
+ Likewise, nz, dz, and fz are used only for input and output	
+ functions of depth.					
+
+ The otherfile= option is an input file with the same number of
+ samples as the input interval velocity as a function of depth
+ or time. The otherfile may contain impedence, density, or other
+ model that is desired to be converted from depth to time or time"
+ to depth.							
 
  The input and output data formats are C-style binary floats.	
 

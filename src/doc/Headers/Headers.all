@@ -121,6 +121,7 @@ SUPSWIGB - PostScript Bit-mapped WIGgle plot of a segy data set
 SUPSWIGP - PostScript Polygon-filled WIGgle plot of a segy data set	
 
 In CWPROOT/src/su/main/amplitudes:
+suai2r <stdin >sdout 						
 SUCENTSAMP - CENTRoid SAMPle seismic traces			
 SUDIPDIVCOR - Dip-dependent Divergence (spreading) correction	
 SUDIVCOR - Divergence (spreading) correction				
@@ -128,6 +129,7 @@ SUGAIN - apply various types of gain
 SUNAN - remove NaNs & Infs from the input stream		
 SUNORMALIZE - Trace NORMALIZation by rms, max, or median       ", 
 SUPGC   -   Programmed Gain Control--apply agc like function	
+sur2ai <stdin >sdout 						
 SUWEIGHT - weight traces by header parameter, such as offset		
 SUZERO -- zero-out (or set constant) data within a time window	
 
@@ -205,6 +207,7 @@ SULFAF -  Low frequency array forming					",
 SUMEDIAN - MEDIAN filter about a user-defined polygonal curve with	
 SUPHASE - PHASE manipulation by linear transformation			
 SUSMGAUSS2 --- SMOOTH a uniformly sampled 2d array of velocities	
+SUSVDFILT - SVD (Eigen) filter					
 SUTVBAND - time-variant bandpass filter (sine-squared taper)  
 
 In CWPROOT/src/su/main/headers:
@@ -246,7 +249,7 @@ In CWPROOT/src/su/main/migration_inversion:
 SUGAZMIGQ - SU version of Jeno GAZDAG's phase-shift migration 	
 SUINVXZCO - Seismic INVersion of Common Offset data for a smooth 	
 SUINVZCO3D - Seismic INVersion of Common Offset data with V(Z) velocity
-SUKDMIG2D - Kirchhoff Depth Migration of 2D poststack/prestack data	
+	"SUKDMIG2D - Kirchhoff Depth Migration of 2D poststack/prestack data	
 SUKDMIG3D - Kirchhoff Depth Migration of 3D poststack/prestack data	
 SUKTMIG2D - prestack time migration of a common-offset	
 SUMIGFD - 45-90 degree Finite difference depth migration for		
@@ -276,6 +279,7 @@ SUPOLAR - POLarization analysis of three-component data
 
 In CWPROOT/src/su/main/noise:
 SUADDNOISE - add noise to traces					
+SUGROLL - Ground roll supression using Karhunen-Loeve transform	
 SUHARLAN - signal-noise separation by the invertible linear		
 SUJITTER - Add random time shifts to seismic traces			
 
@@ -312,6 +316,7 @@ SUSTATIC - Elevation static corrections, apply corrections from
 SUSTATICRRS - Elevation STATIC corrections, apply corrections from	
 
 In CWPROOT/src/su/main/stretching_moveout_resamp:
+SUDLMO -- Dynamic Linear Move Out Correction for Surface Waves  	
 SUILOG -- time axis inverse log-stretch of seismic traces	
 SULOG -- time axis log-stretch of seismic traces		
 SUNMO_a - NMO for an arbitrary velocity function of time and CDP with	     
@@ -386,6 +391,7 @@ SUSLOWIFT - Fourier Transforms by (SLOW) DFT algorithm (Not an FFT)
 SUSPECFK - F-K Fourier SPECtrum of data set			
 SUSPECFX - Fourier SPECtrum (T -> F) of traces 		
 SUSPECK1K2 - 2D (K1,K2) Fourier SPECtrum of (x1,x2) data set		
+SUST -  Outputs a time-frequency representation of seismic data via
 SUTAUP - forward and inverse T-X and F-K global slant stacks		
 SUWFFT - Weighted amplitude FFT with spectrum flattening 0->Nyquist	
 SUZEROPHASE - convert input to zero phase equivalent			

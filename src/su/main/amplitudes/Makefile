@@ -16,6 +16,8 @@ PROGS =			\
 	$B/sunan	\
 	$B/sunormalize	\
 	$B/supgc	\
+	$B/sur2ai	\
+	$B/suai2r	\
 	$B/suweight	\
 	$B/suzero	
 

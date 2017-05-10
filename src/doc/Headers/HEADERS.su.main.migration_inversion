@@ -1,7 +1,7 @@
 SUGAZMIGQ - SU version of Jeno GAZDAG's phase-shift migration 	
 SUINVXZCO - Seismic INVersion of Common Offset data for a smooth 	
 SUINVZCO3D - Seismic INVersion of Common Offset data with V(Z) velocity
-SUKDMIG2D - Kirchhoff Depth Migration of 2D poststack/prestack data	
+	"SUKDMIG2D - Kirchhoff Depth Migration of 2D poststack/prestack data	
 SUKDMIG3D - Kirchhoff Depth Migration of 3D poststack/prestack data	
 SUKTMIG2D - prestack time migration of a common-offset	
 SUMIGFD - 45-90 degree Finite difference depth migration for		

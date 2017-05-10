@@ -446,10 +446,10 @@ int main(int argc, char *argv[])
   if (! nz % 2) err("Error: nz must be odd!\n");
 
   for (l=0; l<nsourc; l++) {
-    if (isx[l] - (NXB+1)/2 < 0 && isx[l] + (NXB+1)/2 > nx-1) {
+    if (isx[l] - (NXB+1)/2 < 0 || isx[l] + (NXB+1)/2 > nx-1) {
       err("Error: (%d) source box beyond model's boundary in x-direction!\n",l);
     }
-    if (isz[l] - (NZB+1)/2 < 0 && isz[l] + (NZB+1)/2 > nz-1) {
+    if (isz[l] - (NZB+1)/2 < 0 || isz[l] + (NZB+1)/2 > nz-1) {
       err("Error: (%d) source box beyond model's boundary in z-direction!\n",l);
     }
   }
@@ -699,7 +699,7 @@ int main(int argc, char *argv[])
     user_u_bk = cput.ru_utime.tv_usec;
   }
 
-  /* Bessel-coefficients */
+  /* Bessel coefficients */
   switch(prec) {
   case 0:
   case 1:
@@ -821,8 +821,8 @@ int main(int argc, char *argv[])
 
   for (k=0; k<nz; k++) {
     for (i=0; i<nx; i++) {
-      qux[k][i] /= dx*dz;
-      quz[k][i] /= dx*dz;
+      qux[k][i] *= 1./(r*dx*dz);
+      quz[k][i] *= 1./(r*dx*dz);
     }
   }
 

@@ -9,21 +9,18 @@
  	mode=amp	output flag 					
  	       		=amp envelope traces				
  	       		=phase phase traces				
+ 	       		=uphase unwrapped phase traces			
  	       		=freq frequency traces				
+			=freqw Frequency Weighted Envelope		
+			=thin  Thin-Bed (inst. freq - average freq)	
 			=bandwith Instantaneous bandwidth		
 			=normamp Normalized Phase (Cosine Phase)	
  	       		=fdenv 1st envelope traces derivative		
  	       		=sdenv 2nd envelope traces derivative		
  	       		=q Ins. Q Factor				
- ... unwrapping related options ....					
 	unwrap=		default unwrap=0 for mode=phase			
  			default unwrap=1 for freq, uphase, freqw, Q	
  			dphase_min=PI/unwrap				
-       trend=0		=1 remove the linear trend of the inst. phase	
- 	zeromean=0	=1 assume instantaneous phase is zero mean	
-
-			=freqw Frequency Weighted Envelope		
-			=thin  Thin-Bed (inst. freq - average freq)	
 	wint=		windowing for freqw				
 			windowing for thin				
 			default=1 					
@@ -35,16 +32,19 @@
  attributes, amp,phase,freq are the classical Taner, Kohler, and	
  Sheriff, 1979.							
 
- The unwrapping algorithm is the "simple" unwrapping algorithm that	
- searches for jumps in phase.						
 
- The quantity dphase_min is the minimum change in the phase angle taken
- to be the result of phase wrapping, rather than natural phase	 
- variation in the data. Setting unwrap=0 turns off phase-unwrapping	
- alltogether. Choosing  unwrap > 1 makes the unwrapping function more	
- sensitive to instantaneous phase changes.				
+ The unwrap parameter is active only for mode=freq and mode=phase. The	
+ quantity dphase_min is the minimum change in the phase angle taken to be
+ the result of phase wrapping, rather than natural phase variation in the
+ data. Setting unwrap=0 turns off phase-unwrapping altogether. Choosing
+ unwrap > 1 makes the unwrapping function more sensitive to phase changes.
  Setting unwrap > 1 may be necessary to resolve higher frequencies in	
- data (or sample data more finely).					
+ data (or sample data more finely). The phase unwrapping is crude. The 
+ differentiation needed to compute the instantaneous frequency		
+ freq(t)= d(phase)/dt is a simple centered difference.			
+
+ The mode=uphase generates uwrapped phase traces by integrating the	
+ instantaneous amplitude traces.		       			
 
  Examples:								
  suvibro f1=10 f2=50 t1=0 t2=0 tv=1 | suattributes2 mode=amp | ...	
@@ -54,10 +54,15 @@
 
 
  Credits:
-	CWP: Jack K. Cohen
+	CWP: Jack Cohen
       CWP: John Stockwell (added freq and unwrap features)
 	UGM (Geophysics Students): Agung Wiyono
-	   email:aakanjas@gmail.com (others) added more attributes
+           email:aakanjas@gmail.com (others)
+	CSM: Kylee Brown and Steven Rennolet, Senior Design,
+	     updates to instanteous phase, instantaneous frequency,
+	     first time derivative of the envelope, second time derivative
+	     of the envelope, instantaneous quality factor, and thin bed
+	     indicator
 					
 
  Algorithm:
@@ -67,8 +72,14 @@
   phase(t) = arctan( c.im(t)/c.re(t))
   freq(t) = d(phase)/dt
 
- Reference: Taner, M. T., Koehler, A. F., and  Sheriff R. E.
- "Complex seismic trace analysis", Geophysics,  vol.44, p. 1041-1063, 1979
+ Reference: 
+  Taner, M. T., Koehler, A. F., and  Sheriff R. E.   "Complex seismic trace 
+      analysis", Geophysics,  vol.44, p. 1041-1063, 1979
+  Chopra, S. and K.  Marfurt, 2005, A historical perspective, Geophysics,
+      vol. 70, no. 5, p.3SO-295SO, Society of Exploration Geophysicists.
+  Barnes, A. E, 1992, The calculation of instantaneous frequency and 
+      instantaneous bandwidth, Geophysics, vol. 57, no. 11, p. 1520-1524,
+      Society of Exploration Geophysicists.
 
  Trace header fields accessed: ns, trid
  Trace header fields modified: d1, trid
