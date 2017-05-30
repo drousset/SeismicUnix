@@ -401,10 +401,10 @@ main(int argc, char **argv)
 	/* see top of Makefile.config for versions */
 	/* not sure why this breaks now; works in version 37 */
 	if (ebcdic==1){
-		sprintf(cmdbuf, "dd ibs=1 of=%s conv=ascii cbs=80 count=3200", hfile);
+		sprintf(cmdbuf, "dd ibs=1 of=%s conv=ascii count=3200", hfile);
 	} else {
 		
-		sprintf(cmdbuf, "dd ibs=1 of=%s cbs=80 count=3200", hfile);
+		sprintf(cmdbuf, "dd ibs=1 of=%s count=3200", hfile);
 	}
 #endif
 	pipefp = epopen(cmdbuf, "w");

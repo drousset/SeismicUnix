@@ -4,4 +4,4 @@
 
 suwind j=20 < hseis.out |
 sugabor fmax=100 band=2 |
-suxmovie n2=50 d2=2 perc=90 loop=1 sleep=100000 
+suxmovie n2=50 d2=2 perc=90 loop=1 sleep=1 &

@@ -16,6 +16,7 @@ PROGS =			\
 	$B/suop2	\
 	$B/suop		\
 	$B/supermute	\
+	$B/surecmo	\
 	$B/susimmat	\
 	$B/suvcat	\
 	$B/suvlength	

@@ -285,9 +285,9 @@ main(int argc, char **argv)
 
 	/* Open pipe to use dd to convert ascii to ebcdic */
 	if (ebcdic==1) {
-		sprintf(cmdbuf, "dd if=%s conv=ebcdic cbs=80 obs=3200", hfile);
+		sprintf(cmdbuf, "dd if=%s conv=ebcdic  obs=3200", hfile);
 	} else {
-		sprintf(cmdbuf, "dd if=%s cbs=80 obs=3200", hfile);
+		sprintf(cmdbuf, "dd if=%s  obs=3200", hfile);
 	}
 	pipefp = epopen(cmdbuf, "r");
 
