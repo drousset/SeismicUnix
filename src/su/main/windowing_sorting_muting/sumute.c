@@ -183,6 +183,8 @@ main(int argc, char **argv)
 
 		if (mode==4) {
 			MUSTGETPARSTRING("twfile",&twfile);
+
+			twindow = ealloc1float(nxtmute);
 			
 			if((twfilep=fopen(twfile,"r"))==NULL)
 				err("cannot open twfile=%s\n",twfile);
