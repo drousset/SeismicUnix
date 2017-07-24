@@ -277,7 +277,9 @@ float lincoef_Rs(float ang, float azim, float kappa, float *rps1, float *rps2,
   float err=0.,ANG_CR;  
   int perr;
 
-  float alpha, beta, Da_a, Dr_r, Db_b, CS, S_C, CS3, S3_C, S5_C, S, CS_C, CS3_C, S3;
+/*  float alpha, beta, Da_a, Dr_r, Db_b, CS, S_C, CS3, S3_C, S5_C, S, CS_C, CS3_C, S3; */
+   float alpha, beta, Dr_r,CS, S_C, CS3, S3_C, S5_C, S, CS_C, CS3_C, S3;
+
   float cos2a, sin2a, cos2a_k, sin2a_k, DG_G;
   
   
@@ -305,8 +307,11 @@ float lincoef_Rs(float ang, float azim, float kappa, float *rps1, float *rps2,
   alpha = 0.5*(vp2+vp1);
   beta = 0.5*(vs2+vs1);
   Dr_r = (rho2-rho1)/(0.5*(rho2+rho1));
+
+/*
   Db_b = (vs2-vs1)/beta;
   Da_a = (vp2-vp1)/alpha;  
+*/
   cos2a_k = pow(cos(azim-kappa),2);
   sin2a_k = pow(sin(azim-kappa),2);
   cos2a = pow(cos(azim),2);
@@ -2346,7 +2351,9 @@ int Phi_rot(float *rs1,float *rs2,int iso_plane,float pb_x,float pb_y,float pb_z
 
 {
 
-  float azim,gv_x=0.0,gv_y=0.0,gv_z=0.0,gh_x=0.0,gh_y=0.0,gh_z=0.0;
+/*  float azim,gv_x=0.0,gv_y=0.0,gv_z=0.0,gh_x=0.0,gh_y=0.0,gh_z=0.0; */
+   float gv_x=0.0,gv_y=0.0,gv_z=0.0,gh_x=0.0,gh_y=0.0,gh_z=0.0;
+
   float p_h,norm,denom,alpha,temp;
   float ax_x,ax_y,ax_z,n_x,n_y,n_z,prl_x,prl_y,prl_z;
   float s1_prl,s1_ax,s2_prl,s2_ax,s1_v,s1_h,s2_v,s2_h,a11,a12;
@@ -2368,6 +2375,7 @@ int Phi_rot(float *rs1,float *rs2,int iso_plane,float pb_x,float pb_y,float pb_z
   
   if (iso_plane != 1) 
     {
+/*
       if (pb_x != 0.) 
 	{
 	  if (pb_y == 0.) {
@@ -2389,6 +2397,7 @@ int Phi_rot(float *rs1,float *rs2,int iso_plane,float pb_x,float pb_y,float pb_z
 	  if (pb_y < 0.) azim = 3*PI/2;
 	}
       
+     */
   
   /* now, determine gsv and gsh polarization vectors in the background isotropy plane */
       
@@ -2420,6 +2429,7 @@ int Phi_rot(float *rs1,float *rs2,int iso_plane,float pb_x,float pb_y,float pb_z
       */
       
     }
+      
   
 
   /* normal vector to the gs1-gs2 plane */

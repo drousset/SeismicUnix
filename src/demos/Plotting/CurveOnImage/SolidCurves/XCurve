@@ -3,7 +3,7 @@
 suplane |
 sufilter |
  suximage npair=3,3,3 curve=curve1,curve2,curve3 curvecolor=red,black,cyan \
-	xbox=50 ybox=50 &
+	xbox=50 ybox=50 curvewidth=1,2,3 &
 
 suplane |
 sufilter |

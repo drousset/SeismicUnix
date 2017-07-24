@@ -50,6 +50,9 @@ XDRFLAG = -DSUXDR
 ENDIANFLAG = -DCWP_LITTLE_ENDIAN
 #LARGE_FILE_FLAG = -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE -DGNU_SOURCE
 LARGE_FILE_FLAG =
+#LARGE_FILE_FLAG = -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE
+ LARGE_FILE_FLAG = -D_DARWIN_FEATURE_64_BIT_INODE -D_DARWIN_C_SOURCE
+
 
 CWP_FLAGS = $(LARGE_FILE_FLAG) $(ENDIANFLAG) $(XDRFLAG) $(LINEHDRFLAG)
 
@@ -59,6 +62,8 @@ CWP_FLAGS = $(LARGE_FILE_FLAG) $(ENDIANFLAG) $(XDRFLAG) $(LINEHDRFLAG)
 
 SHELL = /bin/sh
 ROOT = $(CWPROOT)
+
+
 
 LN = ln  # this needs to be changed to cp for FAT32 filesystems
 AR = ar
@@ -73,15 +78,23 @@ POSTLFLAGS =
 #-----------------------------------------------------------------------
 # use both X11 path conventions
 #-----------------------------------------------------------------------
+IX11 = /opt/X11/include
+LX11 = /opt/X11/lib
+IMOTIF = /Applications/OpenMotif21/include
+LMOTIF = /Applications/OpenMotif21/lib
 
-IX11 = /usr/X11/include
-LX11 = /usr/X11/lib
+#IX11 = /usr/X11/include
+#LX11 = /usr/X11/lib
 #IMOTIF = /usr/X11R6/include
 #LMOTIF = /usr/X11R6/lib
-IMOTIF = /opt/local/include
-LMOTIF = /opt/local/lib
+#IMOTIF = /opt/local/include
+#LMOTIF = /opt/local/lib
 
-LD_LIBRARY_PATH += $(CWPROOT)/lib:${LX11}:${LMOTIF}
+#LD_LIBRARY_PATH += $(CWPROOT)/lib:${LX11}:${LMOTIF}
+
+LD_LIBRARY_PATH += $(CWPROOT)/lib:${LMOTIF}:${LX11}
+DYLD_FALLBACK_LIBRARY_PATH += $(CWPROOT)/lib:${LMOTIF}:${LX11}
+
 
 #-----------------------------------------------------------------------
 # Gnu compilers by default just because they are the most common
@@ -89,13 +102,24 @@ LD_LIBRARY_PATH += $(CWPROOT)/lib:${LX11}:${LMOTIF}
 
 CPP = /usr/bin/cpp
 
-CC = /usr/bin/gcc
+CC = /opt/local/bin/gcc-mp-5
+
+#CC = /usr/bin/gcc
 #OPTC = -g -c90  -m64 -Wall -ansi  -Wno-long-long 
-OPTC = -g -std=c90  -m64 -Wall -ansi  -Wno-long-long 
+#OPTC = -g -std=c90  -m64 -Wall -ansi  -Wno-long-long 
+OPTC = -g -O2 -m64 -std=c99 -Wall -pedantic -Wno-long-long 
 CFLAGS = -I$I $(OPTC) $(CWP_FLAGS)
 
-FC = gfortran
-FOPTS = -g 
+
+FC = /opt/local/bin/gfortran-mp-5
+FOPTS = -g -O2 -m64 -std=gnu
+
+
+
+#FC = gfortran
+#FOPTS = -g 
 FFLAGS = $(FOPTS) -ffixed-line-length-none
+
+C++ = /opt/local/bin/g++-mp-5
 
 C++FLAGS = -I$I $(OPTC) $(CWP_FLAGS)

@@ -56,7 +56,7 @@ void xDrawCurve(Display *dpy, Window win,
 		float x1beg, float x1end, float p1beg, float p1end,
 		float x2beg, float x2end, float p2beg, float p2end,
 		float *x1curve, float *x2curve, int ncurve,
-		char *curvecolor, int style)
+		char *curvecolor, int curvewidth, int style)
 /*****************************************************************************
 draw a curve from a set of points
 ******************************************************************************
@@ -79,6 +79,7 @@ x1curve		vector of x1 coordinates for points along curve
 x2curve		vector of x2 coordinates for points along curve
 ncurve		number of points along curve
 curvecolor	name of color to use for axes
+curvewidth	width of curve in pixels
 int style	NORMAL (axis 1 on bottom, axis 2 on left)
 		SEISMIC (axis 1 on left, axis 2 on top)
 ******************************************************************************
@@ -92,7 +93,6 @@ Author:		Brian Macy, Phillips Petroleum Co., 11/14/98
 	XWindowAttributes wa;
 	Colormap cmap;
 	float xbase,ybase,xscale,yscale;
-	float xamin,xamax,yamin,yamax;
 	float *xcurve,*ycurve;
 	XPoint *lpoints;   /* points for drawing line */
 	XRectangle rectclip;
@@ -106,6 +106,9 @@ Author:		Brian Macy, Phillips Petroleum Co., 11/14/98
 
 	/* create graphics contexts */
 	gcc = XCreateGC(dpy,win,0,values);
+	XGCValues line_style;
+	line_style.line_width = curvewidth;
+	XChangeGC(dpy, gcc, GCLineWidth, &line_style);
 
 	/* determine window's current colormap */
 	XGetWindowAttributes(dpy,win,&wa);
@@ -118,23 +121,15 @@ Author:		Brian Macy, Phillips Petroleum Co., 11/14/98
 		XSetForeground(dpy,gcc,1L);
 
 	if (style==NORMAL) {
-		xamin = (x1beg<x1end)?x1beg:x1end;
-		xamax = (x1beg>x1end)?x1beg:x1end;
 		xscale = width/(x1end+p1end-x1beg-p1beg);
 		xbase = x-xscale*(x1beg+p1beg);
-		yamin = (x2beg<x2end)?x2beg:x2end;
-		yamax = (x2beg>x2end)?x2beg:x2end;
 		yscale = -height/(x2end+p2end-x2beg-p2beg);
 		ybase = y+height-yscale*(x2beg+p2beg);
 		xcurve=x1curve;
 		ycurve=x2curve;
 	} else {
-		xamin = (x2beg<x2end)?x2beg:x2end;
-		xamax = (x2beg>x2end)?x2beg:x2end;
 		xscale = width/(x2end+p2end-x2beg-p2beg);
 		xbase = x-xscale*(x2beg+p2beg);
-		yamin = (x1beg<x1end)?x1beg:x1end;
-		yamax = (x1beg>x1end)?x1beg:x1end;
 		yscale = height/(x1end+p1end-x1beg-p1beg);
 		ybase = y-yscale*(x1beg+p1beg);
 		ycurve=x1curve;

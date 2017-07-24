@@ -54,14 +54,19 @@ main (int argc, char **argv)
 	if (!getparint("n1",&n1)) err("must specify n1!");
 	if (!getparint("n2",&n2)) err("must specify n2!");
 	ntempdirs = countparval("scratchdir");
+
 	if(ntempdirs > 0) {
 		tempdirs = (char **) ealloc1(ntempdirs, sizeof(char *));
 		getparstringarray("scratchdir",tempdirs);
 	} else  {
-		ntempdirs = 1;
-		tempdirs = (char **) ealloc1(ntempdirs, sizeof(char *));
+			ntempdirs = 1;
+		/* tempdirs = (char **) ealloc1(ntempdirs, sizeof(char *));  */
+		tempdirs = (char **) ealloc2(ntempdirs, 5, sizeof(char *));
 		strcpy(tempdirs[0],tmpdir);
 	}
+
+
+
 	if (!getparstring("scratchstem",&tempstem))
 		tempstem = &tmpstem[0];
 	if (!getparint("nbpe",&nbpe)) nbpe = sizeof(float);

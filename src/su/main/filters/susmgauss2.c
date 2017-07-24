@@ -48,7 +48,6 @@ main(int argc, char **argv)
 	int ix1, ix2;		/* sample indices			*/
 	float a1,a2;		/* filter dimensions			*/
 
-	float nyq;		/* Nyquist wavenumber			*/
 	float pi;		/* pi number				*/
 	float vmax;		/* maximum value of the data		*/
 	float vfmax;		/* scale factor after filtering		*/
@@ -81,9 +80,6 @@ main(int argc, char **argv)
 	if (tr.trid != TRID_DEPTH)  warn("tr.trid=%d",tr.trid);
 	nx1=tr.ns;
 
-	/* Compute Nyquist wavenumber */
-	nyq=0.5;
-	
 	/* Store traces in tmpfile while getting a count */
 	tracefp=etmpfile();
 	hfp=etmpfile();

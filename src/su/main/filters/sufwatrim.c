@@ -68,7 +68,6 @@ int main( int argc, char *argv[] )
 	int nfft=0;		/* lenghth of padded array		*/
 	float snfft;		/* scale factor for inverse fft		*/
 	int nf=0;		/* number of frequencies		*/
-	float d1;		/* frequency sampling int.		*/
 	float *rt;		/* real trace				*/
 	complex *ctmix;		/* complex trace			*/
 	complex **fd;		/* frequency domain data		*/
@@ -126,7 +125,6 @@ int main( int argc, char *argv[] )
 		 	err("Padded nt=%d--too big", nfft);
 	nf = nfft/2 + 1;
 	snfft=1.0/nfft;
-	d1 = 1.0/(nfft*dt);
 	
 	rt = ealloc1float(nfft);
 	ctmix = ealloc1complex(nf);

@@ -469,7 +469,7 @@ static void getparinit (void)
 	static char *pfname;	/* name of parameter file		*/
 	FILE *pffd=NULL;	/* file id of parameter file		*/
 	size_t pflen;		/* length of parameter file in bytes	*/
-	static size_t pfargc;	/* arg count from parameter file	*/
+/*	static size_t pfargc;*/	/* arg count from parameter file	*/
 	int parfile;		/* parfile existence flag		*/
 	int argstrlen=0;
 	char *pargstr;		/* storage for parameter file args	*/
@@ -540,8 +540,9 @@ static void getparinit (void)
 		efclose(pffd);
 
 
-	} else {
+/*	} else {
 		pfargc = 0;
+*/
 	}
 
 

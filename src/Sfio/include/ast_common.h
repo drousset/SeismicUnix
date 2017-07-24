@@ -13,9 +13,11 @@
 #define _typ_size_t	1	/* size_t is a type */
 #define _typ_ssize_t	1	/* ssize_t is a type */
 #define _sys_stat	1	/* #include <sys/stat.h> ok */
+#define _mac_SF_APPEND	1	/* SF_APPEND is a macro */
 #define _sys_socket	1	/* #include <sys/socket.h> ok */
 #define _std_proto	1	/* standard C prototypes ok */
 #define _ptr_void	1	/* standard C void* ok */
+
 /* disable non-standard linux/gnu inlines */
 #ifdef __GNUC__	
 #	undef	__OPTIMIZE_SIZE__

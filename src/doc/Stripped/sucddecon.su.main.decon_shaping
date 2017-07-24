@@ -40,7 +40,7 @@
  where f1,f2,f3,f4 are an acceptable frequency range, and you may need 
  to mute artifacts that appear at the beginning of the output, as well.
 
- Trace header fields accessed: ns, dt					
+ Trace header fields accessed: ns					
  Trace header fields modified: none					
 
 
@@ -51,6 +51,6 @@
 	In the option, panel=1 the number of traces in the sufile must be 
 	the same as the number of traces on the input.
 
- Trace header fields accessed: ns,dt
+ Trace header fields accessed: ns
  Trace header fields modified: none
 

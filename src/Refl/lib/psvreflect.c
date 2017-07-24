@@ -99,7 +99,8 @@ response3   	array[nw][nx][nor] of computed vertical wavefield
 	int iw,iz,ip,ix;		/* loop counters */
 	int ijk1=0,ik1,ik2,il,jl;	/* auxiliary indices */
 	int ijk=0,ijk2,jj;		/* more auxiliary indices */
-	int flg1,lrec;				
+	/* int flg1,lrec; */				
+	int lrec;				
 	float bp=0.0;			/* smallest ray parameter */
 	float fp;			/* final ray parameter */
 	float dp;			/* ray parameter increment */
@@ -1149,7 +1150,6 @@ response3   	array[nw][nx][nor] of computed vertical wavefield
 			}
 
 			/* loop over receivers */
-			flg1=0;
 			for (iz=0; iz<nor; iz++) {
 				ik1=iz*block_size;
 				for (ip=0; ip<block_size; ip++) {
@@ -1169,7 +1169,6 @@ response3   	array[nw][nx][nor] of computed vertical wavefield
 					}
 				}
 				if (acoustic[iz]==2) {
-					flg1=1;
 					for (ip=0; ip<block_size; ip++) {
 						ijk1=ik1+ip;
 						rnr11[ip]=rd0n11[ip];

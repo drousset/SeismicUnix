@@ -1,9 +1,6 @@
 /* Copyright (c) Colorado School of Mines, 2011.*/
 /* All rights reserved.                       */
 
-/* Copyright (c) Colorado School of Mines, 2011.*/
-/* All rights reserved.                       */
-
 /* include file for X graphics */
 
 #ifndef XPLOT_H
@@ -86,6 +83,6 @@ void xDrawCurve(Display *dpy, Window win,
 		float x1beg, float x1end, float p1beg, float p1end,
 		float x2beg, float x2end, float p2beg, float p2end,
 		float *x1curve, float *x2curve, int ncurve,
-		char *curvecolor, int style);
+		char *curvecolor, int curvewidth, int style);
 
 #endif /* XPLOT_H */

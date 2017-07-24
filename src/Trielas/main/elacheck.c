@@ -33,7 +33,8 @@ NULL};
 /* the main program */
 int main (int argc, char **argv)
 {
-	int want,mindex=0;
+	/* int want,mindex=0; */
+	int want;
 	float x,z,a1111,a3333,a1133,a1313,a1113,a3313,v_p,v_s;
 	float a1212,a2323,a1223,rho;
 	Model *m;
@@ -95,7 +96,7 @@ int main (int argc, char **argv)
 			a1223 = fa->a1223;
 			a2323 = fa->a2323;
 			rho   = fa->rho;
-			mindex  = fa->mindex;
+			/* mindex  = fa->mindex; */
 
 
 		}

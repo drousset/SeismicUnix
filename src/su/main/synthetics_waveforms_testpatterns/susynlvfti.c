@@ -554,7 +554,7 @@ q		integral of velocity along raypath
 	double px0,v0,aa,alfa,beta=0.0,vcp=0.0,oa;
 	double v,c1,c2,f1,fx,cr,sr;
 	double r,or,vcpi=0.0,vcps=0.0,p11,so,co=0.0,ci=0.0,cz2,
-			dso,co1,so1=0.0,ss=0.0,cs=0.0;
+			dso,so1=0.0,ss=0.0,cs=0.0;
 	double si2,co2,sc,sx=0.0,cx=0.0,so3,diff,so4,diff1=0.0,sz2;
 	double w1,w2,w3,px2,pz2,betaa,betab,alpha,pz0,betat,xx,dvcp,bbb,soo;
 	double umax,time=0.0,fctn1,fctn2,fctnu,temp,mx,sm=0.0,vg,gang=0.0;
@@ -832,7 +832,6 @@ q		integral of velocity along raypath
 					err=0;
 					break;
 				}
-				co1 = co;
 				so1 = so;
 				so  = so + dso*tfturn*sig;
 				diff1  = diff;

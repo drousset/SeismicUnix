@@ -51,7 +51,7 @@ donothing: # To protect against an idle "make" to "see what happens"
 	@echo "           make mglremake (to install the Mesa/ Open GL items)"
 	@echo "           make uremake  (to remake libcwputils.a)(nonessential)"
 	@echo "           make xmremake (to remake the Motif-based applications)"
-	@echo "           make sfinstall (to remake the SFIO version of SEGDREAD)"
+	@echo "           make sfremake (to remake the SFIO version of SEGDREAD)"
 	@echo " "
 	@echo "See the README_ files in ./Portability for more information."
 

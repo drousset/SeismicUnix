@@ -669,7 +669,7 @@ s		array[nx][nz] of source pressure at time t+dt
 Author:  Dave Hale, Colorado School of Mines, 03/01/90
 ******************************************************************************/
 {
-	int ix,iz,ixv,izv,is;
+	int ix,iz,izv,is;
 	float ts,xn,zn,v,xv,zv,dxdv,dzdv,xvn,zvn;
 	float amp,dv,dist,distprev;
 	static float *vs,(*xsd)[4],(*zsd)[4];
@@ -731,7 +731,6 @@ Author:  Dave Hale, Colorado School of Mines, 03/01/90
 		/* let source contribute within limited distance */
 		xvn = (xv-fx)/dx;
 		zvn = (zv-fz)/dz;
-		ixv = NINT(xvn); 
 		izv = NINT(zvn);
 		pio2 = 3.1415926/2.0;
 		opwt = 1.0 / (float) pwt;

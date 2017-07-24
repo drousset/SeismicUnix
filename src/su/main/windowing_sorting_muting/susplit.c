@@ -49,7 +49,6 @@ int
 main(int argc, char **argv)
 {
 	cwp_String key;		/* header key word from segy.h		*/
-	int ns;			/* ns as an  int			*/
 	int numlength;		/* length of split key number format	*/
 	char format[BUFSIZ];	/* output filename format		*/
 
@@ -87,7 +86,6 @@ main(int argc, char **argv)
 
 	/* Evaluate time bounds from getpars and first header */
 	if (!gettr(&tr)) err("can't get first trace");
-	ns = tr.ns;
 
 	type = hdtype(key);
 	index = getindex(key);

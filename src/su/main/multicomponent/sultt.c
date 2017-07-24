@@ -815,15 +815,18 @@ phi, ratio
 
 *************************************************************************/
 {
-	float minor,major,angle;
-	float D;  /* workhorse */
+	/* float minor,major,angle; */
+	float angle;
+	/*float D; */  /* workhorse */
 
 	 	
 	/* Eigenvalues */
+/*
 	D     = sqrt((a11-a22)*(a11-a22)-4*a12*a12);
 	major = 0.5*(a11 + a22 + D);
 	minor = 0.5*(a11 + a22 - D);
 	
+*/
 
 	/* eigenvector of the biggest eigenvalue */
 	

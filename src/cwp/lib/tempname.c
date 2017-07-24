@@ -114,11 +114,15 @@ FILE *temporary_stream (char const * const prefix)
 }
 
 char *temporary_filename(char *prefix) {
-	char buffer[L_tmpnam];
+	/* char buffer[L_tmpnam]; */
+	char template_name[]="/tmp/cmguiXXXXXX";
+	int temp_fd;
 	static char name[BUFSIZ];
         
+	
+	temp_fd=mkstemp(template_name);
         /* [ak] tmpnam is considered unsafe */
-	char *tmp = strrchr(tmpnam(buffer), '/');
+	char *tmp = strrchr(template_name, '/');
 
 	strcpy(name, prefix);
 	return strcat(name, tmp);

@@ -103,13 +103,16 @@ response1   	array[nw][nor][nx] of updated tangencialfield response
 		
 	/* complex auxiliary variables */
 	complex x,y,t1,divfac;
-	complex det,psq,gl1,gt1,gl2,gt2,gam1,gam2,at1,at2,al1,al2;
+	/* complex det,psq,gl1,gt1,gl2,gt2,gam1,gam2,at1,at2,al1,al2; */
+	complex det,gt1,gt2,at1,at2;
 	complex tem,temr,sig,sigh,rho1,rho2;
 	complex rvrb111,rvrb112,rvrb121,rvrb122,rvrb211;
-	complex ewigh11,ewigh22,wrn011,ewrd11;
+	/* complex ewigh11,ewigh22,wrn011,ewrd11; */
+	complex ewigh11,wrn011,ewrd11;
 	complex ewd0211,ewd0212,ewtu211;
 	complex rtb111,rtb112,rtb121,rtb122,rtb211;
-	complex rtb212,rtb221,rtb222,rtb311,rtb312,rtb321,rtb322;
+	/* complex rtb212,rtb221,rtb222,rtb311,rtb312,rtb321,rtb322; */
+	complex rtb212,rtb311,rtb312,rtb321,rtb322;
 	complex func1,func2;
 	complex tun0p11,tun0p21,rd0np11,rd0np12,rd0np21;
 	complex rd0np22,td0np11,td0np12;
@@ -131,9 +134,11 @@ response1   	array[nw][nor][nx] of updated tangencialfield response
 	
 	/* complex pointers */
 	complex *rusf11,*rusf12;
+/*
 	complex *tusr11,*tusr12,*tusr21,*tusr22;
 	complex *rusr11,*rusr12,*rusr21,*rusr22;
 	complex *tdsr11,*tdsr12,*tdsr21,*tdsr22;
+*/
 	complex *rdnr11,*rdnr12,*rdnr21,*rdnr22;
 
 	/* allocate working space */
@@ -191,6 +196,7 @@ response1   	array[nw][nor][nx] of updated tangencialfield response
 	/* initialize pointers */
 	rusf11=alpha;
 	rusf12=betha;
+/*
 	tusr11=tun011;
 	tusr12=tun012;
 	tusr21=tun021;
@@ -203,6 +209,7 @@ response1   	array[nw][nor][nx] of updated tangencialfield response
 	tdsr12=td0n12;
 	tdsr21=td0n21;
 	tdsr22=td0n22;
+*/
 	rdnr11=r11;
 	rdnr12=r12;
 	rdnr21=r21;
@@ -211,7 +218,7 @@ response1   	array[nw][nor][nx] of updated tangencialfield response
 	/* assign initial value to working variables */
 	tem=cdiv(cmplx(1.0,0.0),cwp_cexp(crmul(cmplx(0.0,1.0),PI/4)));
 	ewigh11=cmplx(0.0,0.0);
-	ewigh22=cmplx(0.0,0.0);
+	/* ewigh22=cmplx(0.0,0.0); */
 
 	/* initialize complex output arrays */
     for (iw=0; iw<nw; iw++)
@@ -269,8 +276,10 @@ response1   	array[nw][nor][nx] of updated tangencialfield response
 				jl=il+1;
 				ik1=il*block_size;
 				ik2=(il+1)*block_size;
+/*
 				al1=al[il];
 				al2=al[jl];
+*/
 				at1=at[il];
 				at2=at[jl];
 				rho1=cmplx(rho[il],0.0);
@@ -331,13 +340,19 @@ response1   	array[nw][nor][nx] of updated tangencialfield response
 						for (ip=0; ip<block_size; ip++) {
 							ijk1=ik1+ip;
 							ijk2=ik2+ip;
-							psq=pp[ip];
+
+/*							psq=pp[ip];
 							gl1=gl[ijk1];
+	*/
 							gt1=gt[ijk1];
+/*
 							gam1=gam[ijk1];
 							gl2=gl[ijk2];
+*/
 							gt2=gt[ijk2];
+				/*
 							gam2=gam[ijk2];
+				*/
 							ewigh11=cwp_cexp(cmul(wpie,cmul(cmplx(0.0,1.0),cmul(t1,gt1))));
 							y=cadd(cmul(rho1,cdiv(gt1,cmul(at1,at1))),
 								cmul(rho2,cdiv(gt2,cmul(at2,at2))));
@@ -482,10 +497,12 @@ response1   	array[nw][nor][nx] of updated tangencialfield response
 							rtb121));
 						rtb212=cadd(cmul(rurf11[ijk1],rtb112),cmul(rurf12[ijk1],
 							rtb122));
+/*
 						rtb221=cadd(cmul(rurf21[ijk1],rtb111),cmul(rurf22[ijk1],
 							rtb121));
 						rtb222=cadd(cmul(rurf21[ijk1],rtb112),cmul(rurf22[ijk1],
 							rtb122));
+*/
 						rtb311=cadd(cmul(rd0n11[ip],rusf11[ip]),cmul(rd0n12[ip],
 							rusf21[ip]));
 						rtb312=cadd(cmul(rd0n11[ip],rusf12[ip]),cmul(rd0n12[ip],
@@ -581,10 +598,12 @@ response1   	array[nw][nor][nx] of updated tangencialfield response
 							rtb121));
 						rtb212=cadd(cmul(rdnr11[ip],rtb112),cmul(rdnr12[ip],
 							rtb122));
+/*
 						rtb221=cadd(cmul(rdnr21[ip],rtb111),cmul(rdnr22[ip],
 							rtb121));
 						rtb222=cadd(cmul(rdnr21[ip],rtb112),cmul(rdnr22[ip],
 							rtb122));
+*/
 						rtb311=cadd(cmul(rusf11[ip],rd0n11[ip]),cmul(rusf12[ip],
 							rd0n21[ip]));
 						rtb312=cadd(cmul(rusf11[ip],rd0n12[ip]),cmul(rusf12[ip],

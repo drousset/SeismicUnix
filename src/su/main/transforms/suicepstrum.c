@@ -64,10 +64,8 @@ main(int argc, char **argv)
 	int newnf;		/* number of frequencies		*/
 	int sign1;		/* sign in exponent of FFT		*/
 	int sign2;		/* sign in exponent of INV FFTtransform	*/
-	float onfft;		/* 1.0/nfft				*/
 	float onewnfft;		/* 1.0/nfft				*/
 	float dt;		/* time sampling interval sec		*/
-	float d1;		/* reset time domain sampling		*/
 
 	int sym=0;		/* =1 symmetric output			*/
 	int verbose=0;		/* silent =1 chatty 			*/
@@ -96,8 +94,6 @@ main(int argc, char **argv)
 	nfft = npfaro(ns, LOOKFAC * ns);
 	if (nfft >= SU_NFLTS || nfft >= PFA_MAX)  err("Padded ns=%d--too big", nfft);
 	nf = nfft/2 + 1;
-	d1 = 1.0/(nfft*dt);
-	onfft=1.0/nfft;
 
 
 

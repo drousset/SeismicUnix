@@ -137,12 +137,12 @@ int
 main (int argc, char **argv)
 {
 	int   nt,nzt,nxt,nzo,nxso,nxgo,ns,is,io,ixo,it,
-	      ntr,jtr,ktr,mtr,nxi,*ng,sgn,ngl;
+	      ntr,jtr,ktr,mtr,nxi,*ng,sgn;
 	long  nseek;
 	float ft,fzt,fxt,fzo,fxso,fxgo,fs,dt,dzt,dxt,dzo,dxso,dxgo,scale,
 	      ds,ext,ezt,ezo,exso,exgo,es,s,scal,fxin,
               as,res,freq;
-	float v0,offmax,aperx,sx,gx,dxi,fxi,fgl;
+	float v0,offmax,aperx,sx,gx,dxi,fxi;
 	float ***dats,***ttab,**tsum,**szif;
 	
 	char  *datain="stdin",*dataout="stdout",*ttfile,*jpfile;
@@ -228,8 +228,8 @@ main (int argc, char **argv)
 
         /* calculate the number of independent receiver locations or number of  */
         /* receiver gathers.      */                                               
-        fgl = fxso + fxgo;
-        ngl = nxgo + (nxso-1); 
+        /* fgl = fxso + fxgo; */
+        /* ngl = nxgo + (nxso-1);  */
  
         /* location of last source and receiver */
         exso = fxso+(nxso-1)*dxso;
@@ -558,7 +558,7 @@ dat		Redatumed section
 *****************************************************************************/
 {
         int nxf,nxe,it,ix,iz,jz,jt,jx,mr;
-        float x,z,ampd,res0,am,am0,fxf;
+        float x,z,ampd,res0,am,am0;
 	float ax,ax0,odt=1.0/dt,az,sz,sz0,at,tio,res,temp,h;
 	float p,q,s,ctau,xst=0.0,zst=0.0,rig,sing,t0,rog,rs,zi,zsx,zs;
         float phi,xp,hp,gxp,zip,atol;
@@ -573,7 +573,7 @@ dat		Redatumed section
 	tzt = alloc1float(nzt);
 
         h = (gx>=sx)?(gx-sx)/2.0:(sx-gx)/2.0;
-        fxf = fxi + (nxi-2)*dxi;
+        /* fxf = fxi + (nxi-2)*dxi; */
 
         /* call to filt will perform the frequency domain filtering */
         /* on the input data trace, returning in variable trace.    */  

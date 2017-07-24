@@ -101,7 +101,12 @@ main(int argc,char **argv)
 	int i1beg, i1end, i2beg, i2end, i3beg, i3end;
 	int i1, i2, i3;
 	int j1, j2, j3, ih, ilay, j;
-	float vlsd, tmp, vorig;
+
+/*	float vlsd, tmp, vorig; */
+	float vlsd, vorig;
+	float tmp = 0.0f;
+
+
 	int add, how;
 	unsigned int seed; 	/* random number seed */
 	float cvel;

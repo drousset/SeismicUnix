@@ -127,12 +127,12 @@ main(int argc, char **argv)
 
 	int nxtmute;	/* number of mute values 		*/
 	cwp_String xfile="";	/* file containing positions by key	*/
-	FILE *xfilep=NULL;		/* ... its file pointer			*/
+	FILE *xfilep=NULL;	/* ... its file pointer			*/
 	cwp_String tfile="";	/* file containing times	 	*/
-	FILE *tfilep=NULL;		/* ... its file pointer			*/
+	FILE *tfilep=NULL;	/* ... its file pointer			*/
 
 	cwp_String twfile="";	/* file containing mute time windows 	*/
-	FILE *twfilep=NULL;		/* ... its file pointer			*/
+	FILE *twfilep=NULL;	/* ... its file pointer			*/
 
 	cwp_Bool seismic;	/* cwp_true if seismic, cwp_false not seismic */
 
@@ -182,14 +182,11 @@ main(int argc, char **argv)
 		fclose(tfilep);
 
 		if (mode==4) {
-			MUSTGETPARSTRING("twfile",&twfile);
-
-			twindow = ealloc1float(nxtmute);
 			
 			if((twfilep=fopen(twfile,"r"))==NULL)
 				err("cannot open twfile=%s\n",twfile);
 			if (fread(twindow,sizeof(float),nxtmute,twfilep)!=nxtmute)
-				err("error reading twfile=%s\n",twfile);
+			err("error reading twfile=%s\n",twfile);
 			fclose(twfilep);
 		}
 	}

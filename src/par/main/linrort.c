@@ -220,7 +220,9 @@ int main(int argc, char **argv)
 
 
   /*auxiliar quantities for inversion info */
+/*
   float beta, alpha, Da_a, Db_b, DG_G, DZ_Z, PS2,PSC,PABS,SS2,SSC,SABS;
+*/
 
 
   
@@ -490,6 +492,7 @@ int main(int argc, char **argv)
   fprintf(out_inf_p,"\n ERROR MESSAGES: \n");
   
   /* some useful combinations for inversion */
+/*
   Da_a=(vp2-vp1)/(0.5*(vp2+vp1));
   DG_G=(pow(vs2,2)*rho2-pow(vs1,2)*rho1)/(0.5*(pow(vs2,2)*rho2+pow(vs1,2)*rho1));
   DZ_Z=(vp2*rho2-vp1*rho1)/(0.5*(vp2*rho2+vp1*rho1));
@@ -507,15 +510,19 @@ int main(int argc, char **argv)
   SS2=alpha/(2*(alpha+beta))*(delta1_2-delta1_1) + 2*beta/alpha*gamma1_44 - 
 	(alpha/(2*(alpha+beta))*(delta2_2-delta2_1)+ 2*beta/alpha*gamma2_44)*cos(2*kappa*PI/180);
   SSC=(alpha/(2*(alpha+beta))*(delta2_2-delta2_1)+ 2*beta/alpha*gamma2_44)*sin(2*kappa*PI/180);
+*/
   /*  SABS=-(alpha/(2*(alpha+beta))*(delta2_2-delta2_1)+ 2*beta/alpha*gamma2_44)*pow(sin(kappa*PI/180),2) +
 	alpha/(2*(alpha+beta))*(delta2_2-delta1_2)-(alpha+2*beta)/(2*alpha)*(rho2-rho1)/(0.5*(rho2+rho1))-
 	2*beta/alpha*Db_b;
   */
+/*
   SABS=-(alpha/(2*(alpha+beta))*(delta2_2-delta2_1)+ 2*beta/alpha*gamma2_44)*pow(sin(kappa*PI/180),2) +
 	alpha/(2*(alpha+beta))*(delta2_2-delta1_2)-0.5*(rho2-rho1)/(0.5*(rho2+rho1))-
 	beta/alpha*DG_G;
+*/
 
-  /*  some auxiliary outputs, may be useful
+  /*  some auxiliary outputs, may be useful */
+ /*
 
 fprintf(stderr,"\n b_a=%f \t Da_a=%f \t Dr_r=%f \t Db_b=%f \n DG_G=%f \t 0.5*DZ_Z=%f \n PS2=%f \t PSC=%f \t PABS=%f \n SS2=%f \t SSC=%f \t SABS=%f \n", beta/alpha,Da_a,(rho2-rho1)/(0.5*(rho2+rho1)),Db_b,
 DG_G,0.5*DZ_Z,PS2,PSC,PABS,SS2,SSC,SABS);

@@ -97,7 +97,6 @@ main(int argc, char **argv)
 	cwp_Bool seismic;	/* is this seismic data? 		*/
 	float unwrap;		/* PI/unwrap = min dphase assumed to wrap */
 	float *phase;		/* phase of signal			*/
-	float nfby2;		/* nf/2.0				*/
 	
 	int trend;		/* trend=1 remove linear treand in */
 				/*        unwrapped phase */
@@ -161,7 +160,6 @@ main(int argc, char **argv)
 	if (nfft >= SU_NFLTS || nfft >= PFA_MAX)  err("Padded nt=%d--too big", nfft);
 	nf = nfft/2 + 1;
 	d1 = 1.0/(nfft*dt);
-	nfby2 = nf/2.0;
 
 	if (!getparint("sign1", &sign1)) sign1 = 1;
 	if (!getparint("sign2", &sign1)) sign2 = -1;

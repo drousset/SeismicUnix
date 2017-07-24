@@ -175,7 +175,8 @@ reflectivity	array[nx][nt] of computed reflectivities
 	float sphrd=1.0;	/* factor for flattening earth correction */
 	int if1=0,if2=0; 	/* freq indices to start and end Hanning window */
 	float unexp;		/* parameter to undo decay factor */
-	float x,z;		/* range and depth */
+/* float x,z;*/		/* range and depth */
+	float x;		/* range  */
 	float w;		/* frequency in rad/sec */
 	complex wpie;		/* complex frequency */
 	complex wsq;		/* complex frequency squared */
@@ -270,7 +271,7 @@ reflectivity	array[nx][nt] of computed reflectivities
 
 			/* loop over the receivers */
 			for (iz=0; iz<nor; iz++) {
-				z=zr[iz];
+			/* z=zr[iz]; */
 
 				/* loop over frequencies */
 				for (iw=0; iw<nw1; iw++) {
@@ -309,7 +310,7 @@ reflectivity	array[nx][nt] of computed reflectivities
 
 		/* loop over recievers */	
 		for (iz=0; iz<nor; iz++) {
-			z=zr[iz];
+			/* z=zr[iz]; */
 
 			/* loop over ranges (seismogram traces) */
 			for (ix=0; ix<nx; ix++) {

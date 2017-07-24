@@ -9,7 +9,7 @@ CFLAGS = $(XMCFLAGS)
 D = $L/libXmcwp.a $L/libXtcwp.a $L/libpar.a $L/libcwp.a
 
 LDFLAGS= $(PRELFLAGS) -L$L -L$(LMOTIF) -lXmcwp -lXtcwp \
-		-lpar -lcwp -L$(LX11) -lXm -lXt \
+		-lpar -lcwp -L$(LX11) -lXm -lXt -lXp -lXext \
 		-lX11 $(XLFLAGSADD)  -lm $(POSTLFLAGS)
 
 PROGS = 	\

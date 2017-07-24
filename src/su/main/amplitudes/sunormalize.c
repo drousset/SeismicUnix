@@ -56,7 +56,7 @@ typedef struct {
 } cwp_div_t;
 
 /* Prototypes for subroutines used internally */
-int vrmedian(float *x,float *r,float *y,int *n);
+void vrmedian(float *x,float *r,float *y,int *n);
 void rmvesq(float *r,float *rsq,int *n);
 void maxmgv(float *r,float *rmx,int *n);
 cwp_div_t cwp_div( int num, int denom);
@@ -72,7 +72,7 @@ main(int argc, char **argv)
 
     int n;                  /* size of temporary arrays */
     int i;                  /* counter */
-    int itmp=0;               /* temporary variable */
+   /* int itmp=0; */              /* temporary variable */
 
     float dt;               /* time sampling interval */
     float t0;               /* first time of time window */
@@ -141,7 +141,10 @@ main(int argc, char **argv)
             {
                 memcpy((void *) z,(const void *) &tr.data[it0], \
                     n*sizeof(float));
+/*
                 itmp=vrmedian(z,&rms,tmp,&n); 
+*/
+                vrmedian(z,&rms,tmp,&n); 
                 if (rms==0.0) rms=1.;
                 for (i=0;i<ns;i++) tr.data[i]=tr.data[i]/rms;
             }
@@ -150,7 +153,10 @@ main(int argc, char **argv)
             {
                 memcpy((void *) z,(const void *) &tr.data[it0], \
                     n*sizeof(float));
+/*
                 itmp=vrmedian(z,&rms,tmp,&n); 
+*/
+                vrmedian(z,&rms,tmp,&n); 
                 if (rms==0.0) rms=1.;
                 for (i=0;i<ns;i++) tr.data[i]=tr.data[i]-rms;
             }
@@ -174,7 +180,7 @@ main(int argc, char **argv)
 
 /* Functions used internally */
 
-int vrmedian(float *x,float *r,float *y,int *n)
+void vrmedian(float *x,float *r,float *y,int *n)
 /* vrmedian -- compute the median */
 {
     int  two=2;

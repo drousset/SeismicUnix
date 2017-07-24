@@ -146,7 +146,6 @@ Author: John Stockwell, CWP, 2010
 	float *xiprime=NULL;
 	float *freq=NULL;
 	float  coeff[4];
-	float temp;
 
 	/* allocate space */
 	phaseprime = alloc1float(n);
@@ -170,7 +169,6 @@ Author: John Stockwell, CWP, 2010
 	differentiate(n, df, xi, xiprime);
 
 	/* compute unwrapped phase at each frequency step */
-	temp=0.0;
 	for (i = 0; i < n; ++i) {
 		double denominator=(xr[i]*xr[i] + xi[i]*xi[i]);
 		double numerator=(xr[i]*xiprime[i] - xrprime[i]*xi[i]);

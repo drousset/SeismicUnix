@@ -65,7 +65,6 @@ main(int argc, char **argv)
 
 	int sym=0;		/* =1 symmetric output			*/
 
-	int nfftby2;		/* nfft/2				*/
 
 
 	/* Initialize */
@@ -78,7 +77,6 @@ main(int argc, char **argv)
 	if (tr.trid != FUNPACKNYQ)
 		err("input not complex freq data, trid=%d", tr.trid);
 	nfft = tr.ns - 2; /* see sufft */
-	nfftby2 = nfft/2;
 	nf = nfft/2 + 1;
 	onfft = 1.0/nfft;
 	if(tr.d1) {

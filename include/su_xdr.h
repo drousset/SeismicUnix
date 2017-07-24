@@ -4,6 +4,8 @@
 #ifndef SU_XDR
 #define SU_XDR
 
+#include <stdio.h>
+
 #ifdef SUXDR
 #include <rpc/types.h>
 #include <rpc/xdr.h>

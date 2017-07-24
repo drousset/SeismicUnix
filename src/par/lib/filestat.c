@@ -98,6 +98,8 @@ CWP: Jack Cohen
 #ifdef __S_IFLNK
 #define S_IFLNK __S_IFLNK
 #endif
+#ifndef __APPLE__
+#endif 
 
 #ifndef major	/* major() is a macro for getting the major device number */
 #include <sys/sysmacros.h>

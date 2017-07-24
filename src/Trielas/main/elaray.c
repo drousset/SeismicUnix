@@ -950,7 +950,9 @@ Credits:  Andreas Rueger, Colorado School of Mines, 02/06/94
  	(sdray.c)traceRayAcrossEdge.c, AUTHOR: Dave Hale, CSM, 02/26/91
 ******************************************************************************/
 {
-	int kmah,nref,modei,temp,mindexi,mindext,modet;
+	/* int kmah,nref,modei,temp,mindexi,mindext,modet; */
+	int kmah,nref,modei,temp,mindext,modet;
+
 	float a1111i,a3333i,a1133i,a1313i,a1113i,a3313i;
 	float a1111t,a3333t,a1133t,a1313t,a1113t,a3313t;
 	float a1212i,a1223i,a2323i,a1212t,a1223t,a2323t;
@@ -1003,7 +1005,7 @@ Credits:  Andreas Rueger, Colorado School of Mines, 02/06/94
         a2323i = fa->a2323;             
         a1223i = fa->a1223;
         rhoi   = fa->rho;
-	mindexi= fa->mindex;
+	/* mindexi= fa->mindex; */
 
 	/* determine stiffness on other side of edge */
 	eum = eu->euMate;
@@ -1259,7 +1261,8 @@ static RayStep* reflectRay (RayStep *rs,FILE *ifp, int conv,FILE *junkfp,
 	int reftrans)
 /* Reflect ray from edge and return pointer to new RayStep. */
 {
-	int kmah,nref,modei,modet,temp,mindexi,mindext,rort;
+	/* int kmah,nref,modei,modet,temp,mindexi,mindext,rort; */
+	int kmah,nref,modei,modet,temp,mindext,rort;
 	float x,z,px,pz,t,q1,p1,q2,p2,rt,
 	      scale,gx,gz,frac,dx,dz,plold;
 	float g11,g13,g33,g11i,g13i,g33i;
@@ -1320,7 +1323,7 @@ static RayStep* reflectRay (RayStep *rs,FILE *ifp, int conv,FILE *junkfp,
         a2323t=a2323i = fa->a2323;             
         a1223t=a1223i = fa->a1223;
         rhot = rhoi   = fa->rho;
-	mindext = mindexi= fa->mindex;
+	/* mindext = mindexi= fa->mindex; */
 
 
 	if(rort != 2){
@@ -1338,7 +1341,7 @@ static RayStep* reflectRay (RayStep *rs,FILE *ifp, int conv,FILE *junkfp,
       		a2323t = fa->a2323;             
       		a1223t = fa->a1223;
      	 	rhot   = fa->rho;
-		mindext= fa->mindex;
+	/*	mindext= fa->mindex; */
 
 		dx = eum->vu->v->y-eu->vu->v->y;
 		dz = eum->vu->v->x-eu->vu->v->x;
@@ -1670,7 +1673,8 @@ void writeWaves (FILE *wavefp, int nt, int nray, RayStep *rs[])
 /* for each ray, write nt z(t),x(t) pairs uniformly sampled in time t */
 {
 	int iray,it;
-	float tmax,dt,t1,t2,x1,z1,x,z,xstart,zstart;
+/*	float tmax,dt,t1,t2,x1,z1,x,z,xstart,zstart; */
+	float tmax,dt,t1,t2,x1,z1,x,z;
 	float vgx,vgz,ti,ddt;
 	RayStep *rsi,*rs1,*rs2;
 	
@@ -1698,8 +1702,8 @@ void writeWaves (FILE *wavefp, int nt, int nray, RayStep *rs[])
 		vgz = rs1->vgz;
 	
 		/* remember start x,z */
-		xstart = x1;
-		zstart = z1;
+	/*	xstart = x1; */
+	/*	zstart = z1; */
 		
 		/* loop over times */
 		for (it=0,ti=0.0; it<nt; ++it,ti+=dt) {

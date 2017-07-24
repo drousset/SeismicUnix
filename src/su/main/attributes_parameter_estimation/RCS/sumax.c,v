@@ -1,7 +1,8 @@
 head	1.22;
 access;
 symbols;
-locks; strict;
+locks
+	john:1.22; strict;
 comment	@ * @;
 
 

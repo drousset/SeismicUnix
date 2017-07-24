@@ -68,11 +68,11 @@ Author: John Stockwell, CWP, 1994
 ************************************************************************/
 {
 	int i;	
-	float *temp;
+	double *temp;
 	float h2=2*h;
 
 	/* allocate space in temporary vector */
-	temp = alloc1float(n);
+	temp = alloc1double(n);
 
 	/* do first as a leading difference */
 	fprime[0] = (f[1] - f[0])/h;

@@ -366,7 +366,11 @@ divcor		divergence correction table
 {
 	int it,ip,flag;
 	float dpx,px,px2,vel,velold,gamma,gammaold,pz,tau,alpha,v0,
+
+/*
 	denom,(*vind)[4],vel1,vel1old,vel2,vel2old,q,qold,p,pold,
+*/
+	denom,(*vind)[4],vel1,vel1old,vel2,q,qold,p,pold,
 	sigma,pz1;
 
 	/* allocate space */
@@ -415,7 +419,6 @@ divcor		divergence correction table
 			if (tau>=0.0){
 			velold = vel;
 			vel1old = vel1;
-			vel2old = vel2;
 			intcub(0,nt,tt,vind,1,&tau,&vel);
 			intcub(1,nt,tt,vind,1,&tau,&vel1);
 			intcub(2,nt,tt,vind,1,&tau,&vel2);

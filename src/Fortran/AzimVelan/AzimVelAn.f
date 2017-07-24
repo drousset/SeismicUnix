@@ -301,7 +301,7 @@ C.....Azimuthal AVO analysis
       write (nfout,101) text
 
 c     write (*,*)
-c     pause (' -- AVO in the selected time intervals? --')
+c     call pauseit(' -- AVO in the selected time intervals? --')
 c     write (*,*)
       
 C.....Number of time intervals
@@ -813,7 +813,7 @@ C.....Compute SVD of the source-reciever geometry
 
       if (evmin .lt. 0.1) then
          write (*,*) ' *** geom_svd ***  Low singular value(s) '
-         pause ' Continue ? '
+         call pauseit(' Continue ? ')
       end if         
 
       return
@@ -1046,7 +1046,7 @@ C______________________________________________________________________
             ENDIF
             GO TO 3
           ENDIF
-          IF (ITS.EQ.30) PAUSE 'No convergence in 30 iterations'
+          IF (ITS.EQ.30) CALL PAUSEIT( 'No convergence in 30 iterations')
           X=W(L)
           NM=K-1
           Y=W(NM)
@@ -1231,7 +1231,7 @@ c       write (*,*) (XIT(J), J=1,N)
         ENDIF
 13    CONTINUE
       IF(2.*ABS(FP-FRET).LE.FTOL*(ABS(FP)+ABS(FRET)))RETURN
-      IF(ITER.EQ.ITMAX) PAUSE 'Powell exceeding maximum iterations.'
+      IF(ITER.EQ.ITMAX) CALL PAUSEIT( 'Powell exceeding maximum iterations.')
       DO 14 J=1,N
         PTT(J)=2.*P(J)-PT(J)
         XIT(J)=P(J)-PT(J)
@@ -1474,7 +1474,7 @@ C_______________________________________________________________________
           ENDIF
         ENDIF
 11    CONTINUE
-      PAUSE 'Brent exceed maximum iterations.'
+      CALL PAUSEIT('Brent exceed maximum iterations.')
 3     XMIN=X
       BRENT=FX
       RETURN
@@ -1508,3 +1508,12 @@ C_______________________________________________________________________
 
 C**********************************************************************
  
+       SUBROUTINE PAUSEIT(MSG)
+       IMPLICIT NONE
+       CHARACTER*(*) MSG
+       CHARACTER RESPONSE
+       WRITE(*,*) MSG
+       READ(*,*) RESPONSE
+       RETURN
+       END
+

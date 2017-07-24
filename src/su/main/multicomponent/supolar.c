@@ -528,7 +528,7 @@ float calc_rl(float *d, float rlq, int opt)
 {   
     float rl;
     
-    if (!d[1]==0.0) {
+    if (!(d[1]==0.0)) {
         switch (opt) {
             default: 
                 /* case 1: */

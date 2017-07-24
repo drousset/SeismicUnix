@@ -147,7 +147,10 @@ int main (int argc, char **argv)
 	float ***t, ***tkz, ***tkx, ***td, *b1, *b2, *b, **A1, **A2, **A;
 	float ***dt1, ***dt2, **zz1, **zz2, ***pp, ***tdV, ***tde;
 	float **dt1avg,**dt2avg,*zz1avg,*zz2avg,*vp,*e,*d;
+/*
 	float sum1,sum2,sum3,sum4,sum5,sum6,sum7,sum8,sum9,sum10,sum11,sum12;
+*/
+	float sum2,sum3,sum4,sum5,sum6,sum7,sum8,sum9,sum10,sum11,sum12;
 	char *refl1,*refl2,*vfile,*efile,*dfile;
 	float *zint1,*xint1,*zint2,*xint2,*norm;
 	char *method="akima";
@@ -403,7 +406,10 @@ int main (int argc, char **argv)
 
 	/*compute average of depths and their derivatives*/
 	for(icdp=0;icdp<ncdp;icdp++){
+/*
 	sum1=sum2=sum3=sum4=sum5=sum6=sum7=sum8=sum9=sum10=sum11=sum12=0.0;
+*/
+	sum2=sum3=sum4=sum5=sum6=sum7=sum8=sum9=sum10=sum11=sum12=0.0;
 		for(ioff=0;ioff<noff;ioff++){
 /*
 		dt1[0][icdp][ioff]=-pp[0][icdp][ioff]*
@@ -453,7 +459,10 @@ int main (int argc, char **argv)
 				pow((off/2),4)/(pow((off/2),2)+pow(zcdp2[icdp],2)));
 		sum12 += zz2[icdp][ioff]/noff;
 		}
+/*
 		dt1avg[0][icdp]=sum1;dt2avg[0][icdp]=sum2;
+*/
+		dt2avg[0][icdp]=sum2;
 		dt1avg[1][icdp]=sum3;dt2avg[1][icdp]=sum4;
 		dt1avg[2][icdp]=sum5;dt2avg[2][icdp]=sum6;
 		dt1avg[3][icdp]=sum7;dt2avg[3][icdp]=sum8;
@@ -1951,7 +1960,9 @@ Credits: CWP:  Debashish Sarkar,  July 2002
 {
 	float norm_b=0.0;
 	float norm_r=0.0;
+/*
 	float sum1;
+*/
 	float sum2;
 	float alpha;
 	float beta;
@@ -1985,7 +1996,7 @@ Credits: CWP:  Debashish Sarkar,  July 2002
 	/* Start the iteration */
 	while(sqrt(norm_r)>tol*norm_b){
 		norm_r=0;
-		sum1=0.0;
+		/* sum1=0.0; */
 		sum2=0.0;
 
 		for(i=0;i<nrx;i++) norm_r += r[i]*r[i];

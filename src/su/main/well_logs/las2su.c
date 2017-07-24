@@ -94,7 +94,7 @@ main(int argc, char **argv)
 	char c1[30];		/* ascii form of log value */
 	int m;			/* flag for metric (d1,f1) output     */
 	int nzmax;	 	/* max number of depth levels	*/
-	int nz,nzold;	 	/* actual number of depth levels */
+	int nz;	 	/* actual number of depth levels */
 	int iz,izz,icurve,i;	/* counters */
 	int  verbose;	/* if 1(yes) echo las header lines to stderr */
 	float dz;	/* depth sample rate */
@@ -209,7 +209,6 @@ main(int argc, char **argv)
 
 	/* check that nz limit is not exceeded, or subsampling requested */
 	if ( nz > nzmax || ss == 1 ) {
-		nzold = nz;
 		/* reset number of depth samples and sample rate */
 		nz = nz/2;
 		dz = 2.0 * dz;
@@ -225,7 +224,6 @@ main(int argc, char **argv)
 
 	/* check again (possible deep well with 0.25 ft sampling) */
 	if ( nz > nzmax || ss == 1 ) {
-		nzold = nz;
 		/* reset number of depth samples and sample rate */
 		nz = nz/2;
 		dz = 2.0 * dz;

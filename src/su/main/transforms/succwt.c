@@ -132,7 +132,6 @@ main(int argc, char **argv)
 	int out;	/* output option flag			*/
 	
 	float *a=NULL;		/* array of scale values	*/
-	complex *w=NULL;	/* wavelet trace		*/
 	complex *ctr=NULL;	/* complex trace whose real part*/
 				/*   is the input trace		*/
 	complex *ctmp=NULL;	/* temporary complex trace	*/
@@ -195,7 +194,6 @@ main(int argc, char **argv)
 
 	/* allocate arrays */
 	a = alloc1float(na);
-	w = ealloc1complex(npad);
 	ctr = ealloc1complex(npad);
 	ctmp = ealloc1complex(npad);
 	basis = ealloc2complex(npad,na);

@@ -1653,10 +1653,10 @@ void tforce_akb(int nt, float *tforce, float dt, float fpeak)
 void tforce_spike(int nt, float *tforce, float dt, float fpeak)
 {
   int	it;
-  float	t1;
+  /* float	t1; */
 
   for (it=0; it<nt; it++) {
-    t1=it*dt;
+    /* t1=it*dt; */
     tforce[it] = 0.0;
   }
 

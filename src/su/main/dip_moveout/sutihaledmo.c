@@ -110,7 +110,6 @@ int main (int argc, char **argv)
 	float	e;
 	complex *crt;
 	complex *ctemp;
-	complex czero;
 	char	*ccrt;
 	char	*file;
 	char 	*fname;
@@ -164,8 +163,6 @@ int main (int argc, char **argv)
 	nxfft=npfar(nxmax+nxpad);
 	dk=2.*PI/(nxfft*dx);
 	fprintf(stderr,"suhaledmo: ntfft=%d nxfft=%d\n",ntfft,nxfft);
-	czero.r=0.;
-	czero.i=0.;
 	scale=1./(nxfft);
 
 	nmax = nxfft/2 + 1;

@@ -67,7 +67,7 @@ main( int argc, char *argv[] )
 	int nowindow=0;
 	int test=0;
 	
-	FILE *ttp;
+	/* FILE *ttp; */
 		
 	initargs(argc, argv);
    	requestdoc(1);
@@ -93,7 +93,9 @@ main( int argc, char *argv[] )
 
 
 
+/*
 	ttp = efopen("test.su","w");
+*/
 		
 	if (!getparstring("keyg", &keyg)) keyg ="ep";
 	

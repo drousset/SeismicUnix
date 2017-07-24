@@ -101,7 +101,7 @@ segy tr, tro;
    int nx;		/* number of horizontal samples	 */
    
    int nxshot;		/* number of shots to be migrated	*/
-   int nxshot_orig;	/* first value of nxshot		*/
+   /*int nxshot_orig;*/ /* first value of nxshot		*/
    int iz,iw,ix,it,ik;	/* loop counters 			*/
    int igx;		/* integerized gx value			*/
    int ntfft,nxfft;	/* fft size				*/
@@ -115,14 +115,14 @@ segy tr, tro;
    float min_sx_gx;     /* min(sx,gx)                           */
    
    float oldgx;		/* old gx position			*/
-   float oldgxmin;      /* old gx position			*/
-   float oldgxmax;	/* old gx position			*/
+   /* float oldgxmin;*/      /* old gx position			*/
+   /* float oldgxmax;*/	/* old gx position			*/
    float oldsx=0.0;	/* old sx position			*/
    int oldigx=0;	/* old value of integerized gx value	*/
    int oldisx=0;	/* old value of integerized sx value	*/
    
    int isx=0,nxo;	/* index for source and geophone	*/
-   int ix1,ix2,ix3,ixshot,il,ir;/* dummy index			*/
+   int ix1,ix2,ix3,ixshot;/* dummy index			*/
    int lpad,rpad;	/* padding on both sides of the migrated section*/
    
    float *wl=NULL,*wtmp=NULL;
@@ -196,7 +196,7 @@ segy tr, tro;
    memset((void *) cresult[0], 0, nxo*nz*FSIZE);
    
    /* save value of nxshot */
-   nxshot_orig=nxshot;
+   /*nxshot_orig=nxshot; */
    
    /* get info from first trace */
    if (!gettr(&tr))  err("can't get first trace");
@@ -293,8 +293,8 @@ segy tr, tro;
      igx=0;
      oldsx=sx;
      oldgx=gx;
-     oldgxmax=gxmax;
-     oldgxmin=gxmin;
+     /* oldgxmax=gxmax; */
+     /* oldgxmin=gxmin; */
      do { /* begin looping over traces within a shot gather */
        
        memcpy( (void *) p[igx], (const void *) tr.data,nt*FSIZE);
@@ -345,8 +345,8 @@ segy tr, tro;
      
      if(ix1>=ix3)ix3=ix1;
      if(ix1<=ix2)ix2=ix1;
-     il=ix2;
-     ir=ix3;
+     /* il=ix2; */
+     /* ir=ix3; */
      
      ix2-=lpad;
      ix3+=rpad;
@@ -419,11 +419,11 @@ segy tr, tro;
      
      /* loops over depth */
      for(iz=0;iz<nz;++iz){
-       float eps, rtmp;
+       float eps=0.0f, rtmp;
 
        if (nflag) {
 	 /* stabilizing parameter for normalization by source wave field */
-         eps = 0.;
+         eps = 0.0f;
 	 for(ix=0;ix<nx;ix++){
 	   for(iw=0;iw<nw;iw++){
 	     rtmp = rcabs(cp1[iw][ix]);

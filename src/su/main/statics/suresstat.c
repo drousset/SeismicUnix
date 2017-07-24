@@ -143,10 +143,10 @@ main(int argc, char **argv)
 	float dt;			/* sampling rate */
 	float **data, **model;		/* data arrays */
 	float *g_trace;			/* trace arrays */
-	float *t;			/* trace arrays */
+	/* float *t;*/			/* trace arrays */
 	float *model_trace, *corr_trace;/* more trace arrays */
-	float *filter, *cc_tr, *pick_tr;/* more trace arrays */
-	float *filter_r, *cc_tr_r;	/* more trace arrays */
+	/* float *filter, *cc_tr, *pick_tr; */ /* more trace arrays */
+	/* float *filter_r, *cc_tr_r;*/	/* more trace arrays */
 	FILE *fps, *fpr;		/* file pointers for output */
 	int s;				/* local static shift */
 	cwp_String ssol, rsol;
@@ -205,7 +205,7 @@ main(int argc, char **argv)
 	recntr = alloc1int(nr+1);
 	shotntr = alloc1int(nshot+1);
 	g_trace = alloc1float(ntotal_super);
-	t = alloc1float(nt_r);
+/*	t = alloc1float(nt_r); */
 
 	if (verbose == 1) warn("nr=%i rfold=%i",nr,rfold);
 	cmp_loc = alloc2int(cfold+1,nc+1);
@@ -216,12 +216,15 @@ main(int argc, char **argv)
 	model = alloc2float(nt,nc+1);
 	model_trace = alloc1float(ntotal_super);
 
+/*
 	filter = alloc1float(ntcc+1);
 	cc_tr = alloc1float(nt_r+1);
 	filter_r = alloc1float(nt_r+1);
 	cc_tr_r = alloc1float(ntcc+1);
-	corr_trace = alloc1float(ntout);
 	pick_tr = alloc1float(ntpick+1);
+*/
+	corr_trace = alloc1float(ntout);
+
 
 	data = alloc2float(nt,ntraces+1);
 

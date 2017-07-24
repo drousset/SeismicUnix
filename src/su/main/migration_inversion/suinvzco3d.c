@@ -77,12 +77,12 @@ segy tr, tro;
 int main (int argc, char **argv)
 {
 	int 	ixm,nxm,iym,nt,nxo,nyo,nzo,ixo,iyo,izo,nsamp,
-		ny,nz,nxb,i,ix,iy,iz,nz0,nxc,nzc,na,
+		ny,nz,nxb,i,ix,iy,iz,nxc,nzc,na,
 		verbose;
-	float   temp,xo,yo,zo,xi,yi,zi,rs,sx,sy,sz,tsd,ampd,tgd,
-		dx,dy,dz,samp,smax,fmax,ang,cosa,
-		dxm,dt,fxm,fxo,dxo,fyo,dyo,fzo,dzo,offs,xm,odx,
-		ody,odz,odt,sins,sing,
+	float   temp,xo,yo,zo,xi,yi,zi,sx,sy,sz,tsd,ampd,tgd,
+		dx,dy,dz,samp,fmax,ang,
+		dxm,dt,fxm,fxo,dxo,fyo,dyo,fzo,dzo,offs,xm,
+		odt,sins,sing,
 		xs,xg,ys,yg,ey,ez,***outtrace, 
 		***amp,***ts,***p3,
 		*v,*vnew;
@@ -136,7 +136,6 @@ int main (int argc, char **argv)
 	if (!getparint("verbose",&verbose)) verbose = 1;
 	if (!getparfloat("fmax",&fmax)) fmax = 0.25/dt;
 	if (!getparfloat("ang",&ang)) ang = 180;
-	cosa = cos(ang*PI/180);
 	
         checkpars();
 
@@ -144,11 +143,7 @@ int main (int argc, char **argv)
 	ey = (ny-1)*dy;
 	ez = (nz-1)*dz;
 
-	odx = 1.0/dxo;
-	ody = 1.0/dyo;
-	odz = 1.0/dzo;
 	odt = 1.0/dt;
-	smax = 0.5/(MAX(dxm,dy)*fmax);
 	
 	/* allocate space */
 	outtrace = ealloc3float(nzo,nxo,nyo);
@@ -182,7 +177,6 @@ int main (int argc, char **argv)
 	if(nxm*dxm<nxo*dxo || ny*dy<nyo*dyo) err("\t not enough range in input  		for the imaging");			    				
 	/* compute the first z-sample of velocity model which corresponds
 	   to fzo	*/
-	nz0 = MAX(0,fzo/dz);
 	
 	/* set range for traveltimes' calculation */
 	amplitude(fxm,0,nxm,ny,nz,dxm,dy,dz,fxo,fyo,nxo,nyo,nzo,dxo,dyo,dzo,
@@ -222,7 +216,6 @@ int main (int argc, char **argv)
 			iy = yi;
 			zi = zo/dzo;
 			iz = zi;
-			rs = sqrt((xo-xs)*(xo-xs)+(yo-ys)*(yo-ys)+zo*zo);
 			/* bilinear interpolation */
 			sx = xi-ix;
 			sy = yi-iy;
@@ -397,10 +390,9 @@ Author:  Meng Xu, Center for Wave Phenomena, 07/8/95
 ******************************************************************************/
 
 {
-        int ix, iy, iz, ix2, nxr;
+        int ix, iy, iz, ix2;
         float temp1;
 
-        nxr = NINT(sqrt(nxo*dxo*nxo*dxo+nyo*dyo*nyo*dyo)/dxo)+1;
         for(iy=0;iy<nyo;++iy)
         for(ix=0;ix<nxo;++ix)
         for(iz=0;iz<nzo;++iz)
@@ -454,11 +446,9 @@ Author:  Meng Xu, Center for Wave Phenomena, 07/8/95
 ******************************************************************************/
 {
 	int i,ii;
-	float fx,zx,tt,sig,temp,step;
+	float tt,sig,temp;
 
 	sig=tt=temp=0;
-	fx=0;
-	zx=dx*nx;
 
 	for(i=0;i<nz;++i)
 	{
@@ -490,7 +480,6 @@ Author:  Meng Xu, Center for Wave Phenomena, 07/8/95
 				fprintf(stderr,"\nTurning point: z=%f\n",i*dz);
 				continue;
 				}
-			if(x[i]<fx||x[i]>zx) {step=i;}
 			}
 		else
 			{
@@ -499,12 +488,11 @@ Author:  Meng Xu, Center for Wave Phenomena, 07/8/95
 
 			for(ii=i; ii<nz; ++ii) 
 				{
-				sigma[i]=0;
-       		                x[i]=-1;
-       		                t[i]=0;
-                       		dzda2[i]=0;
+				sigma[ii]=0;
+       		                x[ii]=-1;
+       		                t[ii]=0;
+                       		dzda2[ii]=0;
 				}
-                        if(x[i]<fx||x[i]>zx) {step=i;}
 			i=nz;
 			}
 	}
@@ -541,7 +529,7 @@ Author:  Meng Xu, Center for Wave Phenomena, 07/8/95
 	int i,k,ii;
 	int iflag;
 	int i00=0;
-	int imax;
+	/* int imax; */
 	int *ray_end_iz;
 
 	float sx;
@@ -586,7 +574,9 @@ Author:  Meng Xu, Center for Wave Phenomena, 07/8/95
 			{
 			for(ii=0;ii<na;++ii)
                         	{
+/*
                         	if(ray_end_iz[ii]==k) {imax=ii;}
+*/
 				}
 			iflag=na-1;
 			sx=0;

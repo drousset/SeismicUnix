@@ -121,7 +121,7 @@ t			array[nlayers] of layer thicknesses km
 Output:
 ******************************************************************************/
 {
-	float wref;			/* reference frequency in rads/sec */
+	/* float wref;	*/		/* reference frequency in rads/sec */
 	float eps,sigma,e4,dk;		/* auxiliary variables */
 
 	/* initialize varaibles */ 
@@ -129,7 +129,7 @@ Output:
 	sigma=0.1;
 	dk=0.8;
 	e4=0.8;
-	wref=2*PI*fref;
+	/* wref=2*PI*fref; */
 
 	/* compute al and at */
 	compute_al_at (wtype, nlayers, layern, eps, epsp, epss, sigma, sigp, 

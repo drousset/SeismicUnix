@@ -162,8 +162,6 @@ main(int argc, char **argv)
 	float smute;	/* NMO stretch mute */
 	float t;	/* time */
 	float sum;	/* sum accumulator */
-	float lt;	/* last time */
-	float lttab;	/* last time in ray tables */
 	float p;	/* ray parameter */
 	float fp;	/* first ray parameter */
 	float lp;	/* last ray parameter */
@@ -323,8 +321,6 @@ main(int argc, char **argv)
 
 	/* compute extreme values */
 	ft = 0.0;
-	lt = ft+(nt-1)*dt;
-	lttab = ft+(nttab-1)*dt;
 	fp = 0.0;
 	lp = 1.0/sqrt(a1111[0]);
 

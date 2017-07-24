@@ -127,7 +127,7 @@ int main( int argc, char *argv[] )
 			{ complex tmpc;
 				for(it=0;it<nfft;it++) {
 					tmpc = cwp_cexp(c[it]);
-					if(finite(tmpc.r) && finite(tmpc.i)) {
+					if(isfinite(tmpc.r) && isfinite(tmpc.i)) {
 						c[it] = tmpc;
 					} else {
 						c[it] = cmplx(0.0,0.0);

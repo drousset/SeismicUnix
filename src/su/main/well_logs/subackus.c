@@ -107,7 +107,6 @@ main(int argc, char **argv) {
 			/* effective stiffness coefficients */
 	float *aa=NULL, *bb=NULL;	/* factors in epsilon calc	*/
 	float *blam=NULL, *bmu=NULL;	/* backus avg'd lambda and mu	*/
-	float *tmp=NULL;		/* temp array for avg subroutine */
 	float d1,f1,dt;
 	float sina, cosa, sina2, cosa2, sina4, u, ds, dds, vpa;
 	float ang;
@@ -173,7 +172,6 @@ main(int argc, char **argv) {
 	t4 	= alloc1float(nz);
 	t5 	= alloc1float(nz);
 	t6 	= alloc1float(nz);
-	tmp 	= alloc1float(nz);
 	c11 	= alloc1float(nz);
 	c13 	= alloc1float(nz);
 	c33 	= alloc1float(nz);

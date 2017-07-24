@@ -914,8 +914,10 @@ written by Schuck (1993)
   int i=0;
   float *_angles;
   float *Q;     /* Array of quality factors for rotations */
-  float qmax, qmin;
-  int imax=0, imin;
+/* float qmax, qmin; */
+/* int imax=0, imin; */
+  float qmax;
+  int imax=0;
   float y[3];
   float *temp;
   int _ns_angle;
@@ -970,7 +972,7 @@ written by Schuck (1993)
   /* searching for max value in Q[i] */
 
   qmax = -1.0E30;
-  qmin = 1.0E30;
+  /* qmin = 1.0E30; */
 
   for (i=0; i<= _ns_angle-1; i++)
     if (Q[i] > qmax)
@@ -978,11 +980,13 @@ written by Schuck (1993)
 	qmax = Q[i];
 	imax = i;
       }
+/*
   if (Q[i] <= qmin)
     {
       qmin = Q[i];
       imin = i;
     }
+*/
   /* selecting Qs for interpolation */
   
 

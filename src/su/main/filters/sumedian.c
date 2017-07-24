@@ -185,9 +185,7 @@ main(int argc, char **argv)
 	int subtract;		/* flag for subtracting shifted data	*/
 
 	/* rwh extra pointers for median sort */
-	int first;		/* start pointer in ring buffer */
 	int middle;		/* middle pointer in ring buffer */
-	int last;		/* last pointer in ring buffer */
 	int halfwidth;		/* mid point */
 	int trcount;		/* pointer to current start trace number */
 	float tmp;		/* temp storage for bubble sort */
@@ -377,8 +375,6 @@ main(int argc, char **argv)
 	/* rwh first preload ring buffer symmetrically (now you know why nmix must be odd) */
 	trcount=-1;
 	halfwidth=(nmix-1)/2+1;
-	first = 0;
-	last  = nmix-1;
 	middle = (nmix-1)/2;
 
 	for (itr=0; itr<halfwidth; itr++) {

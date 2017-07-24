@@ -236,8 +236,7 @@ int      main(int argc, char **argv)
 		  trhldmax = tr.data[it];
 		  trhldit = it;
 	       }
-	    }
-	    /* else if (trhldmax > trhldamp) trhldfit = nt+1 ; */
+	    } else if (trhldmax > trhldamp) trhldfit = nt+1 ;
 	    /* maximum found */
 	 }
 

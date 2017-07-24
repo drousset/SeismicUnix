@@ -566,7 +566,7 @@ dat		Redatumed section
 {
 	int nxf,nxe,it,ix,iz,jz,jt,jx,mr;
 	float x,z,ampd,res0,am,am0,ax,ax0;
-	float odt=1.0/dt,az,sz,sz0,at,tio,res,temp,fxf,h;
+	float odt=1.0/dt,az,sz,sz0,at,tio,res,temp,h;
         float p,q,s,ctau,xst=0.0,zst=0.0,ris,ros,rg,t0=0.0,sing;
         float xp,zgx,hp,phi=0.0,sxp,zs,zi,zip,atol;
 	float *tzt;
@@ -580,7 +580,7 @@ dat		Redatumed section
 	tzt = alloc1float(nzt);
 
         h = (gx>=sx)?(gx-sx)/2.0:(sx-gx)/2.0;
-	fxf = fxi + (nxi-2)*dxi;
+	/* fxf = fxi + (nxi-2)*dxi; */
 
         /* call to filt will perform the frequency domain filtering  */
         /* on the input data trace, returning in variable trace.     */  

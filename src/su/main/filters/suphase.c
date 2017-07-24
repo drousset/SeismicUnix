@@ -48,8 +48,6 @@ main(int argc, char **argv)
 	int nf;			/* number of frequencies in transform	*/
 
 	float dt;		/* sampling interval in secs		*/
-	float d1;		/* output sample interval in Hz		*/
-	int count=0;		/* counter				*/
 
 	/* linear phase function */
 	float a;		/* bias (intercept) of new phase	*/
@@ -86,7 +84,6 @@ main(int argc, char **argv)
 	nfft = npfaro(nt, LOOKFAC * nt);
 	if (nfft >= SU_NFLTS || nfft >= PFA_MAX)  
 		err("Padded nt=%d--too big", nfft);
-	d1 = 1.0/(nfft*dt);
 	nf = nfft/2 + 1;
         onfft = 1.0/nfft;
 	 
@@ -99,7 +96,6 @@ main(int argc, char **argv)
 	ph = ealloc1float(nf);
 
 	/* Main loop over traces */
-	count=0;
 	do {
 		register int i;
 		

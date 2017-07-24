@@ -1739,7 +1739,7 @@ void make_snap(float **u, float **w, float sx, float sz,
 {
 	
 	/* SEGY fields */
-	long tracl=0;		/* trace number within a line */
+	long tracl;		/* trace number within a line */
 	long tracr;		/* trace number within a reel */
 	int i,j;
 	
@@ -1754,7 +1754,8 @@ void make_snap(float **u, float **w, float sx, float sz,
 	tr.f2 = fx ;
 	tr.delrt = t; /* store time of snapshot */
 
-	if(&tracl==NULL) tracl = 0;
+	/* if(&tracl==NULL) tracl = 0; */
+	tracl = 0;
 	tracr = 0;
 	tr.trid = TINLIN; /* inline particle velocity component*/
 	for (i=0 ; i < nxpadded-wbc[3]-wbc[1] ; ++i){
@@ -1811,7 +1812,8 @@ void make_stress_snap(float **txx, float **tzz, float **txz,
 	tr.f2 = fx ;
 	tr.delrt = t ; /* store time of snapshot */
 
-	if(&tracl==NULL) tracl = 0;
+	/* if(&tracl==NULL) tracl = 0; */
+	tracl = 0;
 	tracr = 0;
 	tr.trid = TINLIN ; /*txx-component in line component*/
 	for (i=0 ; i < nzpadded-wbc[3] ; ++i){

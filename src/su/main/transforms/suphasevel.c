@@ -131,7 +131,7 @@ main(int argc, char **argv)
 	int norm;		/* normalization flag			*/
 
 	float xmax;		/* maximum abs(offset) of input		*/
-	float twopi, f;		/* constant and frequency (Hz)		*/
+	float twopi;		/* constant and frequency (Hz)		*/
 
 
 
@@ -257,7 +257,6 @@ main(int argc, char **argv)
 		for (iF=0; iF<nF; ++iF)  {
 			/* calc this frequency */
 			omega = iF * domega;
-			f = omega / twopi;
 			/* loop over traces */
 			for (ix=0; ix<nx; ++ix) {
 				/* calc amplitude at this (f,x) location */
@@ -289,7 +288,6 @@ main(int argc, char **argv)
 
 			/* this frequency and phase */
 			omega = iF * domega;
-			f = omega / twopi;
 			phi = omega / v;
 
 			/* initialize */

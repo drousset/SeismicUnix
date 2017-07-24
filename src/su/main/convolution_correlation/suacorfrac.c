@@ -68,7 +68,7 @@ main(int argc, char **argv)
 	float dt;		/* sample spacing (secs) on input trace	*/
 	int nfft;		/* number of points in nfft		*/
 	int nf;		 	/* number of frequencies (incl Nyq)     */
-	float onfft;		/* 1 / nfft				*/
+/*	float onfft;*/		/* 1 / nfft				*/
 	int verbose;		/* flag to get advisory messages	*/
 	size_t nzeros;		/* number of padded zeroes in bytes	*/
 	cwp_Bool seismic;	/* is this seismic data?		*/
@@ -111,7 +111,7 @@ main(int argc, char **argv)
 		err("Padded nt=%d -- too big", nfft);
 
 	nf = nfft/2 + 1;
-	onfft = 1.0 / nfft;
+	/* onfft = 1.0 / nfft; */
 	nzeros = (nfft - nt) * FSIZE;
 
 	/* Allocate fft arrays */

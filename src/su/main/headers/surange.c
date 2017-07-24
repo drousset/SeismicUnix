@@ -218,7 +218,7 @@ void printrange(segy *tpmin, segy *tpmax, segy *tpfirst, segy *tplast)
 {
 	register int i = 0;
 	Value valmin, valmax, valfirst, vallast;
-	double dvalmin, dvalmax, dvalfirst, dvallast;
+	double dvalmin, dvalmax;
 	cwp_String key;
 	cwp_String type;
 	int kmin = 0, kmax=SU_NKEYS;
@@ -232,8 +232,6 @@ void printrange(segy *tpmin, segy *tpmax, segy *tpfirst, segy *tplast)
 		gethval(tplast, i, &vallast);
 		dvalmin = vtod(type, valmin);
 		dvalmax = vtod(type, valmax);
-		dvalfirst = vtod(type, valfirst);
-		dvallast = vtod(type, vallast);
 		if (dvalmin || dvalmax) {
 			if (dvalmin < dvalmax) {
 				printf("%-8s ", key);

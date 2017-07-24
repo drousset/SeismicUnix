@@ -58,9 +58,10 @@ int main(int argc, char **argv)
 	int swap; 		/* swap bytes				*/
 	char *outpar;		/* name of outpar			*/
 	FILE *outparfp;		/*  ... its file pointer		*/
-	FILE *infp=stdin;	/* input file pointer			*/
 #ifdef SUXDR
 	XDR  in_xdr;		/* for bhed conversion			*/
+#else
+	FILE *infp=stdin;	/* input file pointer			*/
 #endif
 
 	/* Initialize */

@@ -105,6 +105,7 @@ char *sdoc[] = {
 " curve=curve1,curve2,...  file(s) containing points to draw curve(s)   ",
 " npair=n1,n2,n2,...            number(s) of pairs in each file         ",
 " curvecolor=color1,color2,...  color(s) for curve(s)                   ",
+" curvewidth=w1,w2,...		line width(s) for curve(s)		",
 " blockinterp=0       whether to use block interpolation (0=no, 1=yes)  ",
 "									",
 "									",
@@ -212,7 +213,7 @@ main (int argc,char **argv)
 	unsigned long black,white,pmin,pmax;
 
         float **x1curve,**x2curve;
-        int curve,*npair,ncurvecolor;
+        int curve,*npair=NULL,ncurvecolor=0,ncurvewidth=0,*curvewidth=NULL;
         char **curvefile,**curvecolor=NULL;
         FILE *curvefp;
 	
@@ -285,6 +286,9 @@ main (int argc,char **argv)
 		curvecolor=(char**)ealloc1(ncurvecolor,sizeof(void*));
 		getparstringarray("curvecolor",curvecolor);
 	}
+	ncurvewidth=countparval("curvewidth");
+	curvewidth=ealloc1int(ncurvewidth);
+	getparint("curvewidth",curvewidth);
 	for (j=0; j<curve; j++) {
 		curvefp=efopen(curvefile[j],"r");
 		x1curve[j]=ealloc1float(npair[j]);
@@ -637,7 +641,7 @@ main (int argc,char **argv)
 					   x1begb,x1endb,0.0,0.0,
 					   x2begb,x2endb,0.0,0.0,
 					   x1curve[i],x2curve[i],npair[i],
-					   curvecolor[i],style);
+					   curvecolor[i],curvewidth[i],style);
 
 	                /* draw axes on top of image */
 			xDrawAxesBox(dpy,win,
@@ -1236,6 +1240,7 @@ main (int argc,char **argv)
 	XCloseDisplay(dpy);
 	if (curve) {
 		free1int(npair);
+		free1int(curvewidth);
 		for (i=0; i<curve; i++) {
 			free1float(x1curve[i]);
 			free1float(x2curve[i]);

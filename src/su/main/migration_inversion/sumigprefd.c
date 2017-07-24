@@ -99,7 +99,7 @@ main (int argc, char **argv)
 	int nz;			/* number of migrated depth samples	*/
 	int nx;			/* number of horizontal samples		*/
 	int nxshot;		/* number of shots to be migrated	*/
-	int nxshot_orig;	/* first value of nxshot		*/
+	/*int nxshot_orig;*/	/* first value of nxshot		*/ 
 	int iz,iw,ix,it;	/* loop counters 			*/
 	int igx;		/* integerized gx value			*/
 	int ntfft;		/* fft size				*/
@@ -110,8 +110,8 @@ main (int argc, char **argv)
 	float gxmin=0.0,gxmax=0.0; /* x source and geophone location	*/
 	float min_sx_gx;	/* min(sx,gx)				*/
 	float oldgx;		/* old gx position			*/
-	float oldgxmin;		/* old gx position			*/
-	float oldgxmax;		/* old gx position			*/
+/*	float oldgxmin;	*/	/* old gx position			*/
+/*	float oldgxmax;	*/	/* old gx position			*/
 	float oldsx=0.0;	/* old sx position			*/
 	int isx=0,nxo;		/* index for source and geophone	*/	
 	int oldisx=0;		/* old value of source index		*/	
@@ -182,7 +182,7 @@ main (int argc, char **argv)
 	memset((void *) cresult[0], 0, nxo*nz*FSIZE);
 
 	/* save value of nxshot */
-	nxshot_orig=nxshot;
+/* nxshot_orig=nxshot; */
 
 	/* get info from first trace */
 	if (!gettr(&tr))  err("can't get first trace");
@@ -285,8 +285,8 @@ main (int argc, char **argv)
 		oldigx=0;
 		oldsx=sx;
 		oldgx=gx;
-		oldgxmax=gxmax;
-		oldgxmin=gxmin;
+		/* oldgxmax=gxmax; */
+	/*	oldgxmin=gxmin; */
 		do { /* begin looping over traces within a shot gather */
 
 			memcpy( (void *) p[igx], (const void *) tr.data,nt*FSIZE);

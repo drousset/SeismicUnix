@@ -78,6 +78,7 @@
  curve=curve1,curve2,...  file(s) containing points to draw curve(s)   
  npair=n1,n2,n2,...            number(s) of pairs in each file         
  curvecolor=color1,color2,...  color(s) for curve(s)                   
+ curvewidth=w1,w2,...          line width(s) for curve(s), in pixels   
 
  Notes:								
  Xwigb will try to detect the endian value of the X-display and will	

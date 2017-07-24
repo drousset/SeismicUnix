@@ -89,11 +89,12 @@ int main (int argc, char **argv)
         char *outpar=NULL;      /* name of file holding output parfile  */
         FILE *outparfp=NULL;   /* ... its file pointer                 */
 
-	Stiff2D *spar1, *spar2;
+	/* Stiff2D *spar1, *spar2; */
+	Stiff2D *spar1;
 	
 
 	spar1=(Stiff2D*)emalloc(sizeof(Stiff2D));
-	spar2=(Stiff2D*)emalloc(sizeof(Stiff2D));
+	/* spar2=(Stiff2D*)emalloc(sizeof(Stiff2D)); */
 
 	/* hook up getpar to handle the parameters */
 	initargs(argc,argv);

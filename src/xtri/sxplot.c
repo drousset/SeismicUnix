@@ -494,7 +494,7 @@ static void drawimage (Display *dpy, Drawable dbl, Region region,
   XRectangle rect;
   XImage *image=NULL;
   int bitmap_pad=0;
-  int nbpr=0;
+  int nbpr=0; 
 
 
 	 
@@ -521,7 +521,7 @@ static void drawimage (Display *dpy, Drawable dbl, Region region,
 
   /* allocate memory for image data */
   widthpad = (1+(width-1)/bitmap_pad)*bitmap_pad;
-  nbpr = widthpad-1;
+	nbpr = widthpad-1;
 
   data = alloc1(widthpad*height,sizeof(unsigned char));
   if (data==NULL) err("width,widthpad,height = %d %d %d",
@@ -583,7 +583,7 @@ static void drawimage (Display *dpy, Drawable dbl, Region region,
 						(int) nbpr);
 
 #else
-  char *data=NULL;
+  /* char *data=NULL; */
   char noCmap;
 
   scr=DefaultScreen(dpy);
@@ -634,7 +634,7 @@ static void drawimage (Display *dpy, Drawable dbl, Region region,
   base = ((float) pmin)-fmin*scale;
 	
 
-  data = (char *)image->data ;
+  /* data = (char *)image->data ; */
   /* loop over scan lines */
   for (line=0; line<height; line++) {
 	iline = line*width;

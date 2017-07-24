@@ -31,7 +31,10 @@ int main (int argc, char **argv)
 	int pxout,pzout,vgxout,vgzout,pxvxout;
 	int polout;
 	float *tdata=NULL,*xdata=NULL,*pxdata=NULL,*pzdata=NULL;
+
 	float *vgxdata=NULL,*vgzdata=NULL,*pxvxdata=NULL;
+	float *vgxdata=NULL,*vgzdata=NULL;
+
 	float *poldata=NULL,*g11data=NULL,*g33data=NULL,*g13data=NULL;
 	/* float g11,g33,g13;*/
         int kend;
@@ -95,7 +98,9 @@ int main (int argc, char **argv)
         if(pzout) pzdata = ealloc1(nri,sizeof(float));
         if(vgxout|| pxvxout) vgxdata = ealloc1(nri,sizeof(float));
         if(vgzout) vgzdata = ealloc1(nri,sizeof(float));
-        if(pxvxout) pxvxdata = ealloc1(nri,sizeof(float));
+
+        /* if(pxvxout) pxvxdata = ealloc1(nri,sizeof(float));
+
         if(polout){
 	  poldata = ealloc1(nri,sizeof(float));
 	  g11data = ealloc1(nri,sizeof(float));

@@ -113,9 +113,9 @@ main(int argc, char **argv)
 	float *qtn=NULL;	/* NMO-corrected trace q(tn) */
 	float *ttn=NULL;	/* time t(tn) for NMO */
 	float *atn=NULL;	/* amplitude a(tn) for NMO */
-	float *qt=NULL;	/* inverse NMO-corrected trace q(t) */
-	float *tnt=NULL;	/* time tn(t) for inverse NMO */
-	float *at=NULL;	/* amplitude a(t) for inverse NMO */
+	/* float *qt=NULL;*/	/* inverse NMO-corrected trace q(t) */
+	/* float *tnt=NULL;*/	/* time tn(t) for inverse NMO */
+	/* float *at=NULL; */	/* amplitude a(t) for inverse NMO */
 
 	float acdp;	/* temporary used to sort cdp array */
 	float *avv=NULL;	/* temporary used to sort vv array */
@@ -195,9 +195,11 @@ main(int argc, char **argv)
 	ttn = ealloc1float(nt);
 	atn = ealloc1float(nt);
 	qtn = ealloc1float(nt);
+/*
 	tnt = ealloc1float(nt);
 	at = ealloc1float(nt);
 	qt = ealloc1float(nt);
+*/
 
 	/* interpolate vel2 and anis function for first trace */
 	interpvv(nt,ncdp,cdp,vv,(float)tr.cdp,vvt);

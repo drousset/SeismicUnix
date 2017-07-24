@@ -57,7 +57,7 @@ char *sdoc[] = {
 " where f1,f2,f3,f4 are an acceptable frequency range, and you may need ",
 " to mute artifacts that appear at the beginning of the output, as well.",
 " 									",
-" Trace header fields accessed: ns, dt					",
+" Trace header fields accessed: ns					",
 " Trace header fields modified: none					",
 " 									",
 NULL};
@@ -69,7 +69,7 @@ NULL};
  *	In the option, panel=1 the number of traces in the sufile must be 
  *	the same as the number of traces on the input.
  *
- * Trace header fields accessed: ns,dt
+ * Trace header fields accessed: ns
  * Trace header fields modified: none
  */
 /**************** end self doc *******************************************/
@@ -81,7 +81,6 @@ main(int argc, char **argv)
 {
 	int nt;			/* number of samples on input traces	*/
 	int it,i;		/* counter 				*/
-	float dt;		/* sampling interval of input data	*/
 	
 	float *rf=NULL;		/* filter coefficients			*/
 	float *rt=NULL;		/* data coefficients in time		*/
@@ -93,9 +92,7 @@ main(int argc, char **argv)
 	float pnoise=0.0;	/* input parameter for computing delta	*/
 	float sum_powspec=0.0;	/* sum of filter power spectra		*/
 	
-	float nyq=0.0;		/* nyquist frequency			*/
 	int nfft;		/* number of points for fft data trace  */
-	int nf;			/* number of frequencies (incl Nyq)	*/
 	
 	int nfilter=0;		/* filter length in samples		*/
 	int nfiltby2=0;		/* filter length/2 in samples		*/
@@ -120,15 +117,12 @@ main(int argc, char **argv)
 	/* Get info from first trace */ 
 	if (!gettr(&tr)) err("can't get first trace");
 	nt = tr.ns;
-	dt = ((double) tr.dt)/1000000.0;
-	nyq=0.5/dt;
 	
 	/* Set up FFT parameters */
 	nfft = npfaro(nt, LOOKFAC * nt);
 	if (nfft >= SU_NFLTS || nfft >= PFA_MAX)
 				err("Padded nt=%d -- too big", nfft);
 
-	nf = nfft/2 + 1;
 	
 	/* Get parameters and set up filter array */
 	if (!getparint("panel", &panel)) 		panel = 0;
