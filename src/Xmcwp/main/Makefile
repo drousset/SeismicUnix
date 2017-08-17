@@ -8,6 +8,13 @@ CFLAGS = $(XMCFLAGS)
 
 D = $L/libXmcwp.a $L/libXtcwp.a $L/libpar.a $L/libcwp.a
 
+# use if your system requires libXp.a
+#LDFLAGS= $(PRELFLAGS) -L$L -L$(LMOTIF) -lXmcwp -lXtcwp \
+#		-lpar -lcwp -L$(LX11) -lXm -lXt -lXp -lXext \
+#		-lX11 $(XLFLAGSADD)  -lm $(POSTLFLAGS)
+#
+#
+# ..otherwise if no libXp.a
 LDFLAGS= $(PRELFLAGS) -L$L -L$(LMOTIF) -lXmcwp -lXtcwp \
 		-lpar -lcwp -L$(LX11) -lXm -lXt -lXp -lXext \
 		-lX11 $(XLFLAGSADD)  -lm $(POSTLFLAGS)

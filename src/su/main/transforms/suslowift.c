@@ -1,6 +1,3 @@
-/* Copyright (c) Colorado School of Mines, 2011.*/
-/* All rights reserved.                       */
-
 
 #include "su.h"
 #include "segy.h"
@@ -85,9 +82,6 @@ main(int argc, char **argv)
 	if (!getparint("sign", &sign)) sign = -1;
 	if (sign != 1 && sign != -1)   err("sign = %d must be 1 or -1", sign);
 
-        checkpars();
-
-
 	/* allocate space */
 	rt = ealloc1float(nfft);
 	ct = ealloc1complex(nfft);
@@ -119,9 +113,9 @@ main(int argc, char **argv)
 		/* Set header values */
 		tr.trid = TREAL;
 		tr.ns = nt;
-		/*tr.d1 = d1;*/
 		tr.d1 = 0; /* wmh: to get times correct on plots */
-		tr.f1 = 0.0;
+                tr.f1 = 0.0f;
+
 
 		puttr(&tr);
 

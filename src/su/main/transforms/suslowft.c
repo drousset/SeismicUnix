@@ -1,6 +1,3 @@
-/* Copyright (c) Colorado School of Mines, 2011.*/
-/* All rights reserved.                       */
-
 
 #include "su.h"
 #include "segy.h"
@@ -71,6 +68,7 @@ main(int argc, char **argv)
 	int sign;		/* sign in exponent of transform	*/
 	float nfft;		/* fft size				*/
 	float dt;		/* sampling interval in secs		*/
+	float d1;		/* output sample interval in Hz		*/
 
 
 	/* Initialize */
@@ -90,12 +88,10 @@ main(int argc, char **argv)
 		warn("dt not set, assumed to be .004");
 	}
 
+	d1 = 1.0/(nt*dt);
 
 	if (!getparint("sign", &sign)) sign = 1;
 	if (sign != 1 && sign != -1)   err("sign = %d must be 1 or -1", sign);
-
-
-        checkpars();
 
 	/* allocate space */
 	rt = ealloc1float(nfft);
@@ -124,6 +120,7 @@ main(int argc, char **argv)
 		/* Set header values */
 		tr.trid = FUNPACKNYQ;
 		tr.ns = nt;
+		tr.d1 = d1;
 		tr.f1 = 0.0;
 
 		puttr(&tr);

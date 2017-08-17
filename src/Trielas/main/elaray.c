@@ -1262,7 +1262,7 @@ static RayStep* reflectRay (RayStep *rs,FILE *ifp, int conv,FILE *junkfp,
 /* Reflect ray from edge and return pointer to new RayStep. */
 {
 	/* int kmah,nref,modei,modet,temp,mindexi,mindext,rort; */
-	int kmah,nref,modei,modet,temp,mindext,rort;
+	int kmah,nref,modei,modet,temp,mindexi,rort;
 	float x,z,px,pz,t,q1,p1,q2,p2,rt,
 	      scale,gx,gz,frac,dx,dz,plold;
 	float g11,g13,g33,g11i,g13i,g33i;
