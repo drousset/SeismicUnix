@@ -17,6 +17,8 @@ char *sdoc[] = {
 "								",
 " Optional parameters:						",
 "	key=		Header key(s) to range (default=all)	",
+"	dim=0		dim seismic flag	",
+"	    		0 = not dim, 1 = coord in ft, 2 = coord in m	",
 " 								",
 " Note: Gives partial results if interrupted			",
 " 								",
@@ -24,11 +26,14 @@ char *sdoc[] = {
 " number of traces 						",
 " keyword min max (first - last) 				",
 " north-south-east-west limits of shot, receiver and midpoint   ",
-" 								",
+" if dim then also midpoint interval and line length   ",
+    " 								",
 NULL};
 
 /* Credits:
- *      Stanford: Stewart A. Levin
+ *  Arkansas: Chris Liner
+ *              Added dim options Sept. 2017
+ *  Stanford: Stewart A. Levin
  *              Added print of eastmost, northmost, westmost,
  *              southmost coordinates of shots, receivers, and 
  *              midpoints.  These coordinates have had any
@@ -64,12 +69,15 @@ main(int argc, char **argv)
 	Value valmax;			/* largest seen so far		*/
 	cwp_String type;		/* data type of keyword		*/
 	cwp_String key[SU_NKEYS];	/* array of keywords		*/
+	int dim;			/* dim line with coords in ft (1) or m (2) */
 
         double eastShot[2], westShot[2], northShot[2], southShot[2];
         double eastRec[2], westRec[2], northRec[2], southRec[2];
         double eastCmp[2], westCmp[2], northCmp[2], southCmp[2];
         double dcoscal = 1.0;
         double sx, sy, gx, gy, mx, my;
+        double mx1=0.0, my1=0.0;
+        double mx2=0.0, my2=0.0, dm=0.0, dmin=0.0, dmax=0.0, davg=0.0;
         int coscal = 1;
 
 
@@ -81,7 +89,10 @@ main(int argc, char **argv)
 	if ((nkeys=countparval("key"))!=0) {
 		getparstringarray("key",key);
 	}
-
+    
+    /* get dim param... 0 = not dim */
+    if (!getparint("dim", &dim)) dim = 0;
+    
         checkpars();
 
 	/* Zero out values of trmin and trmax */
@@ -182,8 +193,46 @@ main(int argc, char **argv)
                     if(northCmp[1] < my){northCmp[0] = mx; northCmp[1] = my;}
                     if(southCmp[1] > my){southCmp[0] = mx; southCmp[1] = my;}
                 }
-		++ntr;
+        
+        if (ntr == 1) {
+            /* get midpoint (mx1,my1) on trace 1 */
+            mx1 = 0.5*(tr.sx+tr.gx); 
+            my1 = 0.5*(tr.sy+tr.gy);
+        }
+        else if (ntr == 2) {
+            /* get midpoint (mx2,my2) on trace 2 */           
+            mx2 = 0.5*(tr.sx+tr.gx); 
+            my2 = 0.5*(tr.sy+tr.gy);
+            /* midpoint interval between traces 1 and 2 */
+            dm = sqrt( (mx1 - mx2)*(mx1 - mx2) + (my1 - my2)*(my1 - my2) );
+            /* set min, max and avg midpoint interval holders */
+            dmin = dm;
+            dmax = dm;
+            davg = (dmin+dmax)/2.0;
+            /* hold this midpoint */
+            mx1 = mx2; 
+            my1 = my2;
+        }
+        else if (ntr > 2) {
+            /* get midpoint (mx,my) on this trace */           
+            mx2 = 0.5*(tr.sx+tr.gx); 
+            my2 = 0.5*(tr.sy+tr.gy);
+            /* get midpoint (mx,my) between this and previous trace */           
+            dm = sqrt( (mx1 - mx2)*(mx1 - mx2) + (my1 - my2)*(my1 - my2) );
+            /* reset min, max and avg midpoint interval holders, if needed */
+            if (dm < dmin) dmin = dm;
+            if (dm > dmax) dmax = dm;
+            davg = (davg + (dmin+dmax)/2.0) / 2.0;
+            /* hold this midpoint */
+            mx1 = mx2; 
+            my1 = my2;
+        }
+		
+        ++ntr;
 	}
+    
+    /* final davg is sum/elements
+    davg = davg / (ntr-1); */
 
 	printf("%d traces:\n",ntr);
 	printrange(&trmin, &trmax, &trfirst, &trlast);
@@ -208,7 +257,22 @@ main(int argc, char **argv)
                    eastCmp[0],eastCmp[1],westCmp[0],westCmp[1]);
         }
 
-	return(CWP_Exit());
+    if (dim != 0){
+        if (dim == 1) {
+            printf("\n2D line: \n");
+            printf("Min CMP interval = %g ft\n",dmin);
+            printf("Max CMP interval = %g ft\n",dmax);
+            printf("Line length = %g miles (using avg CMP interval of %g ft)\n",davg*ntr/5280,davg);
+        }
+        else if (dim == 2) {
+            printf("ddim line: \n");
+            printf("Min CMP interval = %g m\n",dmin);
+            printf("Max CMP interval = %g m\n",dmax);
+            printf("Line length = %g km (using avg CMP interval of %g m)\n",davg*ntr/1000,davg);
+        }
+    }
+    
+    return(CWP_Exit());
 }
 
 
@@ -218,7 +282,7 @@ void printrange(segy *tpmin, segy *tpmax, segy *tpfirst, segy *tplast)
 {
 	register int i = 0;
 	Value valmin, valmax, valfirst, vallast;
-	double dvalmin, dvalmax;
+	double dvalmin, dvalmax, dvalfirst, dvallast;
 	cwp_String key;
 	cwp_String type;
 	int kmin = 0, kmax=SU_NKEYS;
@@ -232,6 +296,8 @@ void printrange(segy *tpmin, segy *tpmax, segy *tpfirst, segy *tplast)
 		gethval(tplast, i, &vallast);
 		dvalmin = vtod(type, valmin);
 		dvalmax = vtod(type, valmax);
+		dvalfirst = vtod(type, valfirst);
+		dvallast = vtod(type, vallast);
 		if (dvalmin || dvalmax) {
 			if (dvalmin < dvalmax) {
 				printf("%-8s ", key);

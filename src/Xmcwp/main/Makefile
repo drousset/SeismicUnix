@@ -16,7 +16,7 @@ D = $L/libXmcwp.a $L/libXtcwp.a $L/libpar.a $L/libcwp.a
 #
 # ..otherwise if no libXp.a
 LDFLAGS= $(PRELFLAGS) -L$L -L$(LMOTIF) -lXmcwp -lXtcwp \
-		-lpar -lcwp -L$(LX11) -lXm -lXt -lXp -lXext \
+		-lpar -lcwp -L$(LX11) -lXm -lXt -lXext \
 		-lX11 $(XLFLAGSADD)  -lm $(POSTLFLAGS)
 
 PROGS = 	\
