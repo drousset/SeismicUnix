@@ -191,7 +191,6 @@ void vrmedian(float *x,float *r,float *y,int *n)
     qksort(*n,x);
     if ( dv.rem) *r=x[dv.quot];
     if (!dv.rem) *r=(x[dv.quot]+x[dv.quot+1])/2.;
-    return(CWP_Exit());
 }
 
 void maxmgv(float *r,float *rmx,int *n)

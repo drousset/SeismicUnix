@@ -102,9 +102,9 @@ DYLD_FALLBACK_LIBRARY_PATH += $(CWPROOT)/lib:${LMOTIF}:${LX11}
 
 CPP = /usr/bin/cpp
 
-CC = /opt/local/bin/gcc-mp-5
+#CC = /opt/local/bin/gcc-mp-5
 
-#CC = /usr/bin/gcc
+CC = /usr/bin/gcc
 #OPTC = -g -c90  -m64 -Wall -ansi  -Wno-long-long 
 #OPTC = -g -std=c90  -m64 -Wall -ansi  -Wno-long-long 
 OPTC = -g -O2 -m64 -std=c99 -Wall -pedantic -Wno-long-long 
