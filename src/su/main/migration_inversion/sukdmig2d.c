@@ -101,6 +101,11 @@ NULL};
  * Modifcations:
  *    Gary Billings, Talisman Energy, Sept 2005:  added absoff, limoff.
  *
+ *   Zhenyue Liu (1997). ”An analytical approach to migration 
+ *   velocity analysis.” GEOPHYSICS, 62(4), 1238-1249.
+ *     https://doi.org/10.1190/1.1444225
+ *
+ *
  * Trace header fields accessed: ns, dt, delrt, d2
  * Trace header fields modified: sx, gx
  */

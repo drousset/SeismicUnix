@@ -1,19 +1,18 @@
-head     1.1;
-branch   ;
-access   cartley jkc;
-symbols  ;
-locks    ; strict;
-comment  @# @;
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
 
 
 1.1
-date     92.10.29.14.16.27;  author jstockwe;  state Exp;
-branches ;
-next     ;
+date	93.06.03.13.29.05;	author cartley;	state Exp;
+branches;
+next	;
 
 
 desc
-@Xgraph
+@xgraph application-defaults file
 @
 
 
@@ -23,21 +22,25 @@ log
 @Initial revision
 @
 text
-@Xgraph.width: 500
-Xgraph.height: 500
-Xgraph*grid1: none
-Xgraph*grid2: none
-Xgraph*nTic1: 1
-Xgraph*nTic2: 1
-Xgraph*label1:
-Xgraph*label2:
-Xgraph*XtcwpAxes.title:
-Xgraph*title: CWP's xgraph
-Xgraph*style: normal
-Xgraph*labelFont: Rom14
-Xgraph*titleFont: Rom22
-Xgraph*gridColor: #a0a0a0
-Xgraph*axesColor: #000000
-Xgraph*titleColor: #000000
-Xgraph*background: #e7e7e7
+@XGraph.width: 500
+XGraph.height: 500
+*grid1: none
+*grid2: none
+*nTic1: 1
+*nTic2: 1
+*label1:
+*label2:
+*XtcwpAxes.title:
+*title: CWP's xgraph
+*style: normal
+*labelFont: *helvetica-medium-r-normal--18*
+*titleFont: *helvetica-bold-r-normal--24*
+*gridColor: #ff0000
+*axesColor: #ffffff
+*titleColor: #ffff00
+*background: #00007f
+# *gridColor: #a0a0a0
+# *axesColor: #000000
+# *titleColor: #000000
+# *background: #e7e7e7
 @

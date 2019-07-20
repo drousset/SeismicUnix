@@ -1,10 +1,14 @@
-head	1.75;
+head	1.76;
 access;
 symbols;
-locks
-	john:1.75; strict;
+locks; strict;
 comment	@ * @;
 
+
+1.76
+date	2019.06.26.18.58.47;	author john;	state Exp;
+branches;
+next	1.75;
 
 1.75
 date	2015.08.07.21.59.07;	author john;	state Exp;
@@ -387,12 +391,12 @@ desc
 @
 
 
-1.75
+1.76
 log
-@fixed selfdoc
+@small change to allow user to control number of extended headers read
 @
 text
-@/* SEGYREAD: $Revision: 1.74 $ ; $Date: 2013/09/12 00:32:35 $     */
+@/* SEGYREAD: $Revision: 1.75 $ ; $Date: 2015/08/07 21:59:07 $     */
 
 #define _XOPEN_SOURCE
 #include <unistd.h>
@@ -442,6 +446,7 @@ char *sdoc[] = {
 " swapbhed=endian	swap binary reel header?			",
 " swaphdrs=endian	swap trace headers?				",
 " swapdata=endian	swap data?					",
+" nextended=(set from binary header) number of extended text headers	",
 " errmax=0	allowable number of consecutive tape IO errors		",
 " remap=...,...	remap key(s) 						",
 " byte=...,...	formats to use for header remapping 			",
@@ -795,10 +800,10 @@ main(int argc, char **argv)
 	/* see top of Makefile.config for versions */
 	/* not sure why this breaks now; works in version 37 */
 	if (ebcdic==1){
-		sprintf(cmdbuf, "dd ibs=1 of=%s conv=ascii cbs=80 count=3200", hfile);
+		sprintf(cmdbuf, "dd ibs=1 of=%s conv=ascii count=3200", hfile);
 	} else {
 		
-		sprintf(cmdbuf, "dd ibs=1 of=%s cbs=80 count=3200", hfile);
+		sprintf(cmdbuf, "dd ibs=1 of=%s count=3200", hfile);
 	}
 #endif
 	pipefp = epopen(cmdbuf, "w");
@@ -888,10 +893,11 @@ main(int argc, char **argv)
 	epclose(pipefp);
 	if (verbose) warn("header file closed successfully");
 
-        getparshort( "nextended" ,&nextended );
         checkpars();
 
+        if (!getparshort( "nextended" ,&nextended ))
 	nextended = *((short *) (((unsigned char *)&tapebh) + 304));
+
 	if (endian == 0) swap_short_2((short *) &nextended);
 	if (verbose) warn("Number of extended text headers: %d", nextended);
 	if (nextended > 0) /* number of extended text headers > 0 */
@@ -1425,6 +1431,28 @@ void ugethval(cwp_String type1, Value *valp1,
 
 #undef SEGYREAD_TAPE_ERROR
 #undef SEGYREAD_TAPE_ERROR_TRACE
+@
+
+
+1.75
+log
+@fixed selfdoc
+@
+text
+@d1 1
+a1 1
+/* SEGYREAD: $Revision: 1.74 $ ; $Date: 2013/09/12 00:32:35 $     */
+d51 1
+d405 1
+a405 1
+		sprintf(cmdbuf, "dd ibs=1 of=%s conv=ascii cbs=80 count=3200", hfile);
+d408 1
+a408 1
+		sprintf(cmdbuf, "dd ibs=1 of=%s cbs=80 count=3200", hfile);
+a497 1
+        getparshort( "nextended" ,&nextended );
+d500 1
+d502 1
 @
 
 

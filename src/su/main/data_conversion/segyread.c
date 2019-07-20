@@ -1,4 +1,4 @@
-/* SEGYREAD: $Revision: 1.75 $ ; $Date: 2015/08/07 21:59:07 $     */
+/* SEGYREAD: $Revision: 1.76 $ ; $Date: 2019/06/26 18:58:47 $     */
 
 #define _XOPEN_SOURCE
 #include <unistd.h>
@@ -48,6 +48,7 @@ char *sdoc[] = {
 " swapbhed=endian	swap binary reel header?			",
 " swaphdrs=endian	swap trace headers?				",
 " swapdata=endian	swap data?					",
+" nextended=(set from binary header) number of extended text headers	",
 " errmax=0	allowable number of consecutive tape IO errors		",
 " remap=...,...	remap key(s) 						",
 " byte=...,...	formats to use for header remapping 			",
@@ -494,10 +495,11 @@ main(int argc, char **argv)
 	epclose(pipefp);
 	if (verbose) warn("header file closed successfully");
 
-        getparshort( "nextended" ,&nextended );
         checkpars();
 
+        if (!getparshort( "nextended" ,&nextended ))
 	nextended = *((short *) (((unsigned char *)&tapebh) + 304));
+
 	if (endian == 0) swap_short_2((short *) &nextended);
 	if (verbose) warn("Number of extended text headers: %d", nextended);
 	if (nextended > 0) /* number of extended text headers > 0 */

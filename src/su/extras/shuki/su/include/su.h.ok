@@ -22,7 +22,7 @@ typedef struct sutrace {	/* SU trace */
 
 	int cdpt;	/* trace number within CDP ensemble */
 
-	int trid;	/* trace identification code:
+	int trid;	/*<- CUT */ /* trace identification code:
 				1 = seismic data
 				2 = dead
 				3 = dummy
@@ -129,9 +129,9 @@ typedef struct sutrace {	/* SU trace */
 
 	int mute;	/* mute time--end */
 
-	int _ns;	/* number of samples in this trace */
+	int _ns;	/*<- CUT */ /* number of samples in this trace */
 
-	int _dt;	/* sample interval; in micro-seconds */
+	int _dt;	/*<- CUT */ /* sample interval; in micro-seconds */
 
 	int gain;	/* gain type of field instruments code:
 				1 = fixed
@@ -232,7 +232,7 @@ typedef struct sutrace {	/* SU trace */
 	float unscale;	/* reciprocal of scaling factor to normalize
 			   range */
 
-	int ntr;	/* number of traces in the data set */
+	int ntr;	/*<- CUT */ /* number of traces in the data set */
 
 	int mark;	/* mark selected traces */
 

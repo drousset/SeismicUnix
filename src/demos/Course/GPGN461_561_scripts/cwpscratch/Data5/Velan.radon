@@ -7,15 +7,16 @@
 ## Set parameters
 datadir=.
 
-velpanel=gain.jon.cdp.su  # gained data sorted in cdps
-vpicks=radonnmovel.par       # output file of vnmo= and tnmo= values
+velpanel=gained_muted_cdp.su  # gained data sorted in cdps, either multiple suppresed or not
+
+vpicks=radon_nmo_vel_x.par       # output file of vnmo= and tnmo= values
 normpow=0               # see selfdoc for suvelan
 slowness=0              # see selfdoc for suvelan
 cdpfirst=1              # minimum cdp value in data
 cdplast=2142            # maximum cdp value in data
-cdpmin=1100              # minimum cdp value used in velocity analysis
+cdpmin=132              # minimum cdp value used in velocity analysis
 cdpmax=2110             # maximum cdp value used in velocity analysis
-dcdp=16                # change in cdp for velocity scans
+dcdp=512                # change in cdp for velocity scans
 fold=120                # maximum number of traces per cdp gather
 dxcdp=12.5              # distance between successive midpoints
                         # in full data set
@@ -23,8 +24,8 @@ mix=0			# number of adjacent cdp panels on either side
 			# of a given panel to mix
 
 ## Set velocity sampling and band pass filters
-nv=200			# number of velocities in scan
-dv=15.0			# velocity sampling interval in scan	
+nv=150			# number of velocities in scan
+dv=15			# velocity sampling interval in scan	
 fv=1450.0		# first velocity in scan
 nout=1500		# ns in data		
 
@@ -37,11 +38,12 @@ amps=0,1,1,0		# don't change
 
 ## suximage information
 wclip=0		# This number should be between 0 to .15 for real data 
-bclip=.3	# this number should be around .5
+bclip=.5	# this number should be between .2 and .5
 cmap=hsv2	# colormap 
 perc=97		# clip above perc percential in amplitude
-xcur=2		# allow xcur trace xcursion in wiggle trace plots
+xcur=1		# allow xcur trace xcursion in wiggle trace plots
 curvecolor=black	# color of stacking velocity picks curve
+curvewidth=2	# curve width
 
 
 #average velocity
@@ -57,12 +59,19 @@ offref=-3237			# offset at maximum moveout
 interoff=-262			# offset at minimum moveout
 
 ## unisam parameters
-# sloth paramter
-sloth=0
+# sloth parameter: Interpolate as sloth=0 velocities, sloth=1 slownesses,
+# sloth=3 sloths
+sloth=1
 
 # smoothing 
 smooth=1
-r=10
+r=3.5			# values should probably not exceed 5 or 6
+
+# preprocess with predictive decon? decon=0 no , decon=1 yes
+# minlag= width of autocorellation waveform, maxlag= repetition time + minlag
+decon=0
+minlag=.2	
+maxlag=.7
 
 ######## You shouldn't have to change anything below this line ###########
 
@@ -106,14 +115,20 @@ echo
 echo "            Instructions for Velocity Analysis."
 echo
 echo " This version of the Velan script is expressly for picking velocities"
-echo " to use in radon transform domain multiple suppression. Picks are"
-echo " to be made below and to the right of the maxima that are normally"
-echo " picked for NMO-Stack."
+echo " to use in radon transform domain multiple suppression, and for"
+echo " the NMO correction. Pick the maxima of the semblance peaks that"
+echo " represent actual reflection events. There are a lot of peaks that"
+echo " are due to multiples, data truncation and noise. These peaks are not"
+echo " to be picked."
 echo
 echo " An  image semblance map will appear on the right of your screen."
 echo " A wiggle trace plot of the cdp panel being analysed will appear"
 echo " on the left as an aid in picking. Click on the semblance contour"
 echo " map to make that window active."
+echo
+
+pause
+
 echo
 echo " Pick velocities by placing the cursor on each peak (do not click) "
 echo " in the semblance plot and typing 's'. Type 'q' when last peak is "
@@ -140,6 +155,10 @@ echo " If you answer n, you will be asked if you want to perform picking"
 echo " on the multiple suppressed data. If you answer n you the picking"
 echo " will be purformed on the non-multiple suppressed panel."
 echo
+
+pause
+
+echo
 echo " The radon processing is always applied on the original panel, so"
 echo " you can back off on your velocities, if necessary, and the next"
 echo " set of plots will reflect this."
@@ -149,6 +168,10 @@ echo " A graph of the velocity function will appear, and a prompt to"
 echo " hit the return key will be seen in this terminal window.  You"
 echo " will then see an nmo corrected version of the cdp gather you that"
 echo " you are performing velocity analysis on." 
+echo
+
+pause
+
 echo
 echo " Caveat, the interval velocities plotted should not be taken too"
 echo " seriously as these are interpolated from just a handful of values."
@@ -246,16 +269,21 @@ do
 
 		# if this is the first time the script is run, then
 	        # put dummy values in curvefile.$cdp and npairs.$cdp
+	        # put dummy values in nmo_curve$cdp and nmo_pairs.$cdp
 		if [ $isfirst = true ]
 		then
 			echo "0 1500.0" > curvefile.$cdp 
 			echo "0.01 1500.0" >> curvefile.$cdp 
 			echo "npair=2" > npairs.$cdp
 
+			echo "0 1500.0" > nmo_curve.$cdp 
+			echo "0.01 1500.0" >> nmo_curve.$cdp 
+			echo "npair=2" > nmo_npairs.$cdp
+
 			isfirst=false
 
 		fi
-
+		
 		# capture the current cmp gather
 		if [ $reusepanel = false ]
 		then
@@ -267,7 +295,7 @@ do
 
 				echo $mix $cdp $cdplower $cdpupper
 
-			        suwind < $velpanel key=cdp \
+			        sushw key=d1 a=0 < $velpanel | suwind key=cdp \
 					min=$cdplower \
 					max=$cdpupper > $datadir/mixpanel.$cdp
 
@@ -279,7 +307,7 @@ do
 				ismix=true
 			elif [ $mix -eq 0 ]
 			then
-				suwind < $velpanel key=cdp min=$cdp max=$cdp \
+				sushw key=d1 a=0 < $velpanel | suwind  key=cdp min=$cdp max=$cdp \
 					count=$fold > $datadir/panel.$cdp 
 				cp $datadir/panel.$cdp $datadir/origpanel.$cdp
 				reusepanel=true
@@ -289,14 +317,14 @@ do
 		# plot the wiggle traces of the cmp gather
 		suxwigb < $datadir/panel.$cdp  title="CDP gather for cdp=$cdp" \
 			ybox=10	xbox=50  key=offset \
-				perc=$perc xcur=$xcur wbox=300 &
+				perc=$perc xcur=$xcur wbox=350 hbox=900 &
 
 		# make a semblance panel
 		sufilter < $datadir/panel.$cdp f=$f amps=$amps |
 		suvelan nv=$nv dv=$dv fv=$fv |
 		suximage wclip=$wclip bclip=$bclip \
-		par=npairs.$cdp curve=curvefile.$cdp curvecolor=$curvecolor \
-		f2=$fv d2=$dv ybox=10 xbox=450 wbox=600 legend=1 \
+		par=npairs.$cdp curve=curvefile.$cdp curvewidth=$curvewidth curvecolor=$curvecolor \
+		f2=$fv d2=$dv ybox=10 xbox=450 wbox=550 hbox=900 legend=1 \
 		units="semblance" cmap=$cmap \
 		label1="Time (sec)" label2="Velocity (m/sec)" \
 		title="Velocity Scan (semblance plot) for CMP $cdp" \
@@ -355,13 +383,24 @@ do
 
 			
 		# apply radon transform 
-		sufilter < $datadir/temp f=$f amps=$amps |
-		sunmo par=par.$cdp  |
-		suradon offref=$offref interoff=$interoff pmin=$pmin \
-		pmax=$pmax dp=$dp choose=1 igopt=2 \
-		pmula=$pmula pmulb=$pmulb \
-		depthref=1000 | sunmo par=par.$cdp invert=1 > $datadir/radonpanel.$cdp
+		if [ $decon -eq 1 ]
+		then
+			sufilter < $datadir/temp f=$f amps=$amps |
+			sunmo par=par.$cdp  |
+			supef minlag=$minlag maxlag=$maxlag |
+			suradon offref=$offref interoff=$interoff pmin=$pmin \
+			pmax=$pmax dp=$dp choose=1 igopt=2 \
+			pmula=$pmula pmulb=$pmulb \
+			depthref=1000 | sunmo par=par.$cdp invert=1 > $datadir/radonpanel.$cdp
 
+		else
+			sufilter < $datadir/temp f=$f amps=$amps |
+			sunmo par=par.$cdp  |
+			suradon offref=$offref interoff=$interoff pmin=$pmin \
+			pmax=$pmax dp=$dp choose=1 igopt=2 \
+			pmula=$pmula pmulb=$pmulb \
+			depthref=1000 | sunmo par=par.$cdp invert=1 > $datadir/radonpanel.$cdp
+		fi
 		# perform mix and stack
 		if [ $ismix = true ]
 		then
@@ -374,8 +413,8 @@ do
 		# show velan panel result
 		suvelan < $datadir/radonpanel.$cdp nv=$nv dv=$dv fv=$fv |
 		suximage wclip=$wclip bclip=$bclip \
-		par=npairs.$cdp curve=curvefile.$cdp curvecolor=$curvecolor \
-		f2=$fv d2=$dv xbox=620 wbox=600 legend=1 \
+		par=npairs.$cdp curve=curvefile.$cdp curvewidth=$curvewidth curvecolor=$curvecolor \
+		f2=$fv d2=$dv xbox=800 ybox=10 wbox=550 hbox=900 legend=1 \
 		units="semblance" cmap=$cmap \
 		label1="Time (sec)" label2="Velocity (m/sec)" \
 		title="DO NOT PICK! Test velocity scan after multiple suppression $cdp" &
@@ -384,13 +423,13 @@ do
 		suxwigb < $datadir/origpanel.$cdp \
 			 title="Original data cdp=$cdp" \
 				xbox=10 ybox=10  key=offset \
-				perc=$perc xcur=$xcur wbox=300 &
+				perc=$perc xcur=$xcur wbox=350 hbox=900 &
 
 		# show radon multiple suppressed panel
 		suxwigb < $datadir/radonpanel.$cdp \
 			 title="Multiple-suppressed cdp=$cdp" \
-				xbox=320 ybox=10 key=offset \
-				perc=$perc xcur=$xcur wbox=300 &
+				xbox=370 ybox=10 key=offset \
+				perc=$perc xcur=$xcur wbox=350 hbox=900 &
 
 		echo
 		echo
@@ -412,7 +451,7 @@ do
 		echo "           Velocities and NMO corrected panel "
 
 		xgraph < graph.temp.bin n=$nout nplot=2 d1=$dxout \
-			linewidth=2,3  f1=0.0 width=250 height=700 \
+			linewidth=2,3  f1=0.0 width=250 height=900 \
 			label1="Time (sec)" label2="Velocity (m/sec)" \
 			title="Red:RMS Velocity function  Blue: approx Interval Velocity: CMP $cdp" \
 			linecolor=2,4  &
@@ -422,20 +461,20 @@ do
 		suxwigb < $datadir/radonpanel.$cdp \
 			 title="Multiple-suppressed no nmo cdp=$cdp" \
 			ybox=10	 key=offset \
-				perc=$perc xcur=$xcur xbox=280 wbox=250 &
+			perc=$perc xcur=$xcur xbox=270 wbox=350 hbox=900 &
 
 		# show NMO of panel with no additional multiple suppression
                 sunmo par=par.$cdp < $datadir/panel.$cdp |
                 suxwigb \
 		title="NMO of cdp=$cdp (no multiple suppression)" \
-		 xbox=500 wbox=250 xcur=$xcur \
+		 xbox=620 wbox=350 hbox=900 xcur=$xcur \
 		   ybox=10 perc=$perc xcur=$xcur  key=offset &
 
 		# shown NMO with multiple suppression
                 sunmo par=par.$cdp < $datadir/radonpanel.$cdp |
                 suxwigb \
 		title="NMO of cdp=$cdp (with multiple suppression)" \
-		 xbox=750  wbox=250 xcur=$xcur \
+		 xbox=1200  wbox=350 hbox=900 xcur=$xcur \
 		   ybox=10 perc=$perc xcur=$xcur  key=offset &
 
 		pause  
@@ -474,7 +513,7 @@ do
 				$CWPROOT/bin/zap xwigb
 
 				cp $datadir/panel.$cdp origpanel.$cdp
-                        	suwind < $velpanel key=cdp min=$cdp max=$cdp \
+                        	sushw key=d1 a=0 < $velpanel | suwind key=cdp min=$cdp max=$cdp \
                                         count=$fold > $datadir/panel.$cdp
 
 			;;
@@ -570,7 +609,7 @@ unipar=unisam.par
 echo "n1=$nout d1=$dt n2=$cdpcount f2=$cdpmin d2=$dcdp " > $vrmstpar
 echo "nt=$nout d1=$dt ns=$nout nx=$cdpcount fx=$cdpmin dx=$dcdp  " > $vinttpar
 echo "n=$nout nplot=1 d1=$dxout x2beg=$fv style=seismic width=400 height=700  " > $vinttplotpar
-echo "nx1=$nout nx2=$cdpcount n1=$nout n2=$cdptotal" > $unipar
+echo "nx1=$nout nx2=$cdpcount n1=$nout n2=$cdptotal " > $unipar
 
 # convert rms velocities to interval velocities 
 velconv intype=vrmst outtype=vintt  par=$vinttpar < $vrmst > $vintt
