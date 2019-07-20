@@ -4,7 +4,7 @@
 #set -x
 
 # these items identify the date/release of the codes
-DATE="3 Nov 2017"
+DATE="20 July 2019"
 RELEASE="44R14"
 
 # home address

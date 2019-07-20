@@ -4,8 +4,8 @@
 #set -x
 
 # these items identify the date/release of the codes
-DATE="12 Aug 2015"
-RELEASE="44"
+DATE="20 July 2019"
+RELEASE="44R14"
 
 echo
 echo
