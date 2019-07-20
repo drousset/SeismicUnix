@@ -96,12 +96,11 @@ c23456789012345678901234567890123456789012345678901234567890123456789012
 
       if (form .eq. 'direct' .or. form .eq. 'DIRECT') then
 
-        open(i_file,file=file,status=status,form=form,err=999)
+        open(i_file,file=file,status=status,form=form,recl=n_rec,err=999)
 
       else
 
-        open(i_file,file=file,status=status,form=form
-     1,recl=n_rec,err=999)
+        open(i_file,file=file,status=status,form=form,err=999)
 
       endif
 
