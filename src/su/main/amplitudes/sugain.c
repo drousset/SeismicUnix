@@ -1,7 +1,7 @@
 /* Copyright (c) Colorado School of Mines, 2011.*/
 /* All rights reserved.                       */
 
-/* SUGAIN: $Revision: 1.61 $ ; $Date: 2013/10/21 20:15:08 $		*/
+/* SUGAIN: $Revision: 1.62 $ ; $Date: 2019/07/22 02:51:12 $		*/
 
 #include "su.h"
 #include "segy.h"
@@ -225,10 +225,12 @@ main(int argc, char **argv)
 	if (qclip < 0.0 || qclip > 1.0) 
 		err("qclip = %f, must be between 0 and 1", qclip);
 	if (agc || gagc) {
+		/* iwagc = NINT(wagc/dt); */
 		iwagc = NINT(wagc/dt);
 		if (iwagc < 1) err("wagc=%g must be positive", wagc);
 		if (iwagc > nt) err("wagc=%g too long for trace", wagc);
-		iwagc >>= 1;  /* windows are symmetric, so work with half */
+		iwagc >>= 1;  /* windows are symmetric, so work with half -- right shift by one bit */
+                if (verbose) warn("half window: %d samples",iwagc);
 	}
 	if (jon) { 
 		tpow  = 2.0;
@@ -542,56 +544,69 @@ void do_agc(float *data, int iwagc, int nt)
 {
 	static cwp_Bool first = cwp_true;
 	static float *agcdata;
-	register int i;
+	register int i,j;
+	static float *d2;	/* square of input data		 */
 	register float val;
 	register float sum;
 	register int nwin;
 	register float rms;
 
 
-	/* allocate room for agc'd data */
+	/* allocate room for agc'd data and square of data */
 	if (first) {
 		first = cwp_false;
 		agcdata = ealloc1float(nt);
+		d2 = ealloc1float(nt);
 	}
 
-
-	/* compute initial window for first datum */
-	sum = 0.0;
-	for (i = 0; i < iwagc+1; ++i) {
+	/* Compute square of data */
+	for (i = 0; i < nt; ++i) {
 		val = data[i];
-		sum += val*val;
+		d2[i] = val * val;
 	}
-	nwin = 2*iwagc+1;
-	rms = sum/nwin;
-	agcdata[0] = (rms <= 0.0) ? 0.0 : data[0]/sqrt(rms);
 
-	/* ramping on */
-	for (i = 1; i <= iwagc; ++i) {
-		val = data[i+iwagc];
-		sum += val*val;
+	/* intialize first half window and gain first sample */
+	sum = 0.0;
+	for (i = 0; i < iwagc; ++i) {
+		sum += d2[i];
+	}
+	nwin = iwagc;  
+	rms = sum/nwin;
+	agcdata[0] = data[0]/sqrt(rms);
+
+	/* ramping on : increase sum and nwin & gain data until reaching 2*iwagc-1 window */
+        /* processing samples from 1 to iwagc-1 */
+	for (i = 1; i < iwagc; ++i) {
+		sum += d2[i+iwagc-1];
 		++nwin;
 		rms = sum/nwin;
-		agcdata[i] = (rms <= 0.0) ? 0.0 : data[i]/sqrt(rms);
+		agcdata[i] = data[i]/sqrt(rms);
 	}
 
-	/* middle range -- full rms window */
-	for (i = iwagc + 1; i <= nt-1-iwagc; ++i) {
-		val = data[i+iwagc];
-		sum += val*val;
-		val = data[i-iwagc];
-		sum -= val*val; /* rounding could make sum negative! */
+	/*  full 2*iagc rms window -- gain data */
+	/* compute sum from 0 at each sample -- decreasing sum give inaccurate results, even negative RMS */
+	/* processing samples from iwagc to nt-iwagc-1 */
+	++nwin;
+	for (i = iwagc; i < nt-iwagc; ++i) {
+		sum=0;
+                for (j = i-iwagc; j < i+iwagc; ++j) {
+			sum +=d2[j];
+                }
 		rms = sum/nwin;
-		agcdata[i] = (rms <= 0.0) ? 0.0 : data[i]/sqrt(rms);
+		agcdata[i] = data[i]/sqrt(rms);
 	}
 
-	/* ramping off */
-	for (i = nt - iwagc; i <= nt-1; ++i) {
-		val = data[i-iwagc];
-		sum -= val*val; /* rounding could make sum negative! */
+	/* ramping off -- decrease nwin -- gain data */
+	/* compute sum from 0 at each sample -- decreasing sum give inaccurate results, even negative RMS */
+	/* processing samples from nt-iwagc to nt-1 */
+	for (i = nt-iwagc; i < nt; ++i) {
+		sum=0;
+                for (j = i-iwagc; j < nt; ++j) {
+			sum +=d2[j];
+                }
 		--nwin;
 		rms = sum/nwin;
-		agcdata[i] = (rms <= 0.0) ? 0.0 : data[i]/sqrt(rms);
+		agcdata[i] = data[i]/sqrt(rms);
 	}
 
 	/* copy data back into trace */

@@ -1,0 +1,4 @@
+
+sugain.c - fixed a but in the AGC function seen on GPR data but not apparent on
+           seismic data
+		Thanks to Dominique Rousset of the University of Pau
