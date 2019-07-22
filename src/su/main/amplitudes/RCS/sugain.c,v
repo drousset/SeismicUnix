@@ -1,9 +1,14 @@
-head	1.62;
+head	1.63;
 access;
 symbols;
 locks; strict;
 comment	@ * @;
 
+
+1.63
+date	2019.07.22.16.31.00;	author john;	state Exp;
+branches;
+next	1.62;
 
 1.62
 date	2019.07.22.02.51.12;	author john;	state Exp;
@@ -321,9 +326,9 @@ desc
 @
 
 
-1.62
+1.63
 log
-@Dominique Rousset fixed a bug in the AGC. The problem was not apparent on seismic data but was seen on GPR data
+@updated by Dominique Rousset
 @
 text
 @/* Copyright (c) Colorado School of Mines, 2011.*/
@@ -900,16 +905,26 @@ void do_agc(float *data, int iwagc, int nt)
 	}
 	nwin = iwagc;  
 	rms = sum/nwin;
-	agcdata[0] = data[0]/sqrt(rms);
-
+	/* rms = 0 implies data[0]=0 */
+        if (rms == 0) {
+		agcdata[0]=0;
+	} else {
+		agcdata[0]=data[i]/sqrt(rms);
+	}	
+ 
 	/* ramping on : increase sum and nwin & gain data until reaching 2*iwagc-1 window */
         /* processing samples from 1 to iwagc-1 */
 	for (i = 1; i < iwagc; ++i) {
 		sum += d2[i+iwagc-1];
 		++nwin;
 		rms = sum/nwin;
-		agcdata[i] = data[i]/sqrt(rms);
-	}
+		/* rms = 0 implies data[i]=0 */
+                if (rms == 0) {
+                	agcdata[i]=0;
+		} else {
+			agcdata[i]=data[i]/sqrt(rms);
+		}	
+ 	}
 
 	/*  full 2*iagc rms window -- gain data */
 	/* compute sum from 0 at each sample -- decreasing sum give inaccurate results, even negative RMS */
@@ -921,8 +936,12 @@ void do_agc(float *data, int iwagc, int nt)
 			sum +=d2[j];
                 }
 		rms = sum/nwin;
-		agcdata[i] = data[i]/sqrt(rms);
-	}
+                if (rms == 0) {
+                	agcdata[i]=0;
+		} else {
+			agcdata[i]=data[i]/sqrt(rms);
+		}	
+ 	}
 
 	/* ramping off -- decrease nwin -- gain data */
 	/* compute sum from 0 at each sample -- decreasing sum give inaccurate results, even negative RMS */
@@ -934,8 +953,12 @@ void do_agc(float *data, int iwagc, int nt)
                 }
 		--nwin;
 		rms = sum/nwin;
-		agcdata[i] = data[i]/sqrt(rms);
-	}
+                if (data[i] == 0) {
+                	agcdata[i]=0;
+		} else {
+			agcdata[i]=data[i]/sqrt(rms);
+		}	
+ 	}
 
 	/* copy data back into trace */
 	memcpy( (void *) data, (const void *) agcdata, nt*FSIZE);
@@ -1185,6 +1208,30 @@ static void closefiles(void)
 	exit(EXIT_FAILURE);
 }
 
+@
+
+
+1.62
+log
+@Dominique Rousset fixed a bug in the AGC. The problem was not apparent on seismic data but was seen on GPR data
+@
+text
+@d575 7
+a581 2
+	agcdata[0] = data[0]/sqrt(rms);
+
+d588 7
+a594 2
+		agcdata[i] = data[i]/sqrt(rms);
+	}
+d606 6
+a611 2
+		agcdata[i] = data[i]/sqrt(rms);
+	}
+d623 6
+a628 2
+		agcdata[i] = data[i]/sqrt(rms);
+	}
 @
 
 
