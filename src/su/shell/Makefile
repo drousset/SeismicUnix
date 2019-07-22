@@ -5,6 +5,7 @@ include $(CWPROOT)/src/Makefile.config
 SHELLS =		\
 	$B/lookpar	\
 	$B/maxdiff	\
+	$B/ramac2su	\
 	$B/recip	\
 	$B/rmaxdiff	\
 	$B/suagc	\
