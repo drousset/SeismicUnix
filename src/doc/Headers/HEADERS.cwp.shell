@@ -1,8 +1,8 @@
+# Grep  - recursively call egrep in pwd
 # ARGV - give examples of dereferencing char **argv
 # COPYRIGHT - insert CSM COPYRIGHT lines at top of files in working directory
 # CPALL , RCPALL - for local and remote directory tree/file transfer
 # CWPFIND - look for files with patterns in CWPROOT/src/cwp/lib
-# Grep  - recursively call egrep in pwd
 # DIRTREE - show DIRectory TREE
 # FILETYPE - list all files of given type
 # NEWCASE - Changes the case of all the filenames in a directory, dir

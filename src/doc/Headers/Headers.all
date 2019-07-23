@@ -39,8 +39,8 @@ MRAFXZWT - Multi-Resolution Analysis of a function F(X,Z) by Wavelet
 PDFHISTOGRAM - generate a HISTOGRAM of the Probability Density function
 PRPLOT - PRinter PLOT of 1-D arrays f(x1) from a 2-D function f(x1,x2)
 RANDVEL3D - Add a random velocity layer (RVL) to a gridded             
-RAYT2DAN -- P- and SV-wave raytracing in 2D anisotropic media		
 RAYT2D - traveltime Tables calculated by 2D paraxial RAY tracing	
+RAYT2DAN -- P- and SV-wave raytracing in 2D anisotropic media		
 RECAST - RECAST data type (convert from one data type to another)	
 REFREALAZIHTI -  REAL AZImuthal REFL/transm coeff for HTI media 	
 REFREALVTI -  REAL REFL/transm coeff for VTI media and symmetry-axis	
@@ -55,19 +55,19 @@ SUBSET - select a SUBSET of the samples from a 3-dimensional file
 SWAPBYTES - SWAP the BYTES of various  data types			
 THOM2HTI - Convert Thompson parameters V_p0, V_s0, eps, gamma,	
 THOM2STIFF - convert Thomsen's parameters into (density normalized)	
-TRANSP3D - TRANSPose an n1 by n2 by n3 element matrix			
 TRANSP - TRANSPose an n1 by n2 element matrix				
+TRANSP3D - TRANSPose an n1 by n2 by n3 element matrix			
 TVNMOQC - Check tnmo-vnmo pairs; create t-v column files           
-UNIF2ANISO - generate a 2-D UNIFormly sampled profile of elastic	
 UNIF2 - generate a 2-D UNIFormly sampled velocity profile from a layered
+UNIF2ANISO - generate a 2-D UNIFormly sampled profile of elastic	
 UNIF2TI2 - generate a 2-D UNIFormly sampled profile of stiffness 	
-UNISAM2 - UNIformly SAMple a 2-D function f(x1,x2)			
 UNISAM - UNIformly SAMple a function y(x) specified as x,y pairs	
+UNISAM2 - UNIformly SAMple a 2-D function f(x1,x2)			
 UTMCONV - CONVert longitude and latitude to UTM, and vice versa       
 VEL2STIFF - Transforms VELocities, densities, and Thomsen or Sayers   
 VELCONV - VELocity CONVersion					
-VELPERTAN - Velocity PERTerbation analysis in ANisotropic media to    
 VELPERT - estimate velocity parameter perturbation from covariance 	
+VELPERTAN - Velocity PERTerbation analysis in ANisotropic media to    
 
 VTLVZ -- Velocity as function of Time for Linear V(Z);		
 WKBJ - Compute WKBJ ray theoretic parameters, via finite differencing	
@@ -249,13 +249,14 @@ In CWPROOT/src/su/main/migration_inversion:
 SUGAZMIGQ - SU version of Jeno GAZDAG's phase-shift migration 	
 SUINVXZCO - Seismic INVersion of Common Offset data for a smooth 	
 SUINVZCO3D - Seismic INVersion of Common Offset data with V(Z) velocity
+SUKDMIG2D - Kirchhoff Depth Migration of 2D poststack/prestack data	
 	"SUKDMIG2D - Kirchhoff Depth Migration of 2D poststack/prestack data	
 SUKDMIG3D - Kirchhoff Depth Migration of 3D poststack/prestack data	
 SUKTMIG2D - prestack time migration of a common-offset	
 SUMIGFD - 45-90 degree Finite difference depth migration for		
 SUMIGFFD - Fourier finite difference depth migration for		
-SUMIGGBZOAN - MIGration via Gaussian beams ANisotropic media (P-wave)	
 SUMIGGBZO - MIGration via Gaussian Beams of Zero-Offset SU data	
+SUMIGGBZOAN - MIGration via Gaussian beams ANisotropic media (P-wave)	
 SUMIGPREFD --- The 2-D prestack common-shot 45-90 degree		
 SUMIGPREFFD - The 2-D prestack common-shot Fourier finite-difference	
 char *sdoc[] = {
@@ -288,8 +289,8 @@ SUFLIP - flip a data set in various ways
 SUFWMIX -  FX domain multidimensional Weighted Mix			
 SUMATH - do math operation on su data 		
 SUMIX - compute weighted moving average (trace MIX) on a panel	
-SUOP2 - do a binary operation on two data sets			
 SUOP - do unary arithmetic operation on segys 		
+SUOP2 - do a binary operation on two data sets			
 SUPERMUTE - permute or transpose a 3d datacube	 		
 SURECMO - compensate for the continuously moving streamer in marine   
 SUSIMAT - Correlation similarity matrix for two traces.		
@@ -312,16 +313,16 @@ In CWPROOT/src/su/main/statics:
 SUADDSTATICS - ADD random STATICS on seismic data			
 SURANDSTAT - Add RANDom time shifts STATIC errors to seismic traces	
 SURESSTAT - Surface consistent source and receiver statics calculation
-SUSTATICB - Elevation static corrections, apply corrections from	
 SUSTATIC - Elevation static corrections, apply corrections from	
+SUSTATICB - Elevation static corrections, apply corrections from	
 SUSTATICRRS - Elevation STATIC corrections, apply corrections from	
 
 In CWPROOT/src/su/main/stretching_moveout_resamp:
 SUDLMO -- Dynamic Linear Move Out Correction for Surface Waves  	
 SUILOG -- time axis inverse log-stretch of seismic traces	
 SULOG -- time axis log-stretch of seismic traces		
-SUNMO_a - NMO for an arbitrary velocity function of time and CDP with	     
 SUNMO - NMO for an arbitrary velocity function of time and CDP	     
+SUNMO_a - NMO for an arbitrary velocity function of time and CDP with	     
 SUREDUCE - convert traces to display in reduced time		", 
 SURESAMP - Resample in time                                       
 SUSHIFT - shifted/windowed traces in time				
@@ -398,8 +399,8 @@ SUWFFT - Weighted amplitude FFT with spectrum flattening 0->Nyquist
 SUZEROPHASE - convert input to zero phase equivalent			
 
 In CWPROOT/src/su/main/velocity_analysis:
-SURELANAN - REsiduaL-moveout semblance ANalysis for ANisotropic media	
 SURELAN - compute residual-moveout semblance for cdp gathers based	
+SURELANAN - REsiduaL-moveout semblance ANalysis for ANisotropic media	
  SUTIVEL -  SU Transversely Isotropic velocity table builder		
 SUVEL2DF - compute stacking VELocity semblance for a single time in   
 SUVELAN - compute stacking velocity semblance for cdp gathers		     
@@ -486,11 +487,11 @@ WPCUNCOMPRESS --- UNCOMPRESS a 2D section
 Shells: 
 
 In CWPROOT/src/cwp/shell:
+# Grep  - recursively call egrep in pwd
 # ARGV - give examples of dereferencing char **argv
 # COPYRIGHT - insert CSM COPYRIGHT lines at top of files in working directory
 # CPALL , RCPALL - for local and remote directory tree/file transfer
 # CWPFIND - look for files with patterns in CWPROOT/src/cwp/lib
-# Grep  - recursively call egrep in pwd
 # DIRTREE - show DIRectory TREE
 # FILETYPE - list all files of given type
 # NEWCASE - Changes the case of all the filenames in a directory, dir
@@ -508,8 +509,8 @@ In CWPROOT/src/cwp/shell:
 In CWPROOT/src/par/shell:
 # GENDOCS - generate complete list of selfdocs in latex form
 # STRIPTOTXT -  put files from $CWPROOT/src/doc/Stripped into a new
-# UPDATEDOCALL - put self-docs in ../doc/Stripped
 # UPDATEDOC - put self-docs in ../doc/Stripped and ../doc/Headers
+# UPDATEDOCALL - put self-docs in ../doc/Stripped
 # UPDATEHEAD - update ../doc/Headers/Headers.all
 
 In CWPROOT/src/psplot/shell:
@@ -519,6 +520,7 @@ In CWPROOT/src/psplot/shell:
 In CWPROOT/src/su/shell:
 # LOOKPAR - show getpar lines in SU code with defines evaluated
 # MAXDIFF - find absolute maximum difference in two segy data sets
+# RAMAC2SU - converts RAMAC GPR files to su format with a nominal geometry
 # RECIP - sum opposing (reciprocal) offsets in cdp sorted data
 # RMAXDIFF - find percentage maximum difference in two segy data sets
 # SUAGC - perform agc on SU data 
@@ -609,6 +611,7 @@ ZASC - routine to translate ncharacters from ebcdic to ascii
 ZEBC - routine to translate ncharacters from ascii to ebcdic
 
 In CWPROOT/src/par/lib:
+VND - large out-of-core multidimensional block matrix transpose
 ATOPKGE - convert ascii to arithmetic and with error checking
 DOCPKGE - Function to implement the CWP self-documentation facility
 EALLOC - Allocate and free multi-dimensional arrays with error reports.
@@ -625,7 +628,6 @@ SUBCALLS - routines for system functions with error checking
 SYSCALLS - routines for SYSTEM CALLs with error checking
 TAUP - Functions to perform forward and inverse taup transforms (radon or
 UPWEIK - Upwind Finite Difference Eikonal Solver
-VND - large out-of-core multidimensional block matrix transpose
 WTLIB - Functions for wavelet transforms
 
 In CWPROOT/src/su/lib:
@@ -640,8 +642,8 @@ VALPKGE - routines to handle variables of type Value
 
 In CWPROOT/src/psplot/lib:
 BASIC - Basic C function interface to PostScript
-PSAXESBOX3 -  Functions draw an axes box via PostScript, estimate bounding box
 PSAXESBOX - Functions to draw PostScript axes and estimate bounding box
+PSAXESBOX3 -  Functions draw an axes box via PostScript, estimate bounding box
 PSCAXESBOX - Draw an axes box for cube via PostScript
 PSCONTOUR - draw contour of a two-dimensional array via PostScript
 PSDRAWCURVE - Functions to draw a curve from a set of points
@@ -731,8 +733,8 @@ wpc1Quant - quantize
 WPC1TRANS - routines to perform a 1D wavelet packet transform 
 
 In CWPROOT/src/comp/dwpt/2d/lib:
-WPCBUFFAL - routines to allocate/initialize and free buffers
 WPC - routines for compress a 2D seismic section using wavelet packets 
+WPCBUFFAL - routines to allocate/initialize and free buffers
 WPCCODING - Routines for in memory coding of the quantized coeffiecients
 WPCENDEC -  Wavelet Packet Coding, Encoding and Decoding routines
 WPCHUFF -Routines for in memory Huffman coding/decoding

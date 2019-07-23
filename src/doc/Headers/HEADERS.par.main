@@ -25,8 +25,8 @@ MRAFXZWT - Multi-Resolution Analysis of a function F(X,Z) by Wavelet
 PDFHISTOGRAM - generate a HISTOGRAM of the Probability Density function
 PRPLOT - PRinter PLOT of 1-D arrays f(x1) from a 2-D function f(x1,x2)
 RANDVEL3D - Add a random velocity layer (RVL) to a gridded             
-RAYT2DAN -- P- and SV-wave raytracing in 2D anisotropic media		
 RAYT2D - traveltime Tables calculated by 2D paraxial RAY tracing	
+RAYT2DAN -- P- and SV-wave raytracing in 2D anisotropic media		
 RECAST - RECAST data type (convert from one data type to another)	
 REFREALAZIHTI -  REAL AZImuthal REFL/transm coeff for HTI media 	
 REFREALVTI -  REAL REFL/transm coeff for VTI media and symmetry-axis	
@@ -41,19 +41,19 @@ SUBSET - select a SUBSET of the samples from a 3-dimensional file
 SWAPBYTES - SWAP the BYTES of various  data types			
 THOM2HTI - Convert Thompson parameters V_p0, V_s0, eps, gamma,	
 THOM2STIFF - convert Thomsen's parameters into (density normalized)	
-TRANSP3D - TRANSPose an n1 by n2 by n3 element matrix			
 TRANSP - TRANSPose an n1 by n2 element matrix				
+TRANSP3D - TRANSPose an n1 by n2 by n3 element matrix			
 TVNMOQC - Check tnmo-vnmo pairs; create t-v column files           
-UNIF2ANISO - generate a 2-D UNIFormly sampled profile of elastic	
 UNIF2 - generate a 2-D UNIFormly sampled velocity profile from a layered
+UNIF2ANISO - generate a 2-D UNIFormly sampled profile of elastic	
 UNIF2TI2 - generate a 2-D UNIFormly sampled profile of stiffness 	
-UNISAM2 - UNIformly SAMple a 2-D function f(x1,x2)			
 UNISAM - UNIformly SAMple a function y(x) specified as x,y pairs	
+UNISAM2 - UNIformly SAMple a 2-D function f(x1,x2)			
 UTMCONV - CONVert longitude and latitude to UTM, and vice versa       
 VEL2STIFF - Transforms VELocities, densities, and Thomsen or Sayers   
 VELCONV - VELocity CONVersion					
-VELPERTAN - Velocity PERTerbation analysis in ANisotropic media to    
 VELPERT - estimate velocity parameter perturbation from covariance 	
+VELPERTAN - Velocity PERTerbation analysis in ANisotropic media to    
 
 VTLVZ -- Velocity as function of Time for Linear V(Z);		
 WKBJ - Compute WKBJ ray theoretic parameters, via finite differencing	

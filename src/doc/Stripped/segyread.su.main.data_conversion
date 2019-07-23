@@ -34,6 +34,7 @@
  swapbhed=endian	swap binary reel header?			
  swaphdrs=endian	swap trace headers?				
  swapdata=endian	swap data?					
+ nextended=(set from binary header) number of extended text headers	
  errmax=0	allowable number of consecutive tape IO errors		
  remap=...,...	remap key(s) 						
  byte=...,...	formats to use for header remapping 			

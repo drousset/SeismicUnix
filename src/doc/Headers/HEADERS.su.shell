@@ -1,5 +1,6 @@
 # LOOKPAR - show getpar lines in SU code with defines evaluated
 # MAXDIFF - find absolute maximum difference in two segy data sets
+# RAMAC2SU - converts RAMAC GPR files to su format with a nominal geometry
 # RECIP - sum opposing (reciprocal) offsets in cdp sorted data
 # RMAXDIFF - find percentage maximum difference in two segy data sets
 # SUAGC - perform agc on SU data 

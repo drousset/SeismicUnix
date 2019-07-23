@@ -1,3 +1,4 @@
+VND - large out-of-core multidimensional block matrix transpose
 ATOPKGE - convert ascii to arithmetic and with error checking
 DOCPKGE - Function to implement the CWP self-documentation facility
 EALLOC - Allocate and free multi-dimensional arrays with error reports.
@@ -14,5 +15,4 @@ SUBCALLS - routines for system functions with error checking
 SYSCALLS - routines for SYSTEM CALLs with error checking
 TAUP - Functions to perform forward and inverse taup transforms (radon or
 UPWEIK - Upwind Finite Difference Eikonal Solver
-VND - large out-of-core multidimensional block matrix transpose
 WTLIB - Functions for wavelet transforms

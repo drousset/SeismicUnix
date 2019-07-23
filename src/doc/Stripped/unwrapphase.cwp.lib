@@ -63,17 +63,3 @@ Prentice-Hall, Englewood Cliffs, New Jersey, 1975.
 Tria M., M. Van Der Baan 2, A. Larue, J. Mars 1, 2007,
 Wavelet estimation in homomorphic domain by spectral 
 averaging, for deconvolution of seismic data
-For the BLISS Project, Université de Leeds, 
-ITF Consorsium collaboration(s) (2007)
-
-simple_unwrap_phase:
-Notes:
-The strategy is to look at the change in phase (dphase) with each
-time step. If |dphase| >  PI/w, then use the previous value of
-dphase. No attempt is made at smoothing the dphase curve.
-
-oppenheim_unwrap_phase:
-Author: John Stockwell, CWP, 2010
-
-simple_unwrap_phase
-Author: John Stockwell, CWP, 2010
