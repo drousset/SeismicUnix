@@ -34,7 +34,7 @@
 #
 # $Author: john $
 # $Source: /usr/local/cwp/src/par/shell/RCS/updatedoc.sh,v $
-# $Revision: 1.23 $ ; $Date: 2010/01/25 18:00:36 $
+# $Revision: 1.24 $ ; $Date: 2019/07/26 17:27:50 $
 #set -x
 
 cmd=`basename $0`
@@ -45,22 +45,22 @@ case	$# in
 	;;
 	*)
 		
-		echo "Usage: $cmd path"
-		echo
-		echo "Paths include: cwp/main cwp/lib  par/main par/lib par/shell "
-		echo " xplot/main xplot/lib psplot/main psplot/lib "
-		echo " Xtcwp/main Xtcwp/lib su/main su/lib su/graphics/psplot"
-		echo " su/graphics/xplot "
-		echo "su/graphics/xplot tri/main tri/lib xtri \
+		/bin/echo "Usage: $cmd path"
+		/bin/echo
+		/bin/echo "Paths include: cwp/main cwp/lib  par/main par/lib par/shell "
+		/bin/echo " xplot/main xplot/lib psplot/main psplot/lib "
+		/bin/echo " Xtcwp/main Xtcwp/lib su/main su/lib su/graphics/psplot"
+		/bin/echo " su/graphics/xplot "
+		/bin/echo "su/graphics/xplot tri/main tri/lib xtri \
 			tri/graphics/psplot"
-		echo " tetra/lib tetra/main "
-		echo " Trielas/lib Trielas/main Trielas/graphics/psplot  "
-		echo "comp/dct/lib comp/dct/main comp/dct/libutil \
+		/bin/echo " tetra/lib tetra/main "
+		/bin/echo " Trielas/lib Trielas/main Trielas/graphics/psplot  "
+		/bin/echo "comp/dct/lib comp/dct/main comp/dct/libutil \
 			 comp/dwpt/1d/lib"
-		echo "comp/dwpt/1d/main comp/dwpt/2d/lib comp/dwpt/2d/main"
-		echo
-		echo "Use: updatedocall to update the full doc directory" 
-		echo "     updatehead to update the master header file" 2>&1 \
+		/bin/echo "comp/dwpt/1d/main comp/dwpt/2d/lib comp/dwpt/2d/main"
+		/bin/echo
+		/bin/echo "Use: updatedocall to update the full doc directory" 
+		/bin/echo "     updatehead to update the master header file" 2>&1 \
 			; exit 1
 		
 	;;
@@ -72,12 +72,12 @@ esac
 ###############################################################################
 if test "${CWPROOT}" = ""
 then
-	echo "The environment variable \"CWPROOT\" "
-	echo "is not set in the user's working shell environment."
-	echo "To set this variable in C-shell, use the command: "
-	echo "  setenv  CWPROOT  /your/cwp/root/path"
-	echo "To set this variable in Bourne or Korn-shell, use the command:"
-	echo "  export  CWPROOT=/your/cwp/root/path" ; exit 1
+	/bin/echo "The environment variable \"CWPROOT\" "
+	/bin/echo "is not set in the user's working shell environment."
+	/bin/echo "To set this variable in C-shell, use the command: "
+	/bin/echo "  setenv  CWPROOT  /your/cwp/root/path"
+	/bin/echo "To set this variable in Bourne or Korn-shell, use the command:"
+	/bin/echo "  export  CWPROOT=/your/cwp/root/path" ; exit 1
 
 fi
 
@@ -99,18 +99,18 @@ SRCDIR=${SRC}/$1
 
 if [ ! -d $SRCDIR  ]
 then
-	echo "Can't find directory $SRCDIR" 2>&1; exit 1
+	/bin/echo "Can't find directory $SRCDIR" 2>&1; exit 1
 fi
 
 DOC=${SRC}/doc
 STRIP=${DOC}/Stripped
 HEAD=${DOC}/Headers
 
-NAME=`echo $1 | sed 's/\//\./g'`
+NAME=`/bin/echo $1 | sed 's/\//\./g'`
 
 
-echo " Updating the $NAME doc files  "
-echo
+/bin/echo " Updating the $NAME doc files  "
+/bin/echo
 
 # Clear out old stuff; remake $STRIP and $HEAD directories
 rm -rf $DOC/*/*.${NAME}
@@ -136,7 +136,7 @@ for i in ${SRCDIR}/*.*
 do
 	prog=`basename $i .c`
 	nametemp=${prog}.${NAME}
-	name=`echo $nametemp | sed 's/\.sh\./\./g'`
+	name=`/bin/echo $nametemp | sed 's/\.sh\./\./g'`
 
 	sed -n '/* self documentation */,/* end self doc */p' $i |
 	tee $DOC/$name |
@@ -173,14 +173,14 @@ do
 						s/^\*//' > $STRIP/${name}.tmp
 	mv $STRIP/${name}.tmp  $STRIP/$name
 
-	echo -n "."
+	/bin/echo -n "."
 
 	# remove unstripped versions
 	rm $DOC/$name
 
 done
 
-echo
-echo " Doc  ${NAME} files updated "
+/bin/echo
+/bin/echo " Doc  ${NAME} files updated "
 
 exit 0
